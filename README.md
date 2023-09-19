@@ -1,46 +1,65 @@
-### Welcome to my profile! 👋😀
+<h1 align="center">
+  <b>Joninet</b>
+</h1>
 
+¡Hola! Soy Jonathan Desplats, un estudiante que actualmente vive en Rio Cuarto/Cordoba, Argentina. Me estoy preparando y aprendiendo programación a través de pequeños proyectos.
 
-    👋 Hi! My name is Federico, and I'm a software development student at the Technological Institute of Río Cuarto in Córdoba, Argentina. 
-     I have a strong passion for programming and love exploring the endless possibilities in this ever-evolving field.
-----
+<br>
 
-
-    🌱 I'm currently learning web development and software development in general.
-    📭 How to reach me: 
-
-<p align='center'> 
-    <a href='https://www.linkedin.com/in/fedecometto/'><img src='iconos/linkedin.png' width='30px' height='30px' ></a>
-    <a href='mailto:fedecometto98@gmail.com'><img src='iconos/gmail.png' width='30px' height='30px' ></a>
+<p>
+<div align="center">
+  <img src="https://img.shields.io/badge/-HTML-c58545?style=for-the-badge&logo=html5&logoColor=c58545&labelColor=282828">
+  <img src="https://img.shields.io/badge/-CSS-d1a01f?style=for-the-badge&logo=css3&logoColor=d1a01f&labelColor=282828">
+  <img src="https://img.shields.io/badge/-Python-98b982?style=for-the-badge&logo=python&logoColor=98b982&labelColor=282828">
+</div>
 </p>
 
-
-----
-<h3>🔧 Technologies & Tools</h3>
+```python
+class Joninet():
     
- 
-<p></p>
-    <table align='center'>
-    <tbody >
-        <tr >
-            <td align='center' height='108' width='108'><img src='iconos/python.png' width='70px' height='70px'><br>Python</td>
-            <td align='center' height='108' width='108'><img src='iconos/django.png' width='70px' height='70px'><br>Django</td>
-            <td align='center' height='108' width='108'><img src='iconos/flask.png' width='70px' height='70px'><br>Flask</td>
-            <td align='center' height='108' width='108'><img src='iconos/js.png' width='70px' height='70px'><br>JavaScript</td>
-            <td align='center' height='108' width='108'><img src='iconos/react-2.png' width='70px' height='70px'><br>React</td>
-            <td align='center' height='108' width='108'><img src='iconos/node.png' width='70px' height='70px'><br>Node JS</td>
-            <td align='center' height='108' width='108'><img src='iconos/html.png' width='70px' height='70px'><br>HTML5</td>
-            <td align='center' height='108' width='108'><img src='iconos/css.png' width='70px' height='70px'><br>CSS3</td>
-        </tr>
-        <tr>
-            <td align='center' height='108' width='108'><img src='iconos/icons8-mysql-48.png' width='70px' height='70px'><br>MySQL</td>
-            <td align='center' height='108' width='108'><img src='iconos/postgre.png' width='70px' height='70px'><br>PostgreSQL</td>
-            <td align='center' height='108' width='108'><img src='iconos/sequelize_original_logo_icon_146348.png' width='70px' height='70px'><br>Sequelize</td>
-            <td align='center' height='108' width='108'><img src='iconos/icons8-express-js-80.png' width='70px' height='70px'><br>Express</td>
-            <td align='center' height='108' width='108'><img src='iconos/icons8-jest-can-collect-code-coverage-information-from-entire-projects-96.png' width='70px' height='70px'><br>Jest</td>
-            <td align='center' height='108' width='108'><img src='iconos/git.png' width='70px' height='70px'><br>Git</td>
-            <td align='center' height='108' width='108'><img src='iconos/icons8-estibador-48.png' width='70px' height='70px'><br>Docker</td>
-            <td align='center' height='108' width='108'><img src='iconos/bootstrap.png' width='70px' height='70px'><br>Bootstrap</td>
-        </tr>
-    </tbody>
-</table>
+  def __init__(self):
+    self.name = "Jonathan Desplats";
+    self.username = "joninet";
+    self.location = "Río Cuarto/Cordoba, Argentina";
+    self.twitter = "joninet";
+    self.web = "https://www.linkedin.com/in/jonathan-desplats/";
+  
+  def __str__(self):
+    return self.name
+
+if __name__ == '__main__':
+    me = Joninet()
+```
+
+<div align="center">
+  <a href="https://open.spotify.com/user/6s6pbtefezpookh8gwnkko15v">
+    <img src="https://readme-spotify-tingz.vercel.app/api/now-playing">
+  </a>
+</div>
+
+<!--
+<div align="center">
+  <a href="https://open.spotify.com/user/6s6pbtefezpookh8gwnkko15v">
+    <img src="https://spotify-readme-theta-virid.vercel.app/api?scan=true&theme=dark" width="240px">
+  </a>
+</div>
+-->
+
+## Mis Estadisticas
+
+<br/>
+<p align="left">
+  <a href="https://abhigyantrips.dev/">
+  <img width="49.5%" src="https://github-readme-stats.vercel.app/api?username=joninet&show_icons=true&theme=gruvbox&hide_border=true" />
+    <img width="49.5%" src="https://github-readme-streak-stats.herokuapp.com/?user=joninet&theme=gruvbox&hide_border=true" />
+  </a>
+</p>
+<br>
+
+[![Abhigyan Trips' Activity Graph](https://activity-graph.herokuapp.com/graph?username=joninet&custom_title=Joninet's%20Contribution%20Graph&theme=gruvbox&bg_color=282828&hide_border=true&line=d1a01f&point=c58545)](https://www.linkedin.com/in/jonathan-desplats/)
+
+------
+
+Credit: [abhigyantrips](https://github.com/abhigyantrips)
+
+Last Edited on: 24/12/2021
