@@ -38,7 +38,7 @@ if __name__ == '__main__':
 <br/>
 <p align="left">
   <a href="https://www.linkedin.com/in/jonathan-desplats/">
-  <img width="46%" src="https://github-readme-stats.vercel.app/api?username=joninet&show_icons=true&theme=gruvbox&hide_border=true" />
+  <img width="47%" src="https://github-readme-stats.vercel.app/api?username=joninet&show_icons=true&theme=gruvbox&hide_border=true" />
     <img width="49.5%" src="https://github-readme-streak-stats.herokuapp.com/?user=joninet&theme=gruvbox&hide_border=true" />
   </a>
 </p>
