@@ -8,10 +8,10 @@
 <p>
 <div align="center">
   <img src="https://img.shields.io/badge/-HTML-a9b79e?style=for-the-badge&logo=html5&logoColor=a9b79e&labelColor=282828">
-  <img src="https://img.shields.io/badge/-CSS-d1a01f?style=for-the-badge&logo=css3&logoColor=d1a01f&labelColor=282828">
-  <img src="https://img.shields.io/badge/-Python-98b982?style=for-the-badge&logo=python&logoColor=98b982&labelColor=282828">
-  <img src="https://img.shields.io/badge/-Javascript-98b982?style=for-the-badge&logo=Javascript&logoColor=98b982&labelColor=282828">
-  <img src="https://img.shields.io/badge/-Git-98b982?style=for-the-badge&logo=Git&logoColor=98b982&labelColor=282828">
+  <img src="https://img.shields.io/badge/-CSS-e8ddbd?style=for-the-badge&logo=css3&logoColor=e8ddbd&labelColor=282828">
+  <img src="https://img.shields.io/badge/-Python-dba887?style=for-the-badge&logo=python&logoColor=dba887&labelColor=282828">
+  <img src="https://img.shields.io/badge/-Javascript-c25848?style=for-the-badge&logo=Javascript&logoColor=c25848&labelColor=282828">
+  <img src="https://img.shields.io/badge/-Git-9d1d36?style=for-the-badge&logo=Git&logoColor=9d1d36&labelColor=282828">
 </div>
 </p>
 
