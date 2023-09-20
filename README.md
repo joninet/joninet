@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/-CSS-59b390?style=for-the-badge&logo=css3&logoColor=59b390&labelColor=282828">
   <img src="https://img.shields.io/badge/-Python-f0ddaa?style=for-the-badge&logo=python&logoColor=f0ddaa&labelColor=282828">
   <img src="https://img.shields.io/badge/-Javascript-e47c5d?style=for-the-badge&logo=Javascript&logoColor=e47c5d&labelColor=282828">
-  <img src="https://img.shields.io/badge/-Git-152b3c?style=for-the-badge&logo=Git&logoColor=152b3c&labelColor=282828">
+  <img src="https://img.shields.io/badge/-Git-6b5d4d?style=for-the-badge&logo=Git&logoColor=6b5d4d&labelColor=282828">
 </div>
 </p>
 
