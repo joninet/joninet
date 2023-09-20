@@ -7,11 +7,11 @@
 <br>
 <p>
 <div align="center">
-  <img src="https://img.shields.io/badge/-HTML-a9b79e?style=for-the-badge&logo=html5&logoColor=a9b79e&labelColor=282828">
-  <img src="https://img.shields.io/badge/-CSS-e8ddbd?style=for-the-badge&logo=css3&logoColor=e8ddbd&labelColor=282828">
-  <img src="https://img.shields.io/badge/-Python-dba887?style=for-the-badge&logo=python&logoColor=dba887&labelColor=282828">
-  <img src="https://img.shields.io/badge/-Javascript-c25848?style=for-the-badge&logo=Javascript&logoColor=c25848&labelColor=282828">
-  <img src="https://img.shields.io/badge/-Git-9d1d36?style=for-the-badge&logo=Git&logoColor=9d1d36&labelColor=282828">
+  <img src="https://img.shields.io/badge/-HTML-e32d40?style=for-the-badge&logo=html5&logoColor=e32d40&labelColor=282828">
+  <img src="https://img.shields.io/badge/-CSS-59b390?style=for-the-badge&logo=css3&logoColor=59b390&labelColor=282828">
+  <img src="https://img.shields.io/badge/-Python-f0ddaa?style=for-the-badge&logo=python&logoColor=f0ddaa&labelColor=282828">
+  <img src="https://img.shields.io/badge/-Javascript-e47c5d?style=for-the-badge&logo=Javascript&logoColor=e47c5d&labelColor=282828">
+  <img src="https://img.shields.io/badge/-Git-152b3c?style=for-the-badge&logo=Git&logoColor=152b3c&labelColor=282828">
 </div>
 </p>
 
