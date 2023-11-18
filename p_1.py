@@ -62,7 +62,17 @@ def updateFields():
     cursor=conn.cursor()
     instruccion=f"UPDATE streamers SET followers=15 WHERE name like 'joni'"
     cursor.execute(instruccion)
-    datos = cursor.fetchall()
+    conn.commit()
+    conn.close()
+
+def eliminarIngreso(name):
+    conn = sql.connect("streamers.db")
+    cursor = conn.cursor()
+
+    # Utilizar parámetros para prevenir la inyección de SQL
+    instruccion = "UPDATE streamers SET subs=4642 WHERE name = ?"
+    cursor.execute(instruccion, (name,))
+
     conn.commit()
     conn.close()
 
@@ -83,4 +93,5 @@ if __name__ == "__main__":
     #readOrdered("name")
     #search()
     #updateFields()
-    delete()
+    #delete()
+    eliminarIngreso("joni")
