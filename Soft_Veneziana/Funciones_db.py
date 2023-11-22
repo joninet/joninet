@@ -1,7 +1,7 @@
 import sqlite3 as sql
 
 def nuevaTabla():
-    conn = sql.connect("ingresos_db.db")
+    conn = sql.connect("Soft_Veneziana/ingresos_db.db")
     cursor=conn.cursor()
     cursor.execute(
         """CREATE TABLE ingresos_db (
@@ -24,7 +24,7 @@ def agregoIngreso(codigo,descripcion,cantidad,proveedor,oc,lote,vto):
     #agregoIngreso(3900001,"Harina 000",28800,"Molino chabas",61950,1305,"2023-11-18")
     estado="En Revisión"
     eliminado=False
-    conn = sql.connect("ingresos_db.db")
+    conn = sql.connect("Soft_Veneziana/ingresos_db.db")
     cursor=conn.cursor()
     instruccion=f"INSERT INTO ingresos_db VALUES ('{codigo}',{descripcion},{cantidad},{proveedor},{oc},{lote},{vto},{estado},{eliminado})"
     cursor.execute(instruccion)
@@ -32,9 +32,11 @@ def agregoIngreso(codigo,descripcion,cantidad,proveedor,oc,lote,vto):
     conn.close()
 
 def eliminarIngreso(id):
-    conn = sql.connect("ingresos_db.db")
+    conn = sql.connect("Soft_Veneziana/ingresos_db.db")
     cursor = conn.cursor()
     instruccion = "UPDATE ingresos_db SET eliminado=True WHERE id = ?"
     cursor.execute(instruccion, (id,))
     conn.commit()
     conn.close()
+
+nuevaTabla()
