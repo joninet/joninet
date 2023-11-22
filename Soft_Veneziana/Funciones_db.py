@@ -21,7 +21,7 @@ def nuevaTabla():
     conn.close()
 
 def agregoIngreso(codigo,descripcion,cantidad,proveedor,oc,lote,vto,estado,eliminado):
-    #agregoIngreso(3900001,"Harina 000",28800,"Molino chabas",61950,"1305","2023-11-18","En Revision",FALSE)
+    #agregoIngreso(3900001,"Harina 000",28800,"Molino chabas",61950,"1305","2023-11-18","En Revision",False)
     estado="En Revisión"
     eliminado=False
     conn = sql.connect("Soft_Veneziana/ingresos_db.db")
@@ -31,6 +31,8 @@ def agregoIngreso(codigo,descripcion,cantidad,proveedor,oc,lote,vto,estado,elimi
     conn.commit()
     conn.close()
 
+
+
 def eliminarIngreso(id):
     conn = sql.connect("Soft_Veneziana/ingresos_db.db")
     cursor = conn.cursor()
@@ -38,5 +40,3 @@ def eliminarIngreso(id):
     cursor.execute(instruccion, (id,))
     conn.commit()
     conn.close()
-
-agregoIngreso(3900001,"Harina 000",28800,"Molino chabas",61950,"1305","2023-11-18","En Revision","False")
