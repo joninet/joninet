@@ -20,8 +20,8 @@ def nuevaTabla():
     conn.commit()
     conn.close()
 
-def agregoIngreso(codigo,descripcion,cantidad,proveedor,oc,lote,vto):
-    #agregoIngreso(3900001,"Harina 000",28800,"Molino chabas",61950,1305,"2023-11-18")
+def agregoIngreso(codigo,descripcion,cantidad,proveedor,oc,lote,vto,estado,eliminado):
+    #agregoIngreso(3900001,"Harina 000",28800,"Molino chabas",61950,"1305","2023-11-18","En Revision",FALSE)
     estado="En Revisión"
     eliminado=False
     conn = sql.connect("Soft_Veneziana/ingresos_db.db")
@@ -39,4 +39,4 @@ def eliminarIngreso(id):
     conn.commit()
     conn.close()
 
-nuevaTabla()
+agregoIngreso(3900001,"Harina 000",28800,"Molino chabas",61950,"1305","2023-11-18","En Revision","False")
