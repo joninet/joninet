@@ -1,10 +1,12 @@
 from PySide6.QtWidgets import QLabel
+from PySide6.QtGui import QColor, QFont
 
-def funQlabel(layout, texto, fila, columna):
+def funQlabel(layout, texto, fila, columna, tamTexto=12, colorTexto="#000000"):
     nombre = QLabel(texto)
-
-    nombre.update()
+    nombre.setFont(QFont("Roboto", tamTexto))
+    nombre.setStyleSheet(f"color: {colorTexto};")
     layout.addWidget(nombre, fila, columna)
+
 
 def funEspacio(layout, fila, columna):
     espacio = QLabel()

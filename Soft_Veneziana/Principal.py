@@ -4,6 +4,7 @@ from Informe import InInforme
 from pathlib import Path
 import sqlite3
 from Ingreso_Insumo import InGastos
+import Iconos_estilos.estilo
 
 def absPath(file):
     return str(Path(__file__).parent.absolute() / file)
@@ -40,15 +41,11 @@ class MainWindow(QMainWindow):
         self.etiqueta_estado_caja.setFont(font)
 
     def menuHerramientas(self):
-        self.accion_info = QAction(QIcon(absPath("iconos/new.ico")), "&Nuevo Ingreso", self)
+        self.accion_info = QAction(QIcon(absPath("Iconos_estilos/new.ico")), "&Nuevo Ingreso", self)
         self.accion_info.triggered.connect(lambda: self.mostrarVentana(InGastos))
         herramientas = QToolBar("Barra de herramientas principal")
         herramientas.addAction(self.accion_info)
         self.addToolBar(herramientas)
-
-
-
-
 
     def crearSubmenu(self, nombreMenu, nombreVariable, titulo, nombreConexion):
         nombreVariable = QAction(titulo, self)

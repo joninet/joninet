@@ -1,0 +1,14 @@
+QLabel {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+}
+
+QLineEdit {
+    background-color: #f0f0f0;
+    border: 1px solid #707070;
+}
+
+QComboBox{
+    background-color: #f0f0f0;
+    border: 1px solid #707070;
+}
