@@ -20,17 +20,17 @@ def nuevaTabla():
     conn.commit()
     conn.close()
 
-def agregoIngreso(codigo,descripcion,cantidad,proveedor,oc,lote,vto,estado,eliminado):
-    #agregoIngreso(3900001,"Harina 000",28800,"Molino chabas",61950,"1305","2023-11-18","En Revision",False)
-    estado="En Revisión"
-    eliminado=False
+def agregoIngreso(codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado):
+    estado = "En Revisión"
+    eliminado = False
     conn = sql.connect("Soft_Veneziana/ingresos_db.db")
-    cursor=conn.cursor()
-    instruccion=f"INSERT INTO ingresos_db VALUES ('{codigo}',{descripcion},{cantidad},{proveedor},{oc},{lote},{vto},{estado},{eliminado})"
+    cursor = conn.cursor()
+    instruccion = f"INSERT INTO ingresos_db (codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado) VALUES ({codigo}, '{descripcion}', {cantidad}, '{proveedor}', {oc}, '{lote}', '{vto}', '{estado}', {eliminado})"
     cursor.execute(instruccion)
     conn.commit()
     conn.close()
 
+agregoIngreso(3900001, "Harina 000", 28800, "Molino chabas", 61950, "1305", "2023-11-18", "En Revision", False)
 
 
 def eliminarIngreso(id):

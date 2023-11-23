@@ -46,10 +46,9 @@ class MainWindow(QMainWindow):
         herramientas.addAction(self.accion_info)
         self.addToolBar(herramientas)
 
-    def mostrarVentana(self, conexion):
-        self.ventana2 = conexion()
-        if self.accion_info.triggered:
-            self.ventana2.show()
+
+
+
 
     def crearSubmenu(self, nombreMenu, nombreVariable, titulo, nombreConexion):
         nombreVariable = QAction(titulo, self)

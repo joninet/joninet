@@ -15,7 +15,7 @@ class InGastos(QMainWindow):
         centralWidget = QWidget()
         self.setCentralWidget(centralWidget)
         layout = QGridLayout()
-        layout.setAlignment(Qt.AlignCenter)
+        layout.setAlignment(Qt.AlignLeft)
         centralWidget.setLayout(layout)
 
 
@@ -32,22 +32,22 @@ class InGastos(QMainWindow):
         self.ingCodigo.setFixedSize(200, 30)
         layout.addWidget(self.ingCodigo, 3, 0)
 
-        funQlabel(layout, "Descripcion", 4, 0)
+        funQlabel(layout, "Descripcion", 2, 1)
         self.ingDesc = QLineEdit()
         self.ingDesc.setFixedSize(200, 30)
-        layout.addWidget(self.ingDesc, 5, 0)
+        layout.addWidget(self.ingDesc, 3, 1)
 
-        funQlabel(layout, "Cantidad", 6, 0)
+        funQlabel(layout, "Cantidad", 4, 0)
         self.ingCantidad = QLineEdit()
         self.ingCantidad.setValidator(QDoubleValidator(0.99, 99.99, 2))
         self.ingCantidad.setFixedSize(200, 30)
-        layout.addWidget(self.ingCantidad, 7, 0)
+        layout.addWidget(self.ingCantidad, 5, 0)
 
-        funQlabel(layout, "Proveedores", 8, 0)
+        funQlabel(layout, "Proveedores", 4, 1)
         self.ingProveedor = QComboBox()
         self.ingProveedor.addItems(["Efectivo", "Credito", "Debito", "Transferencia", "Debe", "Cheque"])
         self.ingProveedor.setFixedSize(200, 30)
-        layout.addWidget(self.ingProveedor, 9, 0)
+        layout.addWidget(self.ingProveedor, 5, 1)
 
         funQlabel(layout, "Orden de Compra", 10, 0)
         self.ingOc = QLineEdit()
@@ -62,7 +62,7 @@ class InGastos(QMainWindow):
         self.botonEnviar.setDefault(True)
         self.botonEnviar.setFixedSize(200, 30)
         self.botonEnviar.clicked.connect(self.enviar)
-        layout.addWidget(self.botonEnviar, 11, 0)
+        layout.addWidget(self.botonEnviar, 20, 0)
 
        
     def enviar(self):
