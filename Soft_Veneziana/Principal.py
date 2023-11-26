@@ -33,7 +33,7 @@ class MainWindow(QMainWindow):
         self.setStatusBar(QStatusBar(self))
 
     def menuHerramientas(self):
-        self.accion_info = QAction(QIcon(absPath("iconos/new.ico")), "&Nuevo Ingreso", self)
+        self.accion_info = QAction(QIcon(absPath("Iconos_estilos/new.ico")), "&Nuevo Ingreso", self)
         self.accion_info.triggered.connect(lambda: self.mostrarVentana(InGastos))
         herramientas = QToolBar("Barra de herramientas principal")
         herramientas.addAction(self.accion_info)
@@ -52,6 +52,7 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
+    
     app = QApplication([])
     
     # Importamos el archivo QSS

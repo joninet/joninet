@@ -1,9 +1,10 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QLineEdit, QComboBox, QPushButton,QMessageBox,QDialog
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QLineEdit, QComboBox, QPushButton,QMessageBox,QDialog, QDateEdit
+from PySide6.QtCore import Qt, QDate
 from PySide6.QtGui import QIntValidator, QDoubleValidator, QFont
 from datetime import datetime
 import sqlite3
 from FuncionesPyside import funQlabel, funEspacio
+from Funciones_db import agregoIngreso
 
 class InGastos(QMainWindow):
     def __init__(self):
@@ -20,42 +21,55 @@ class InGastos(QMainWindow):
 
 
         # TITULO
-        titulo = QLabel("INGRESO DE INSUMOS")
-        layout.addWidget(titulo, 0, 0)
-       
-        # ESPACIO
-        funEspacio(layout, 1, 0)
+        funQlabel(layout, "INGRESOS DE INSUMOS", 0, 0, tamTexto=13, colorTexto="#1e81b0")
         # Ingreso de Monto
-        funQlabel(layout, "Codigo", 2, 0)
+        funQlabel(layout, "Codigo", 1, 0, tamTexto=12, colorTexto="#1e81b0")
         self.ingCodigo = QLineEdit()
         self.ingCodigo.setValidator(QIntValidator(999999, 999999))
         self.ingCodigo.setFixedSize(200, 30)
-        layout.addWidget(self.ingCodigo, 3, 0)
+        layout.addWidget(self.ingCodigo, 2, 0)
 
-        funQlabel(layout, "Descripcion", 2, 1)
+        funQlabel(layout, "Descripcion", 1, 1)
         self.ingDesc = QLineEdit()
         self.ingDesc.setFixedSize(200, 30)
-        layout.addWidget(self.ingDesc, 3, 1)
+        layout.addWidget(self.ingDesc, 2, 1)
 
-        funQlabel(layout, "Cantidad", 4, 0)
+        funQlabel(layout, "Cantidad", 1, 2)
         self.ingCantidad = QLineEdit()
         self.ingCantidad.setValidator(QDoubleValidator(0.99, 99.99, 2))
         self.ingCantidad.setFixedSize(200, 30)
-        layout.addWidget(self.ingCantidad, 5, 0)
+        layout.addWidget(self.ingCantidad, 2, 2)
 
-        funQlabel(layout, "Proveedores", 4, 1)
+        funQlabel(layout, "Proveedores", 3, 0)
         self.ingProveedor = QComboBox()
         self.ingProveedor.addItems(["Efectivo", "Credito", "Debito", "Transferencia", "Debe", "Cheque"])
         self.ingProveedor.setFixedSize(200, 30)
-        layout.addWidget(self.ingProveedor, 5, 1)
+        layout.addWidget(self.ingProveedor, 4, 0)
 
-        funQlabel(layout, "Orden de Compra", 10, 0)
+        funQlabel(layout, "Orden de Compra", 3, 1)
         self.ingOc = QLineEdit()
         self.ingOc.setValidator(QIntValidator(999999, 999999))
         self.ingOc.setFixedSize(200, 30)
-        layout.addWidget(self.ingOc, 11, 0)
+        layout.addWidget(self.ingOc, 4, 1)
 
+        funQlabel(layout, "Lote", 5, 0)
+        self.ingLote = QLineEdit()
+        self.ingLote.setFixedSize(200, 30)
+        layout.addWidget(self.ingLote, 6, 0)
 
+        funQlabel(layout, "Vencimiento", 5, 1)
+        self.ingVto = QDateEdit()
+        self.ingVto.setDate(QDate.currentDate())
+        self.ingVto.setFixedSize(200, 30)
+        layout.addWidget(self.ingVto, 6, 1)
+
+        funQlabel(layout, "Estado", 5, 2)
+        self.ingEstado = QComboBox()
+        self.ingEstado.addItems(["Aprobado", "En Revision"])
+        self.ingEstado.setFixedSize(200, 30)
+        layout.addWidget(self.ingEstado, 6, 2)
+
+        funEspacio(layout, 7, 0)
 
         # Botón Enviar
         self.botonEnviar = QPushButton("Enviar")
@@ -66,18 +80,13 @@ class InGastos(QMainWindow):
 
        
     def enviar(self):
-        try:
-            monto = float(self.ingDesc.text())
-            fecha = datetime.now()
-            PagoGasto = 'Gasto'
-            concepto = self.concepto.currentText()
-            tipo = self.tipo.currentText()
-            eliminado = False
-            conn = sqlite3.connect("EasyPay.db")
-            conn.execute(f"INSERT INTO caja (CajaPagoGasto,tipo,concepto,monto,fecha,eliminado) VALUES ('{PagoGasto}','{tipo}','{concepto}','{monto}','{fecha}','{eliminado}');")
-            conn.commit()
-            dialogo = QMessageBox.information(self, 'MENSAJE','SE INGRESARON LOS DATOS CORRECTAMENTE')
-            conn.close()
-            self.close()
-        except:
-            dialogo = QMessageBox.warning(self, 'MENSAJE', 'EL CAMPO MONTO NO PUEDE ESTAR VACIO')
+        codigo=int(self.ingCodigo.text())
+        desc=self.ingDesc.text()
+        cant=float(self.ingCantidad.text())
+        prov=self.ingProveedor.currentText() 
+        oc=int(self.ingOc.text())
+        lote=self.ingLote.text()
+        vto=self.ingVto.text()
+        estado=self.ingEstado.currentText()
+
+        agregoIngreso(codigo, desc, cant, prov, oc, lote, vto, estado, False)

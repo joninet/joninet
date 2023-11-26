@@ -21,8 +21,6 @@ def nuevaTabla():
     conn.close()
 
 def agregoIngreso(codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado):
-    estado = "En Revisión"
-    eliminado = False
     conn = sql.connect("Soft_Veneziana/ingresos_db.db")
     cursor = conn.cursor()
     instruccion = f"INSERT INTO ingresos_db (codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado) VALUES ({codigo}, '{descripcion}', {cantidad}, '{proveedor}', {oc}, '{lote}', '{vto}', '{estado}', {eliminado})"
