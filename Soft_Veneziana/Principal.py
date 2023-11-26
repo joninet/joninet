@@ -4,7 +4,6 @@ from Informe import InInforme
 from pathlib import Path
 import sqlite3
 from Ingreso_Insumo import InGastos
-import Iconos_estilos.estilo
 
 def absPath(file):
     return str(Path(__file__).parent.absolute() / file)
@@ -33,19 +32,17 @@ class MainWindow(QMainWindow):
 
         self.setStatusBar(QStatusBar(self))
 
-        self.etiqueta_estado_caja = QLabel("Estado Caja: CERRADO", self)
-        self.etiqueta_estado_caja.setGeometry(10, 20, 300, 30)
-        font = QFont()
-        font.setBold(True)
-        font.setPointSize(12)  # Cambia el tamaño de la fuente a 14 puntos
-        self.etiqueta_estado_caja.setFont(font)
-
     def menuHerramientas(self):
-        self.accion_info = QAction(QIcon(absPath("Iconos_estilos/new.ico")), "&Nuevo Ingreso", self)
+        self.accion_info = QAction(QIcon(absPath("iconos/new.ico")), "&Nuevo Ingreso", self)
         self.accion_info.triggered.connect(lambda: self.mostrarVentana(InGastos))
         herramientas = QToolBar("Barra de herramientas principal")
         herramientas.addAction(self.accion_info)
         self.addToolBar(herramientas)
+
+    def mostrarVentana(self, conexion):
+        self.ventana2 = conexion()
+        self.setCentralWidget(self.ventana2)
+
 
     def crearSubmenu(self, nombreMenu, nombreVariable, titulo, nombreConexion):
         nombreVariable = QAction(titulo, self)
@@ -55,7 +52,14 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == "__main__":
-    app = QApplication()
+    app = QApplication([])
+    
+    # Importamos el archivo QSS
+    with open('Soft_Veneziana/estilo.qss', 'r') as file:
+        stylesheet = file.read()
+    app.setStyleSheet(stylesheet)
+
     window = MainWindow()
     window.show()
+
     app.exec()
