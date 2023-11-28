@@ -10,7 +10,7 @@ class InGastos(QMainWindow):
     def __init__(self):
         super().__init__()
         # Configuración de la ventana
-        self.setWindowTitle("EasyPay - GASTOS")
+        self.setWindowTitle("Veneziana")
         #self.resize(300, 300)
 
         centralWidget = QWidget()
@@ -40,7 +40,7 @@ class InGastos(QMainWindow):
         self.ingCantidad.setFixedSize(200, 30)
         layout.addWidget(self.ingCantidad, 2, 2)
 
-        funQlabel(layout, "Proveedores", 3, 0)
+        funQlabel(layout, "Proveedor", 3, 0)
         self.ingProveedor = QComboBox()
         self.ingProveedor.addItems(["Efectivo", "Credito", "Debito", "Transferencia", "Debe", "Cheque"])
         self.ingProveedor.setFixedSize(200, 30)
@@ -90,3 +90,50 @@ class InGastos(QMainWindow):
         estado=self.ingEstado.currentText()
 
         agregoIngreso(codigo, desc, cant, prov, oc, lote, vto, estado, False)
+
+class ingEdGastos(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        # Configuración de la ventana
+        self.setWindowTitle("Veneziana")
+        #self.resize(300, 300)
+
+        centralWidget = QWidget()
+        self.setCentralWidget(centralWidget)
+        layout = QGridLayout()
+        layout.setAlignment(Qt.AlignLeft)
+        centralWidget.setLayout(layout)
+
+
+        # TITULO
+        funQlabel(layout, "EDITAR iNGRESOS", 0, 0, tamTexto=13, colorTexto="#1e81b0")
+        # Ingreso de Monto
+        funQlabel(layout, "iNGRESAR EL ID", 1, 0, tamTexto=12, colorTexto="#1e81b0")
+        self.ingCodigo = QLineEdit()
+        self.ingCodigo.setValidator(QIntValidator(999999, 999999))
+        self.ingCodigo.setFixedSize(200, 30)
+        layout.addWidget(self.ingCodigo, 2, 0)
+
+class edGastos(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        # Configuración de la ventana
+        self.setWindowTitle("Veneziana")
+        #self.resize(300, 300)
+
+        centralWidget = QWidget()
+        self.setCentralWidget(centralWidget)
+        layout = QGridLayout()
+        layout.setAlignment(Qt.AlignLeft)
+        centralWidget.setLayout(layout)
+
+
+        # TITULO
+        funQlabel(layout, "EDITAR iNGRESOS", 0, 0, tamTexto=13, colorTexto="#1e81b0")
+        # Ingreso de Monto
+        funQlabel(layout, "iNGRESAR EL ID", 1, 0, tamTexto=12, colorTexto="#1e81b0")
+        self.ingCodigo = QLineEdit()
+        self.ingCodigo.setText("ingreso lo que quiero que diga")
+        self.ingCodigo.setValidator(QIntValidator(999999, 999999))
+        self.ingCodigo.setFixedSize(200, 30)
+        layout.addWidget(self.ingCodigo, 2, 0)

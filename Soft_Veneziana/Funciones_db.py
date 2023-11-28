@@ -28,7 +28,7 @@ def agregoIngreso(codigo, descripcion, cantidad, proveedor, oc, lote, vto, estad
     conn.commit()
     conn.close()
 
-agregoIngreso(3900001, "Harina 000", 28800, "Molino chabas", 61950, "1305", "2023-11-18", "En Revision", False)
+#agregoIngreso(3900001, "Harina 000", 28800, "Molino chabas", 61950, "1305", "2023-11-18", "En Revision", False)
 
 
 def eliminarIngreso(id):
@@ -38,3 +38,13 @@ def eliminarIngreso(id):
     cursor.execute(instruccion, (id,))
     conn.commit()
     conn.close()
+
+def modificoIngreso(id, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado):
+    conn = sql.connect("Soft_Veneziana/ingresos_db.db")
+    cursor = conn.cursor()
+    instruccion = f"UPDATE ingresos_db SET codigo={codigo}, descripcion='{descripcion}', cantidad={cantidad}, proveedor='{proveedor}', oc={oc}, lote='{lote}', vto='{vto}', estado='{estado}', eliminado={eliminado} WHERE id={id}"
+    cursor.execute(instruccion)
+    conn.commit()
+    conn.close()
+
+modificoIngreso(6, 3900002, "Harina 0000", 28801, "Molino Minetti", 61951, "1306", "2023-11-19", "En Proceso", False)
