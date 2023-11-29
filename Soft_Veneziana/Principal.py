@@ -3,7 +3,7 @@ from PySide6.QtGui import QAction, QFont, QIcon
 from Informe import InInforme
 from pathlib import Path
 import sqlite3
-from Ingreso_Insumo import InGastos
+from Ingreso_Insumo import InGastos, ingEditarId
 
 def absPath(file):
     return str(Path(__file__).parent.absolute() / file)
@@ -33,10 +33,13 @@ class MainWindow(QMainWindow):
         self.setStatusBar(QStatusBar(self))
 
     def menuHerramientas(self):
-        self.accion_info = QAction(QIcon(absPath("Iconos_estilos/new.ico")), "&Nuevo Ingreso", self)
-        self.accion_info.triggered.connect(lambda: self.mostrarVentana(InGastos))
+        self.nuevoIngreso = QAction(QIcon(absPath("Iconos_estilos/new.ico")), "&Nuevo Ingreso", self)
+        self.nuevoIngreso.triggered.connect(lambda: self.mostrarVentana(InGastos))
+        self.editarIngreso = QAction(QIcon(absPath("Iconos_estilos/edit.ico")), "&Editar Ingreso", self)
+        self.editarIngreso.triggered.connect(lambda: self.mostrarVentana(ingEditarId))
         herramientas = QToolBar("Barra de herramientas principal")
-        herramientas.addAction(self.accion_info)
+        herramientas.addAction(self.nuevoIngreso)
+        herramientas.addAction(self.editarIngreso)
         self.addToolBar(herramientas)
 
     def mostrarVentana(self, conexion):

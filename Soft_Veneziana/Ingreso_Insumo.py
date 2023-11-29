@@ -4,7 +4,7 @@ from PySide6.QtGui import QIntValidator, QDoubleValidator, QFont
 from datetime import datetime
 import sqlite3
 from FuncionesPyside import funQlabel, funEspacio
-from Funciones_db import agregoIngreso
+from Funciones_db import agregoIngreso,buscarId
 
 class InGastos(QMainWindow):
     def __init__(self):
@@ -91,12 +91,13 @@ class InGastos(QMainWindow):
 
         agregoIngreso(codigo, desc, cant, prov, oc, lote, vto, estado, False)
 
-class ingEdGastos(QMainWindow):
+class ingEditarId(QMainWindow):
     def __init__(self):
         super().__init__()
+
         # Configuración de la ventana
         self.setWindowTitle("Veneziana")
-        #self.resize(300, 300)
+        self.resize(100, 100)
 
         centralWidget = QWidget()
         self.setCentralWidget(centralWidget)
@@ -104,22 +105,52 @@ class ingEdGastos(QMainWindow):
         layout.setAlignment(Qt.AlignLeft)
         centralWidget.setLayout(layout)
 
-
         # TITULO
-        funQlabel(layout, "EDITAR iNGRESOS", 0, 0, tamTexto=13, colorTexto="#1e81b0")
-        # Ingreso de Monto
-        funQlabel(layout, "iNGRESAR EL ID", 1, 0, tamTexto=12, colorTexto="#1e81b0")
+        funQlabel(layout, "EDITAR INGRESOS", 0, 0, tamTexto=13, colorTexto="#1e81b0")
+
+        # Ingreso de ID
+        funQlabel(layout, "INGRESAR EL ID", 1, 0, tamTexto=12, colorTexto="#1e81b0")
         self.ingCodigo = QLineEdit()
         self.ingCodigo.setValidator(QIntValidator(999999, 999999))
         self.ingCodigo.setFixedSize(200, 30)
         layout.addWidget(self.ingCodigo, 2, 0)
 
-class edGastos(QMainWindow):
+        # Botón Enviar
+        self.botonEnviar = QPushButton("Enviar")
+        self.botonEnviar.setDefault(True)
+        self.botonEnviar.setFixedSize(200, 30)
+
+        # Etiqueta para mostrar el resultado
+        self.resultadoLabel = QLabel()
+        self.resultadoLabel.setFixedHeight(30)
+
+        # Conectar el botón Enviar a la función buscarId
+        self.botonEnviar.clicked.connect(lambda: self.buscarYMostrarResultado())
+
+        # Añadir los widgets al layout
+        layout.addWidget(self.botonEnviar, 3, 0)
+        layout.addWidget(self.resultadoLabel, 4, 0)
+
+    def buscarYMostrarResultado(self):
+        # Obtener el ID del QLineEdit
+        idBuscado = int(self.ingCodigo.text())
+
+        # Buscar el ID en la base de datos
+        resultado = buscarId(idBuscado)
+
+        # Si se encontró el ID, mostrar el resultado en la etiqueta
+        if resultado:
+            self.resultadoLabel.setText(f"Resultado: {resultado}")
+        else:
+            self.resultadoLabel.setText("ID no encontrado")
+
+
+class ingEditar(QMainWindow):
     def __init__(self):
         super().__init__()
         # Configuración de la ventana
         self.setWindowTitle("Veneziana")
-        #self.resize(300, 300)
+        self.resize(300, 300)
 
         centralWidget = QWidget()
         self.setCentralWidget(centralWidget)

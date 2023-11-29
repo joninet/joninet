@@ -39,6 +39,15 @@ def eliminarIngreso(id):
     conn.commit()
     conn.close()
 
+def buscarId(numeroId):
+    conn = sql.connect("Soft_Veneziana/ingresos_db.db")
+    cursor = conn.cursor()
+    instruccion = f"SELECT * FROM ingresos_db WHERE id = {numeroId}"
+    cursor.execute(instruccion)
+    fila = cursor.fetchone()
+    conn.close()
+    return fila
+
 def modificoIngreso(id, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado):
     conn = sql.connect("Soft_Veneziana/ingresos_db.db")
     cursor = conn.cursor()
@@ -47,4 +56,4 @@ def modificoIngreso(id, codigo, descripcion, cantidad, proveedor, oc, lote, vto,
     conn.commit()
     conn.close()
 
-modificoIngreso(6, 3900002, "Harina 0000", 28801, "Molino Minetti", 61951, "1306", "2023-11-19", "En Proceso", False)
+#modificoIngreso(6, 3900002, "Harina 0000", 28801, "Molino Minetti", 61951, "1306", "2023-11-19", "En Proceso", False)
