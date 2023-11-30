@@ -1,37 +1,20 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
-import sys
+from tkinter import *
+root = Tk()
 
+# Hijo de root, no ocurre nada
+frame = Frame(root)  
 
-class MainWindow(QMainWindow):
+# Empaqueta el frame en la raíz
+frame.pack()      
 
-    """
-    Creamos nuestra propia clase MainWindow heredando de QMainWindow
-    """
+# Como no tenemos ningún elemento dentro del frame, 
+# no tiene tamaño y aparece ocupando lo mínimo posible, 0*0 px
 
-    # Creamos la ventana en el constructor a partir de una QMainWindow
-    def __init__(self):
+# Color de fondo, background
+frame.config(bg="lightblue")     
 
-        # Con super ejecutamos su propio constructor
-        # Así se crea la ventana en su propia instancia self
-        super().__init__()
+# Podemos establecer un tamaño,
+# la raíz se adapta al frame que contiene
+frame.config(width=480,height=320) 
 
-        # Damos un título al programa
-        self.setWindowTitle("Hola mundo")
-
-        # Guardamos el botón en una variable
-        button = QPushButton("Hola")
-
-        # Establecemos el botón como widget central de la ventana principal
-        self.setCentralWidget(button)
-
-
-# Si ejecutamos el propio script como programa principal
-if __name__ == "__main__":
-    # Creamos la aplicación
-    app = QApplication(sys.argv)
-    # Creamos nuestra ventana principal
-    window = MainWindow()
-    # Mostramos la ventana
-    window.show()
-    # Iniciamos el bucle del programa
-    sys.exit(app.exec_())
+root.mainloop()   

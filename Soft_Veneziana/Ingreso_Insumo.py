@@ -132,15 +132,11 @@ class ingEditarId(QMainWindow):
         layout.addWidget(self.resultadoLabel, 4, 0)
 
     def buscarYMostrarResultado(self):
-        # Obtener el ID del QLineEdit
         idBuscado = int(self.ingCodigo.text())
-
-        # Buscar el ID en la base de datos
         resultado = buscarId(idBuscado)
-
-        # Si se encontró el ID, mostrar el resultado en la etiqueta
         if resultado:
             self.resultadoLabel.setText(f"Resultado: {resultado}")
+            idT,codT,descT,cantT,provT,ocT,loteT,vtoT,estadoT,eliminadoT = resultado
         else:
             self.resultadoLabel.setText("ID no encontrado")
 
