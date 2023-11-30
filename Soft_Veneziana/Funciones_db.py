@@ -1,4 +1,5 @@
 import sqlite3 as sql
+from datetime import datetime
 
 def nuevaTabla():
     conn = sql.connect("Soft_Veneziana/ingresos_db.db")
@@ -6,7 +7,7 @@ def nuevaTabla():
     cursor.execute(
         """CREATE TABLE ingresos_db (
             id INTEGER PRIMARY KEY,
-            fecha DATE,
+            fecha TEXT,
             codigo INTEGER,
             descripcion TEXT,
             cantidad REAL,
@@ -21,15 +22,16 @@ def nuevaTabla():
     conn.commit()
     conn.close()
 
-def agregoIngreso(fecha, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado):
+def agregoIngreso(codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado):
     conn = sql.connect("Soft_Veneziana/ingresos_db.db")
     cursor = conn.cursor()
-    instruccion = f"INSERT INTO ingresos_db (codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado) VALUES ({codigo}, '{descripcion}', {cantidad}, '{proveedor}', {oc}, '{lote}', '{vto}', '{estado}', {eliminado})"
+    fechaActual= datetime.now()
+    instruccion = f"INSERT INTO ingresos_db (fecha,codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado) VALUES ('{fechaActual}',{codigo}, '{descripcion}', {cantidad}, '{proveedor}', {oc}, '{lote}', '{vto}', '{estado}', {eliminado})"
     cursor.execute(instruccion)
     conn.commit()
     conn.close()
 
-agregoIngreso("2023-11-30", 3900001, "Harina 000", 28800, "Molino chabas", 61950, "1305", "2024-11-18", "En Revision", False)
+agregoIngreso(3900001, "Harina 000", 28800, "Molino Chabas", 61950, "1305", "2024-11-20", "En Revision", False)
 
 
 def eliminarIngreso(id):
