@@ -3,7 +3,8 @@ from PySide6.QtGui import QAction, QFont, QIcon
 from Informe import InInforme
 from pathlib import Path
 import sqlite3
-from Ingreso_Insumo import InGastos, ingEditarId
+from Ingreso_Insumo import InGastos
+from editar_insumo import ingEditarId, ingEditar
 
 def absPath(file):
     return str(Path(__file__).parent.absolute() / file)
