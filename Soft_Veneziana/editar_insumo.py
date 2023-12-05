@@ -117,7 +117,7 @@ class ingEditar(QMainWindow):
         super().__init__()
         # Configuración de la ventana
         self.setWindowTitle("Veneziana")
-        self.resize(300, 300)
+        self.resize(700, 400)
 
         centralWidget = QWidget()
         self.setCentralWidget(centralWidget)
