@@ -1,10 +1,10 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QLineEdit, QComboBox, QPushButton,QMessageBox,QDialog, QDateEdit
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QLineEdit, QComboBox, QPushButton, QMessageBox, QDialog, QDateEdit
 from PySide6.QtCore import Qt, QDate
 from PySide6.QtGui import QIntValidator, QDoubleValidator, QFont
 from datetime import datetime
 import sqlite3
 from FuncionesPyside import funQlabel, funEspacio
-from Funciones_db import agregoIngreso,buscarId
+from Funciones_db import agregoIngreso, buscarId
 
 class ingEditarId(QMainWindow):
     def __init__(self):
@@ -12,7 +12,6 @@ class ingEditarId(QMainWindow):
 
         # Configuración de la ventana
         self.setWindowTitle("Veneziana")
-        #self.resize(100, 100)
 
         centralWidget = QWidget()
         self.setCentralWidget(centralWidget)
@@ -39,19 +38,22 @@ class ingEditarId(QMainWindow):
         self.resultadoLabel = QLabel()
         self.resultadoLabel.setFixedHeight(30)
 
-        # Conectar el botón Enviar a la función buscarId
-        self.botonEnviar.clicked.connect(lambda: self.buscarYMostrarResultado())
+        # Conectar el botón Enviar a la función buscarYMostrarResultado
+        self.botonEnviar.clicked.connect(self.buscarYMostrarResultado)
 
         # Añadir los widgets al layout
         layout.addWidget(self.botonEnviar, 3, 0)
         layout.addWidget(self.resultadoLabel, 4, 0)
 
     def buscarYMostrarResultado(self):
+        layout = self.centralWidget().layout()
         idBuscado = int(self.ingCodigo.text())
         resultado = buscarId(idBuscado)
         if resultado:
-            self.resultadoLabel.setText(f"Resultado: {resultado}")
-            idT,codT,descT,cantT,provT,ocT,loteT,vtoT,estadoT,eliminadoT = resultado
+            # ... código existente ...
+            idT, fechatT, codT, descT, cantT, provT, ocT, loteT, vtoT, estadoT, eliminadoT = resultado
+            # Convierte codT a cadena antes de establecer el texto
+            self.ingCodigo.setText(str(codT))
 
             funQlabel(layout, "EDITAR INGRESOS", 0, 0, tamTexto=13, colorTexto="#1e81b0")
             # Ingreso de Monto
@@ -111,27 +113,31 @@ class ingEditarId(QMainWindow):
         else:
             self.resultadoLabel.setText("ID no encontrado")
 
+    def on_btnEnviar_clicked(self):
+        # Obtener los datos del formulario
+        id = self.ingCodigo.text()
+        codigo = self.ingCodigo.text()
+        descripcion = self.ingDesc.text()
+        cantidad = self.ingCantidad.text()
+        proveedor = self.ingProveedor.currentText()
+        oc = self.ingOc.text()
+        lote = self.ingLote.text()
+        vto = self.ingVto.date()
+        estado = self.ingEstado.currentText()
 
-class ingEditar(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        # Configuración de la ventana
-        self.setWindowTitle("Veneziana")
-        self.resize(700, 400)
+        # Actualizar los datos en la base de datos
+        agregoIngreso(id, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado)
 
-        centralWidget = QWidget()
-        self.setCentralWidget(centralWidget)
-        layout = QGridLayout()
-        layout.setAlignment(Qt.AlignLeft)
-        centralWidget.setLayout(layout)
+        # Mostrar un mensaje de confirmación
+        QMessageBox.information(self, "Información", "Los datos se actualizaron correctamente.")
 
+        # Limpiar los campos del formulario
+        self.ingCodigo.setText("")
+        self.ingDesc.setText("")
+        self.ingCantidad.setText("")
+        self.ingProveedor.setCurrentIndex(0)
+        self.ingOc.setText("")
+        self.ingLote.setText("")
+        self.ingVto.setDate(QDate.currentDate())
+        self.ingEstado.setCurrentIndex(0)
 
-        # TITULO
-        funQlabel(layout, "EDITAR iNGRESOS", 0, 0, tamTexto=13, colorTexto="#1e81b0")
-        # Ingreso de Monto
-        funQlabel(layout, "iNGRESAR EL ID", 1, 0, tamTexto=12, colorTexto="#1e81b0")
-        self.ingCodigo = QLineEdit()
-        self.ingCodigo.setText("ingreso lo que quiero que diga")
-        self.ingCodigo.setValidator(QIntValidator(999999, 999999))
-        self.ingCodigo.setFixedSize(200, 30)
-        layout.addWidget(self.ingCodigo, 2, 0)

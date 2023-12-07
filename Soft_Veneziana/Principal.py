@@ -4,7 +4,7 @@ from Informe import InInforme
 from pathlib import Path
 import sqlite3
 from Ingreso_Insumo import InGastos
-from editar_insumo import ingEditarId, ingEditar
+from editar_insumo import ingEditarId
 
 def absPath(file):
     return str(Path(__file__).parent.absolute() / file)
