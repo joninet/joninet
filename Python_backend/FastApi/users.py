@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+#uvicorn users:app --reload
+
 app= FastAPI()
 
 class User(BaseModel):
@@ -42,7 +44,15 @@ async def users():
 @app.get("/user/")
 async def user(id: int):
     return searchUser(id)
-    
+
+#creamos usuario
+@app.post("/user/")
+async def user(user: User):
+    if type(searchUser(user.id)) == User:
+        return {"error":"no se encontro el usuario"}
+    else:
+        usersList.append(user)
+
 def searchUser(id:int):
     users = filter(lambda user: user.id == id, usersList)
     try:
