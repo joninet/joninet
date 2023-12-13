@@ -49,9 +49,24 @@ async def user(id: int):
 @app.post("/user/")
 async def user(user: User):
     if type(searchUser(user.id)) == User:
-        return {"error":"no se encontro el usuario"}
+        return {"error":"El usuario ya existe"}
     else:
         usersList.append(user)
+        return user
+
+#editamos usuario
+
+@app.put("/user/")
+async def user(user: User):
+    encontro=False
+    for index, searchUser in enumerate(usersList):
+        if searchUser.id == user.id:
+            usersList[index]=user
+            encontro=True
+    if not encontro:
+        return {"error":"no se encontro el usuario"}
+    else:
+        return user
 
 def searchUser(id:int):
     users = filter(lambda user: user.id == id, usersList)
