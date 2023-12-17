@@ -1,9 +1,9 @@
-from fastapi import FastAPI
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 #uvicorn users:app --reload
 
-app= FastAPI()
+router= APIRouter()
 
 class User(BaseModel):
     id: int
@@ -16,13 +16,13 @@ usersList = [User(id=1, name="Braiss", surname="Moure", url="https://moure.dev",
             User(id=2, name="Moure", surname="Dev", url="https://mouredev.com", age=35),
             User(id=3, name="Brais", surname="Dahlberg", url="https://haakon.com", age=33)]
 
-@app.get("/users")
+@router.get("/users")
 async def users():
     return usersList
 
 #Path
 
-@app.get("/user/{id}")
+@router.get("/user/{id}")
 async def user(id: int):
 # La función filter() filtra elementos de una secuencia (en este caso, una lista) basándose en una función de filtro.
 # La función lambda aquí se utiliza para definir una función pequeña (anónima) que verifica si el id de un usuario es igual al id proporcionado.
@@ -33,7 +33,7 @@ async def user(id: int):
         return {"error":"no se encontro el usuario"}"""
     return searchUser(id)
     
-@app.get("/users")
+@router.get("/users")
 async def users():
     return usersList
 
@@ -41,22 +41,21 @@ async def users():
 #query
 #http://127.0.0.1:8000/userQuery/?id=1
 
-@app.get("/user/")
+@router.get("/user/")
 async def user(id: int):
     return searchUser(id)
 
 #creamos usuario
-@app.post("/user/")
+@router.post("/user/", response_model= User, status_code= 201)
 async def user(user: User):
     if type(searchUser(user.id)) == User:
-        return {"error":"El usuario ya existe"}
+        raise HTTPException(status_code=404, detail="El usuario ya existe")
     else:
         usersList.append(user)
         return user
 
 #editamos usuario
-
-@app.put("/user/")
+@router.put("/user/")
 async def user(user: User):
     encontro=False
     for index, searchUser in enumerate(usersList):
@@ -67,6 +66,19 @@ async def user(user: User):
         return {"error":"no se encontro el usuario"}
     else:
         return user
+    
+#eliminamos usuario
+@router.delete("/user/{id}")
+async def user(id: int):
+    encontro=False
+    for index, searchUser in enumerate(usersList):
+        if searchUser.id == id:
+            del usersList[index]
+            encontro = True
+    if not encontro:
+        return {"Error": "No se elimino el usuario"}
+
+
 
 def searchUser(id:int):
     users = filter(lambda user: user.id == id, usersList)

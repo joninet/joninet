@@ -7,8 +7,18 @@
 # Instala FastAPI: pip install "fastapi[all]"
 
 from fastapi import FastAPI
+from routers import products,users
+from fastapi.staticfiles import StaticFiles
+
 
 app=FastAPI()
+
+#Routers
+app.include_router(products.router)
+app.include_router(users.router)
+
+#estaticos
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Url local: http://127.0.0.1:8000
 
@@ -22,3 +32,7 @@ async def root():
 async def url():
     return {"url": "https://mouredev.com/python"}
 #uvicorn main:app --reload       / main(nombre del fichero que queremos arrancar), app(instancia de fast api), reload(recarga el contecto cada vez que hsy cambios )
+
+#documentacion
+#http://127.0.0.1:8000/redoc
+#http://127.0.0.1:8000/docs
