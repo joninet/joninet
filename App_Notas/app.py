@@ -13,15 +13,16 @@ app.config['MYSQL_DB'] = config.MYSQL_DB
 
 mysql=MySQL(app)
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET']) # Ruta principal, se maneja con el método GET
 def home():
-    return render_template('index.html')
+    return render_template('index.html')# Genera y muestra 'index.html' al acceder a la ruta principal
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST']) #se relaciona típicamente con el manejo de formularios de inicio de sesión.
 def login():
-    email = request.form['email']
-    password = request.form['password']
+    email = request.form['email'] # Obtiene el valor del campo 'email' desde el formulario enviado
+    password = request.form['password']# Obtiene el valor del campo 'password' desde el formulario enviado
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+if __name__ == '__main__':# Comprobar si el script está siendo ejecutado directamente (no importado como módulo)
+    app.run(debug=True)#Esto facilita la detección y depuración de errores durante el desarrollo.
