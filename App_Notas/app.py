@@ -1,5 +1,5 @@
 #minuto 19:35
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 import config 
 from flask_mysqldb import MySQL
 
@@ -22,6 +22,23 @@ def home():
 def login():
     email = request.form['email'] # Obtiene el valor del campo 'email' desde el formulario enviado
     password = request.form['password']# Obtiene el valor del campo 'password' desde el formulario enviado
+
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
+    user=cur.fetchone()
+    cur.close()
+
+    if user is not None:
+        session['email'] = email
+        session['name'] = user[1]
+        session['surnames'] = user[2]
+        return redirect(url_for('task'))
+    else:
+        return render_template('index.html', message="las credenciales no son validas")
+    
+@app.route('/task', methods=['GET'])
+def task():
+    return render_template('task.html')
 
 
 if __name__ == '__main__':# Comprobar si el script está siendo ejecutado directamente (no importado como módulo)
