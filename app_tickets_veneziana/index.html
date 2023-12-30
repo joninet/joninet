@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Pesada</title>
+    <!-- Agregar la referencia a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+
+    <h1 class="mb-4">Ingresa la información del ticket</h1>
+
+    <form action="ticket.php" method="post">
+        <!-- Tiket Numero -->
+        <div class="form-group">
+            <label for="ticket">Tiket Numero:</label>
+            <input type="text" class="form-control" id="ticket" name="ticket" required>
+        </div>
+        <!-- Tiket Numero -->
+        <div class="form-group">
+            <label for="horaSalida">Hora Salida:</label>
+            <input type="text" class="form-control" id="horaSalida" name="horaSalida" required>
+        </div>
+
+        <!-- Remito Numero -->
+        <div class="form-group">
+            <label for="remito">Remito Numero:</label>
+            <input type="text" class="form-control" id="remito" name="remito" required>
+        </div>
+
+        <!-- Producto Numero -->
+        <div class="form-group">
+            <label for="producto">Producto:</label>
+            <input type="text" class="form-control" id="producto" name="producto" required>
+        </div>
+
+	<!-- Origen -->
+        <div class="form-group">
+            <label for="Origen">Origen:</label>
+            <input type="text" class="form-control" id="origen" name="origen" required>
+        </div>
+
+        <!-- Peso Entrada -->
+        <div class="form-group">
+            <label for="entrada">Peso Entrada:</label>
+            <input type="text" class="form-control" id="entrada" name="entrada" required>
+        </div>
+
+        <!-- Peso Salida -->
+        <div class="form-group">
+            <label for="salida">Peso Salida:</label>
+            <input type="text" class="form-control" id="salida" name="salida" required>
+        </div>
+
+        <!-- Botón de Enviar -->
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+
+    <!-- Agregar la referencia a Bootstrap JS y Popper.js (necesario para Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
