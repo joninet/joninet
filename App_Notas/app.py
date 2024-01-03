@@ -40,6 +40,11 @@ def login():
 def task():
     return render_template('task.html')
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
+
 
 if __name__ == '__main__':# Comprobar si el script está siendo ejecutado directamente (no importado como módulo)
     app.run(debug=True)#Esto facilita la detección y depuración de errores durante el desarrollo.
