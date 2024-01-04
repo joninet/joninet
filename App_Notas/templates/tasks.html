@@ -22,8 +22,32 @@
                 <img src="{{url_for('static', filename='images/user-plus-solid.svg')}}" width="25" class="mx-auto d-block" data-bs-toggle="modal" data-bs-target="#user-modal">
             </div>
         </div>
-    </div>
 
+        <!-- task -->
+        <div class="row row-col-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 mt-3">
+          {% for task in tasks %}
+            <div class="col-nd-3">
+              <div class="card">
+                <div class="card-header">
+                  {{task.title}}
+                </div>
+                <div class="card-body">
+                  {{task.description}}
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    {{task.date_task}}
+                    <form action="/delete-task" method="POST">
+                      <input type="hidden" value="{{task.id}}" name="id">
+                      <button type="submit" class="btn btn-outline-danger btn-sn">Eliminar</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+    </div>
+    <!-- Task Modal -->
     <div class="modal fade" id="task-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -32,10 +56,10 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="#" method="post">
+              <form action="/new-task" method="post">
                 <label>Titulo</label>
                 <input type="text" class="form-control mb-3" name="title">
-                <label>Titulo</label>
+                <label>Descripcion</label>
                 <textarea class="form-control mb-3" rows="5" name="description"></textarea>
                 <button type="submit" class="btn btn-primary w-100">Guardar</button>
               </form>
@@ -43,7 +67,7 @@
           </div>
         </div>
       </div>
-
+      <!-- users Modal -->
       <div class="modal fade" id="user-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -52,7 +76,23 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ...
+              <form action="/new-user" method="POST">
+                <div class="row">
+                  <div class="col-6">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control mb-3" name="name">
+                  </div>
+                  <div class="col-6">
+                    <label>Apellidos</label>
+                    <input type="text" class="form-control mb-3" name="surnames">
+                  </div>
+                </div>
+                <label>E-mail</label>
+                <input type="email" class="form-control mb-3" name="email">
+                <label>Contraseña</label>
+                <input type="password" class="form-control mb-3" name="password">
+                <button type="submit" class="btn btn-primary w-100">Guardar</button>
+              </form>
             </div>
           </div>
         </div>
