@@ -27,7 +27,7 @@ def login():
     conn = sql.connect("App_Notascopy/usuarios.db")
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM users WHERE email = ? AND password = ?", (email, password))
+    cursor.execute("SELECT * FROM usuario WHERE email = ? AND password = ?", (email, password))
     user = cursor.fetchone()
 
     conn.close()
