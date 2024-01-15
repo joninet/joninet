@@ -74,6 +74,63 @@ def borrarUsuario():
 def logout():
     session.clear()
     return redirect(url_for('home'))
+
+@app.route('/buscar-id', methods=['GET', 'POST'])
+def buscarId():
+    if request.method == 'POST':
+        id = request.form['id']
+        if id:
+            conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM ingresos WHERE id = ?", (id,))
+            registros = cursor.fetchall()
+            if registros:
+                return redirect(url_for('editar-ingreso', id=registros[0][0]))
+                # Aquí asumo que el ID está en la primera posición de la tupla. Ajusta según tu esquema de base de datos.
+            else:
+                return 'No se encontró el registro'
+        else:
+            return 'El campo "id" es obligatorio'
+    else:
+        return 'El método de solicitud debe ser POST'
+
+@app.route('/editar-ingreso/<int:id>', methods=['GET'])
+def editarIngreso(id):
+    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM ingresos WHERE id = {}".format(id))
+    registro = cursor.fetchone()
+    return render_template('editaringresos2.html', registro=registro)
+
+
+
+
+@app.route('/nuevo-ingreso', methods=['POST'])
+def nuevoIngreso():
+    codigo = request.form['codigo']
+    descripcion = request.form['descripcion']
+    cantidad = request.form['cantidad']
+    proveedor = request.form['proveedor']
+    oc = request.form['oc']
+    lote = request.form['lote']
+    vto = request.form['vto']
+    d = datetime.now()
+    dateIngreso=d.strftime("%Y-%m-%d %H:%M:%S")
+
+    if codigo and descripcion and cantidad and proveedor and oc and lote and vto:
+        conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+        cursor = conn.cursor()
+        # Insertar datos en la tabla 'ingresos'
+        cursor.execute("INSERT INTO ingresos (fecha, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                           (dateIngreso, codigo, descripcion, cantidad, proveedor, oc, lote, vto, 'En Revision', False))
+        # Commit para aplicar cambios
+        conn.commit()
+        # Cerrar la conexión
+        conn.close()
+        return redirect(url_for('main'))
+    else:
+        return render_template('nuevoIngresos.html', errorIngresoInsumo="Las credenciales no son correctas o existen campos vacios")
     
+        
 if __name__ == '__main__':
     app.run(debug=True)

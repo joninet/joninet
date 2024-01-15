@@ -60,44 +60,13 @@
         <div class="container-fluid row m-4 justify-content-center">
             <div class="card shadow w-50">
                 <div class="card-body">
-                    <h4 class="text-center text-secondary">FORMULARIO PARA EL INGRESO DE INSUMOS</h4>
-                    <form action="/nuevo-ingreso" method="post" id="nuevo-ingreso">
+                    <h4 class="text-center text-secondary">BUSCAR INGRESO PARA EDITAR</h4>
+                    <form action="/buscar-id" method="post" id="buscar-id">
                         <div class="row">
                             <div class="col-6">
-                                <label>Codigo</label>
-                                <input type="number" class="form-control mb-3" name="codigo">
+                                <label>Numero de ID</label>
+                                <input type="text" class="form-control mb-3" name="id">
                             </div>
-                            <div class="col-6">
-                                <label>Descripcion</label>
-                                <input type="text" class="form-control mb-3" name="descripcion">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Cantidad</label>
-                                <input type="number" class="form-control mb-3" name="cantidad">
-                            </div>
-                            <div class="col-6">
-                                <label>Proveedor</label>
-                                <input type="text" class="form-control mb-3" name="proveedor">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Orden de Compra</label>
-                                <input type="number" class="form-control mb-3" name="oc">
-                            </div>
-                            <div class="col-6">
-                                <label>Lote</label>
-                                <input type="text" class="form-control mb-3" name="lote">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Vencimiento</label>
-                                <input type="date" class="form-control mb-3" name="vto">
-                            </div>
-                        </div>
                         {% if errorIngresoInsumo %}
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>Error </strong>{{errorIngresoInsumo}}
@@ -105,7 +74,7 @@
                             </div>
                         {% endif %}
                         <div class="d-grid gap-2">
-                            <button class="btn btn-success m-1">Guardar</button>
+                            <button class="btn btn-success m-1">Buscar</button>
                         </div>
                     </form>
                     <div class="d-grid gap-2">

@@ -22,7 +22,7 @@ def nuevaTabla2():
     cursor.execute(
         """CREATE TABLE ingresos (
             id INTEGER PRIMARY KEY,
-            fecha TEXT,
+            fecha DATETIME,
             codigo INTEGER,
             descripcion TEXT,
             cantidad REAL,
@@ -50,6 +50,17 @@ def agregoIngreso(id, name, surnames, email, password):
     conn.close()
 
 #agregoIngreso(1, "Jonathan", "Desplats", "joninet@msn.com", "fordfiesta")
+
+def eliminarTabla():
+    try:
+        conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute("DROP TABLE IF EXISTS ingresos")
+    except Exception as e:
+        print("Error al eliminar la tabla:", e)
+
+#eliminarTabla()
 
 
 
