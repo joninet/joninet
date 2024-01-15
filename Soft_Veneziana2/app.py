@@ -35,20 +35,15 @@ def login():
     
 @app.route('/main', methods=['GET'])
 def main():
-    """email = request.form['email']
-    conn = sql.connect("Soft_Veneziana2/usuarios.db")
-    cursor = conn.cursor()
+    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    cursor = conn.cursor()  
 
-    cursor.execute("SELECT * FROM tasks WHERE email = ?", (email))
-    tasks = cursor.fetchone()
+    cursor.execute("SELECT * FROM ingresos")
+    tasks = cursor.fetchall()
 
-    insertObject = []
-    columnNames = [column[0] for column in cursor.description]
-    for record in tasks:
-        insertObject.append(dict(zip(columnNames, record)))
-    cursor.close()"""
+    conn.close()
 
-    return render_template('main.html')#, tasks = insertObject)
+    return render_template('main.html', tasks=tasks)
 
 @app.route('/nuevoIngresos', methods=['GET'])
 def nuevoIngresos():
