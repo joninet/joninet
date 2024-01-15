@@ -38,12 +38,12 @@ def main():
     conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
     cursor = conn.cursor()  
 
-    cursor.execute("SELECT * FROM ingresos")
-    tasks = cursor.fetchall()
+    cursor.execute("SELECT * FROM ingresos WHERE eliminado = False")
+    ingreso = cursor.fetchall()
 
     conn.close()
 
-    return render_template('main.html', tasks=tasks)
+    return render_template('main.html', ingreso=ingreso)
 
 @app.route('/nuevoIngresos', methods=['GET'])
 def nuevoIngresos():
@@ -55,6 +55,7 @@ def editarIngresos():
 
 @app.route('/borrarIngresos', methods=['GET'])
 def borrarIngresos():
+    
     return render_template('borrarIngresos.html')
 
 @app.route('/nuevoUsuario', methods=['GET'])
