@@ -95,6 +95,33 @@ def editarIngreso():
     return render_template('editarIngresos2.html', registro=editar)
 
 @app.route('/editar-db', methods=['POST'])
+def editarDb():
+    id = request.form.get('id')
+    codigo = request.form['codigo']
+    descripcion = request.form['descripcion']
+    cantidad = request.form['cantidad']
+    proveedor = request.form['proveedor']
+    oc = request.form['oc']
+    lote = request.form['lote']
+    vto = request.form['vto']
+    estado = request.form['estado']
+
+    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    cursor = conn.cursor()
+
+    query = """UPDATE ingresos
+                SET codigo = ?, descripcion = ?, cantidad = ?, 
+                    proveedor = ?, oc = ?, lote = ?, vto = ?, estado = ?
+                WHERE id = ?"""
+    params = (codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, id)
+            # Ejecutar la consulta de actualización
+    cursor.execute(query, params)
+            # Commit para aplicar los cambios
+    conn.commit()
+            # Cerrar la conexión
+    conn.close()
+
+    return redirect(url_for('main'))
 
 
 
@@ -110,7 +137,7 @@ def nuevoIngreso():
     d = datetime.now()
     dateIngreso=d.strftime("%Y-%m-%d %H:%M:%S")
 
-    if codigo and descripcion and cantidad and proveedor and oc and lote and vto:
+    if codigo and descripcion and cantidad and proveedor and oc :
         conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
         cursor = conn.cursor()
         # Insertar datos en la tabla 'ingresos'

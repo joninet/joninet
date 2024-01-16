@@ -25,16 +25,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{{url_for('main')}}">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Insumos
+                    Ingresos
                     </a>
                     <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{{url_for('nuevoIngresos')}}">Nuevo</a></li>
-                    <li><a class="dropdown-item" href="{{url_for('editarIngresos')}}">Editar</a></li>
-                    <li><a class="dropdown-item" href="{{url_for('borrarIngresos')}}">Borrar</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -62,31 +60,31 @@
                     <div class="card-body">
                         <h4 class="text-center text-secondary">FORMULARIO PARA EDITAR INGRESOS</h4>
                         {% for editar in registro %}
-                        <form action="/nuevo-ingreso" method="post" id="nuevo-ingreso">
+                        <form action="/editar-db" method="post" id="nuevo-ingreso">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
-                                    <input type="number" class="form-control mb-3" name="codigo" value="{{ editar[2] }}">
+                                    <input type="number" class="form-control mb-3" name="codigo" value="{{ editar[2] }}" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Descripcion</label>
-                                    <input type="text" class="form-control mb-3" name="descripcion" value="{{ editar[3] }}">
+                                    <input type="text" class="form-control mb-3" name="descripcion" value="{{ editar[3] }}" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Cantidad</label>
-                                    <input type="number" class="form-control mb-3" name="cantidad" value="{{ editar[4] }}">
+                                    <input type="number" class="form-control mb-3" name="cantidad" value="{{ editar[4] }}" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Proveedor</label>
-                                    <input type="text" class="form-control mb-3" name="proveedor" value="{{ editar[5] }}">
+                                    <input type="text" class="form-control mb-3" name="proveedor" value="{{ editar[5] }}" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Orden de Compra</label>
-                                    <input type="number" class="form-control mb-3" name="oc" value="{{ editar[6] }}">
+                                    <input type="number" class="form-control mb-3" name="oc" value="{{ editar[6] }}" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Lote</label>
@@ -114,12 +112,6 @@
                                 </div>
                             </div>
                             {% endfor %}
-                            {% if errorIngresoInsumo %}
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>Error </strong>{{errorIngresoInsumo}}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            {% endif %}
                             <div class="d-grid gap-2">
                                 <button class="btn btn-success m-1">Guardar</button>
                             </div>
@@ -135,7 +127,7 @@
    <script>
     function limpiarFormulario() {
         // Obtener el formulario y los elementos que deseas limpiar
-        var formulario = document.getElementById("nuevo-ingreso");
+        var formulario = document.getElementById("editar-db");
         var campoCodigo = document.getElementById("codigo");
         var campoDescripcion = document.getElementById("descripcion");
         // Agrega más campos según sea necesario
