@@ -4,7 +4,6 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# Configuración de la clave secreta
 app.secret_key = 'd5fb8c4fa8bd46638dadc4e751e0d68d'
 
 @app.route('/', methods=['GET'])
@@ -53,10 +52,23 @@ def nuevoIngresos():
 def editarIngresos():
     return render_template('editarIngresos.html')
 
-@app.route('/borrarIngresos', methods=['GET'])
+@app.route('/borrarIngresos', methods=['POST'])
 def borrarIngresos():
-    
-    return render_template('borrarIngresos.html')
+    try:
+        conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+        id = request.form['id']
+        cursor = conn.cursor()
+        
+        cursor.execute("DELETE FROM ingresos WHERE id = ?", (id,))
+
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('main'))
+
+    except Exception as e:
+        return f"Error al borrar el ingreso: {str(e)}"
+
 
 @app.route('/nuevoUsuario', methods=['GET'])
 def nuevoUsuario():
@@ -71,33 +83,18 @@ def logout():
     session.clear()
     return redirect(url_for('home'))
 
-@app.route('/buscar-id', methods=['GET', 'POST'])
-def buscarId():
-    if request.method == 'POST':
-        id = request.form['id']
-        if id:
-            conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM ingresos WHERE id = ?", (id,))
-            registros = cursor.fetchall()
-            if registros:
-                return redirect(url_for('editar-ingreso', id=registros[0][0]))
-                # Aquí asumo que el ID está en la primera posición de la tupla. Ajusta según tu esquema de base de datos.
-            else:
-                return 'No se encontró el registro'
-        else:
-            return 'El campo "id" es obligatorio'
-    else:
-        return 'El método de solicitud debe ser POST'
-
-@app.route('/editar-ingreso/<int:id>', methods=['GET'])
-def editarIngreso(id):
+@app.route('/editar-ingreso', methods=['POST'])
+def editarIngreso():
+    id = request.form.get('id')  # Obtén el valor de 'id' del formulario
     conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM ingresos WHERE id = {}".format(id))
-    registro = cursor.fetchone()
-    return render_template('editaringresos2.html', registro=registro)
+    cursor.execute("SELECT * FROM ingresos WHERE id = ?", (id,))
+    editar = cursor.fetchall()
 
+    conn.close()
+    return render_template('editarIngresos2.html', registro=editar)
+
+@app.route('/editar-db', methods=['POST'])
 
 
 

@@ -56,34 +56,7 @@
         </nav>
     </header>
    <article>
-    <main class="d-flex">
-        <div class="container-fluid row m-4 justify-content-center">
-            <div class="card shadow w-50">
-                <div class="card-body">
-                    <h4 class="text-center text-secondary">BUSCAR INGRESO PARA EDITAR</h4>
-                    <form action="/buscar-id" method="post" id="buscar-id">
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Numero de ID</label>
-                                <input type="text" class="form-control mb-3" name="id">
-                            </div>
-                        {% if errorIngresoInsumo %}
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Error </strong>{{errorIngresoInsumo}}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        {% endif %}
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-success m-1">Buscar</button>
-                        </div>
-                    </form>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-secondary m-1" onclick="limpiarFormulario()">Limpiar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
    </article>
    <script>
     function limpiarFormulario() {

@@ -55,67 +55,83 @@
             </div>
         </nav>
     </header>
-   <article>
-    <main class="d-flex">
-        <div class="container-fluid row m-4 justify-content-center">
-            <div class="card shadow w-50">
-                <div class="card-body">
-                    <h4 class="text-center text-secondary">FORMULARIO PARA EL INGRESO DE INSUMOS</h4>
-                    <form action="/nuevo-ingreso" method="post" id="nuevo-ingreso">
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Codigo</label>
-                                <input type="number" class="form-control mb-3" name="codigo" value="{{registro.codigo}}">
+    <article>
+        <main class="d-flex">
+            <div class="container-fluid row m-4 justify-content-center">
+                <div class="card shadow w-50">
+                    <div class="card-body">
+                        <h4 class="text-center text-secondary">FORMULARIO PARA EDITAR INGRESOS</h4>
+                        {% for editar in registro %}
+                        <form action="/nuevo-ingreso" method="post" id="nuevo-ingreso">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Codigo</label>
+                                    <input type="number" class="form-control mb-3" name="codigo" value="{{ editar[2] }}">
+                                </div>
+                                <div class="col-6">
+                                    <label>Descripcion</label>
+                                    <input type="text" class="form-control mb-3" name="descripcion" value="{{ editar[3] }}">
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <label>Descripcion</label>
-                                <input type="text" class="form-control mb-3" name="descripcion">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Cantidad</label>
+                                    <input type="number" class="form-control mb-3" name="cantidad" value="{{ editar[4] }}">
+                                </div>
+                                <div class="col-6">
+                                    <label>Proveedor</label>
+                                    <input type="text" class="form-control mb-3" name="proveedor" value="{{ editar[5] }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Cantidad</label>
-                                <input type="number" class="form-control mb-3" name="cantidad">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Orden de Compra</label>
+                                    <input type="number" class="form-control mb-3" name="oc" value="{{ editar[6] }}">
+                                </div>
+                                <div class="col-6">
+                                    <label>Lote</label>
+                                    <input type="text" class="form-control mb-3" name="lote" value="{{ editar[7] }}">
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <label>Proveedor</label>
-                                <input type="text" class="form-control mb-3" name="proveedor">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Vencimiento</label>
+                                    <input type="date" class="form-control mb-3" name="vto" value="{{ editar[8] }}">
+                                </div>
+                                <div class="col-6">
+                                    <label>Estado</label>
+                                    <select class="form-control mb-3" name="estado">
+                                        <option value="En Revision">En Revision</option>
+                                        <option value="Aprobado">Aprobado</option>
+                                        <option value="Rechazado">Rechazado</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Orden de Compra</label>
-                                <input type="number" class="form-control mb-3" name="oc">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>ID</label>
+                                    <input type="number" class="form-control mb-3" name="id" value="{{ editar[0] }}" readonly>
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <label>Lote</label>
-                                <input type="text" class="form-control mb-3" name="lote">
+                            {% endfor %}
+                            {% if errorIngresoInsumo %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Error </strong>{{errorIngresoInsumo}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endif %}
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-success m-1">Guardar</button>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Vencimiento</label>
-                                <input type="date" class="form-control mb-3" name="vto">
-                            </div>
-                        </div>
-                        {% if errorIngresoInsumo %}
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>Error </strong>{{errorIngresoInsumo}}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        {% endif %}
+                        </form>
                         <div class="d-grid gap-2">
-                            <button class="btn btn-success m-1">Guardar</button>
+                            <button class="btn btn-secondary m-1" onclick="limpiarFormulario()">Limpiar</button>
                         </div>
-                    </form>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-secondary m-1" onclick="limpiarFormulario()">Limpiar</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-   </article>
+       </article>
    <script>
     function limpiarFormulario() {
         // Obtener el formulario y los elementos que deseas limpiar
