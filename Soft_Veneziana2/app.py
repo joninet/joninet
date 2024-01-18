@@ -24,6 +24,7 @@ def login():
     conn.close()
 
     if user is not None:
+        session['id'] = user[0]
         session['email'] = email
         session['name'] = user[1]
         session['surnames'] = user[2]
@@ -134,6 +135,7 @@ def nuevoIngreso():
     oc = request.form['oc']
     lote = request.form['lote']
     vto = request.form['vto']
+    usuarioIngreso = request.form['usuarioIngreso']
     d = datetime.now()
     dateIngreso=d.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -141,8 +143,8 @@ def nuevoIngreso():
         conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
         cursor = conn.cursor()
         # Insertar datos en la tabla 'ingresos'
-        cursor.execute("INSERT INTO ingresos (fecha, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                           (dateIngreso, codigo, descripcion, cantidad, proveedor, oc, lote, vto, 'En Revision', False))
+        cursor.execute("INSERT INTO ingresos (fecha, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado, usuarioIngreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                           (dateIngreso, codigo, descripcion, cantidad, proveedor, oc, lote, vto, 'En Revision', False, usuarioIngreso))
         # Commit para aplicar cambios
         conn.commit()
         # Cerrar la conexión

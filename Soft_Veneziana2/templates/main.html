@@ -70,6 +70,7 @@
                     <th class="centrado">lote</th>
                     <th class="centrado">Vencimiento</th>
                     <th class="centrado">Estado</th>
+                    <th class="centrado">Usuario</th>
                     <th class="centrado">Acciones</th>
                 </tr>
             </thead>
@@ -86,6 +87,7 @@
                     <td class="centrado small">{{ ingreso[7] }}</td>
                     <td class="centrado small">{{ ingreso[8] }}</td>
                     <td class="centrado small">{{ ingreso[9] }}</td>
+                    <td class="centrado small">{{ ingreso[11] }}</td>
                     <td>
                         <div style="display: flex;"> 
                             <form action="/editar-ingreso" method="POST">
@@ -94,25 +96,26 @@
                                     <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
                                 </a>
                             </form>
-                            <form action="/borrarIngresos" method="POST">
+                            <form class="deleteForm" action="/borrarIngresos" method="POST">
                                 <input type="hidden" name="id" value="{{ ingreso[0] }}">
-                                <a href="#" onclick="confirmarBorrado('{{ ingreso[0] }}')">
+                                <a href="#" onclick="confirmarBorrado('{{ ingreso[0] }}', event)">
                                     <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
                                 </a>
                             </form>
                         </div>
-                      </td>
+                    </td>
                 {% endfor %}
                 
             </tbody>
         </table>
     </article>
     <script>
-        function confirmarBorrado(id) {
+        function confirmarBorrado(id, event) {
+            event.preventDefault();  // Evitar el comportamiento predeterminado del enlace
             if (confirm('¿Estás seguro de que deseas eliminar este ingreso?')) {
-                // Aquí podrías agregar lógica adicional antes de enviar el formulario
-                document.querySelector('form input[name="id"]').value = id;
-                document.querySelector('form').submit();
+                // Si el usuario confirma, enviar el formulario de borrado asociado a este ícono
+                document.querySelector('.deleteForm input[name="id"]').value = id;
+                document.querySelector('.deleteForm').submit();
             }
         }
     </script>

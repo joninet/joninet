@@ -95,6 +95,10 @@
                                 <label>Vencimiento</label>
                                 <input type="date" class="form-control mb-3" name="vto">
                             </div>
+                            <div class="col-6">
+                                <label>Usuario</label>
+                                <input type="text" class="form-control mb-3" name="usuarioIngreso" value="{{session['name']}}" readonly>
+                            </div>
                         </div>
                         {% if errorIngresoInsumo %}
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
