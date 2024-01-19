@@ -1,22 +1,38 @@
 import sqlite3 as sql
 from datetime import datetime
 
-def nuevaTabla():
-    conn = sql.connect("App_Notascopy/venezianaDB.db")
-    cursor=conn.cursor()
-    cursor.execute(
-        """CREATE TABLE insumos (
-            id INTEGER PRIMARY KEY,
-            codigo INTEGER,
-            nombre TEXT,
-            cantidad REAL,
-            tipo TEXT,
-            um TEXT)"""
-    )
-    conn.commit()
+import sqlite3 as sql
+from datetime import datetime
+
+def tabla_existe(cursor, nombre_tabla):
+    cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{nombre_tabla}'")
+    return cursor.fetchone() is not None
+
+def nueva_tabla():
+    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    cursor = conn.cursor()
+    
+    nombre_tabla = "insumos"
+    
+    if not tabla_existe(cursor, nombre_tabla):
+        cursor.execute(
+            f"""CREATE TABLE {nombre_tabla} (
+                id INTEGER PRIMARY KEY,
+                codigo INTEGER,
+                nombre TEXT,
+                cantidad REAL,
+                tipo TEXT,
+                um TEXT)"""
+        )
+        conn.commit()
+        print(f"Tabla '{nombre_tabla}' creada exitosamente.")
+    else:
+        print(f"La tabla '{nombre_tabla}' ya existe.")
+    
     conn.close()
 
-nuevaTabla()
+nueva_tabla()
+
 
 def nuevaTabla2():
     conn = sql.connect("Soft_Veneziana2/venezianaDB.db")

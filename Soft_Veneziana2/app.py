@@ -36,6 +36,10 @@ def impLogin():
 def nuevoIngresos():
     return render_template('nuevoIngresos.html')
 
+@app.route('/nuevoInsumo', methods=['GET'])
+def nuevoInsumo():
+    return render_template('nuevoInsumo.html')
+
 @app.route('/editarIngresos', methods=['GET'])
 def editarIngresos():
     return render_template('editarIngresos.html')
