@@ -59,21 +59,21 @@
             <div class="card shadow w-50">
                 <div class="card-body">
                     <h4 class="text-center text-secondary">FORMULARIO PARA EL INGRESO DE INSUMOS</h4>
-                    <form action="/nuevo-ingreso" method="post" id="nuevo-ingreso">
+                    <form action="/nuevo-insumo" method="post" id="nuevo-insumo">
                         <div class="row">
                             <div class="col-6">
                                 <label>Nombre</label>
-                                <input type="text" class="form-control mb-3" name="Nombre" required>
+                                <input type="text" class="form-control mb-3" name="nombre" required>
                             </div>
                             <div class="col-6">
                                 <label for="tipo">Tipo</label>
                                     <select class="form-control mb-3" name="tipo" id="tipo">
-                                        <option value="opcion1">Materias Primas</option>
-                                        <option value="opcion2">Aceites/Grasas</option>
-                                        <option value="opcion3">Harinas</option>
-                                        <option value="opcion3">Material Embalaje</option>
-                                        <option value="opcion3">Envases</option>
-                                        <option value="opcion3">Otros</option>
+                                        <option value="Materias Primas">Materias Primas</option>
+                                        <option value="Aceites/Grasas">Aceites/Grasas</option>
+                                        <option value="Harinas">Harinas</option>
+                                        <option value="Material Embalaje">Material Embalaje</option>
+                                        <option value="Envases">Envases</option>
+                                        <option value="Otros">Otros</option>
                                     </select>
                             </div>
                         </div>
@@ -81,10 +81,10 @@
                             <div class="col-6">
                                 <label for="um">Unidad de medida</label>
                                     <select class="form-control mb-3" name="um" id="um">
-                                        <option value="opcion1">Kg</option>
-                                        <option value="opcion2">Lts</option>
-                                        <option value="opcion3">Bol</option>
-                                        <option value="opcion3">Uni</option>
+                                        <option value="kg">Kg</option>
+                                        <option value="lts">Lts</option>
+                                        <option value="bol">Bol</option>
+                                        <option value="uni">Uni</option>
                                     </select>
                             </div>
                         </div>
@@ -109,9 +109,8 @@
    <script>
     function limpiarFormulario() {
         // Obtener el formulario y los elementos que deseas limpiar
-        var formulario = document.getElementById("nuevo-ingreso");
-        var campoCodigo = document.getElementById("codigo");
-        var campoDescripcion = document.getElementById("descripcion");
+        var formulario = document.getElementById("nuevo-insumo");
+        var campoCodigo = document.getElementById("nombre");
         // Agrega más campos según sea necesario
 
         // Establecer los valores en blanco

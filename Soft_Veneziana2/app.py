@@ -3,6 +3,7 @@ import sqlite3 as sql
 from datetime import datetime
 from login import login, impLogout
 from ingresos import borrarIngresos, editarIngreso, editarDb, nuevoIngreso
+from insumos import nuevoInsumoDB
 
 app = Flask(__name__)
 
@@ -67,6 +68,10 @@ def impEditarDB():
 @app.route('/nuevo-ingreso', methods=['POST'])
 def impNuevoIngreso():
     return nuevoIngreso()
+
+@app.route('/nuevo-insumo', methods=['POST'])
+def impNuevoInsumo():
+    return nuevoInsumoDB()
   
 if __name__ == '__main__':
     app.run(debug=True)
