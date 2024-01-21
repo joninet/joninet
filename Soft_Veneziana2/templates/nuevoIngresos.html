@@ -63,11 +63,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <label>Codigo</label>
-                                <input type="number" class="form-control mb-3" name="codigo">
+                                <input type="number" class="form-control mb-3" name="codigo" id="codigo">
                             </div>
                             <div class="col-6">
                                 <label>Descripcion</label>
-                                <input type="text" class="form-control mb-3" name="descripcion">
+                                <input type="text" class="form-control mb-3" name="descripcion" id="descripcion" readonly>
                             </div>
                         </div>
                         <div class="row">
@@ -118,6 +118,20 @@
         </div>
     </div>
    </article>
+   <script>
+    document.getElementById('codigo').addEventListener('blur', function() {
+        var codigo = this.value;
+
+        // Realiza una solicitud AJAX para buscar el nombre asociado al código
+        fetch(`/buscar-codigo/${codigo}`)
+            .then(response => response.text())
+            .then(data => {
+                // Actualiza el valor del campo de nombre con el resultado de la búsqueda
+                document.getElementById('descripcion').value = data;
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
    <script>
     function limpiarFormulario() {
         // Obtener el formulario y los elementos que deseas limpiar

@@ -1,6 +1,7 @@
 from flask import request, session, redirect, url_for, render_template
 import sqlite3 as sql
 from datetime import datetime
+from stock import stockActualInsumo
 
 def borrarIngresos():
     try:
@@ -68,7 +69,7 @@ def nuevoIngreso():
     d = datetime.now()
     dateIngreso=d.strftime("%Y-%m-%d %H:%M:%S")
 
-    if codigo and descripcion and cantidad and proveedor and oc :
+    if codigo and descripcion != "Codigo Incorrecto" and cantidad and proveedor and oc:
         conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
         cursor = conn.cursor()
         # Insertar datos en la tabla 'ingresos'
@@ -78,9 +79,28 @@ def nuevoIngreso():
         conn.commit()
         # Cerrar la conexión
         conn.close()
+
+        #agregamos al stock
+        stockNuevo = int(cantidad) + int(stockActualInsumo(codigo))
+
+        conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+        cursor = conn.cursor()
+        consulta_busqueda = "SELECT * FROM insumos WHERE codigo = ?"
+        cursor.execute(consulta_busqueda, (codigo,))
+        resultado = cursor.fetchone()
+
+        if resultado:
+            consulta_actualizacion = "UPDATE insumos SET cantidad = ? WHERE codigo = ?"
+            cursor.execute(consulta_actualizacion, (stockNuevo, codigo))
+            conn.commit()
+            conn.close()
+
         return redirect(url_for('main'))
+    
+
     else:
         return render_template('nuevoIngresos.html', errorIngresoInsumo="Las credenciales no son correctas o existen campos vacios")
+    
 
 def main():
     conn = sql.connect("Soft_Veneziana2/venezianaDB.db")

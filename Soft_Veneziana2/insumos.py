@@ -24,7 +24,7 @@ def nuevoInsumoDB():
         return render_template('nuevoInsumo.html', errorIngresoInsumo="El nombre ya existe en la base de datos")
 
     # Insertar datos en la tabla 'insumos'
-    cursor.execute("INSERT INTO insumos (codigo, nombre, tipo, um) VALUES (?, ?, ?, ?)", (codigo, nombre, tipo, um))
+    cursor.execute("INSERT INTO insumos (codigo, nombre, cantidad, tipo, um) VALUES (?, ?, ?, ?, ?)", (codigo, nombre, 0, tipo, um))
 
     # Commit para aplicar cambios
     conn.commit()
@@ -33,4 +33,5 @@ def nuevoInsumoDB():
     conn.close()
 
     return redirect(url_for('main'))
+
 

@@ -37,6 +37,10 @@ def impLogin():
 def nuevoIngresos():
     return render_template('nuevoIngresos.html')
 
+@app.route('/verStock', methods=['GET'])
+def verStock():
+    return render_template('verStock.html')
+
 @app.route('/nuevoInsumo', methods=['GET'])
 def nuevoInsumo():
     return render_template('nuevoInsumo.html')
@@ -72,6 +76,29 @@ def impNuevoIngreso():
 @app.route('/nuevo-insumo', methods=['POST'])
 def impNuevoInsumo():
     return nuevoInsumoDB()
+
+@app.route('/buscar-codigo/<int:codigo>', methods=['GET'])
+def buscarCodigo(codigo):
+    try:
+        # Conéctate a la base de datos
+        conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+        cursor = conn.cursor()
+
+        # Realiza la consulta para obtener el nombre asociado al código
+        cursor.execute("SELECT nombre FROM insumos WHERE codigo = ?", (codigo,))
+        nombre = cursor.fetchone()
+
+        # Cierra la conexión a la base de datos
+        conn.close()
+
+        if nombre:
+            return nombre[0]  # Devuelve el nombre como respuesta
+        else:
+            return 'Codigo Incorrecto'  # Devuelve una cadena vacía si no se encuentra el código
+
+    except Exception as e:
+        return str("Descripcion")
+
   
 if __name__ == '__main__':
     app.run(debug=True)

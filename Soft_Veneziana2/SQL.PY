@@ -31,7 +31,7 @@ def nueva_tabla():
     
     conn.close()
 
-nueva_tabla()
+#nueva_tabla()
 
 
 def nuevaTabla2():
@@ -150,6 +150,40 @@ def eliminar_usuario_por_id(id_usuario):
 
 # Usar la función para eliminar el usuario con ID 1
 #eliminar_usuario_por_id(1)
+
+def eliminar_filas_por_ids(database, table, id_column, ids_to_delete):
+    try:
+        # Conectar a la base de datos
+        conn = sql.connect(database)
+        cursor = conn.cursor()
+
+        # Construir la consulta SQL para eliminar las filas con los IDs especificados
+        query = f"DELETE FROM {table} WHERE {id_column} IN ({','.join('?' for _ in ids_to_delete)})"
+
+        # Imprimir la consulta para depuración
+        print("Query:", query)
+
+        # Ejecutar la consulta con la lista de IDs
+        cursor.execute(query, ids_to_delete)
+
+        # Imprimir el número de filas afectadas
+        print("Filas afectadas:", cursor.rowcount)
+
+        # Confirmar los cambios en la base de datos
+        conn.commit()
+
+    except sqlite3.Error as e:
+        # Imprimir el error en caso de excepción
+        print("Error al eliminar filas:", e)
+
+    finally:
+        # Cerrar la conexión
+        conn.close()
+
+# Uso de la función para eliminar filas con IDs 1, 2, 3, 4, 5
+eliminar_filas_por_ids("Soft_Veneziana2/venezianaDB.db", "insumos", "id", [1, 2, 3, 4, 5])
+
+
 
 
 
