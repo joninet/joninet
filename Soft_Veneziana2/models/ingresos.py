@@ -4,6 +4,7 @@ from datetime import datetime
 from config import dbconn
 from models.stock import stockActualInsumo
 from helpers.funciones import editarStock
+from helpers.funcionesDb import insertar_datos_generico
 
 def borrarIngresos():
     try:
@@ -70,12 +71,10 @@ def nuevoIngreso():
     dateIngreso=d.strftime("%Y-%m-%d %H:%M:%S")
 
     if codigo and descripcion != "Codigo Incorrecto" and cantidad and proveedor and oc:
-        conn = sql.connect(dbconn)
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO ingresos (fecha, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado, usuarioIngreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                           (dateIngreso, codigo, descripcion, cantidad, proveedor, oc, lote, vto, 'En Revision', False, usuarioIngreso))
-        conn.commit()
-        conn.close()
+        columnas = ["fecha", "codigo", "descripcion", "cantidad", "proveedor", "oc", "lote", "vto", "estado", "eliminado", "usuarioIngreso"]
+        valores = [dateIngreso, codigo, descripcion, cantidad, proveedor, oc, lote, vto, 'En Revision', False, usuarioIngreso]
+
+        insertar_datos_generico(dbconn, "ingresos", columnas, valores)
 
         stockNuevo = int(cantidad) + int(stockActualInsumo(codigo))
 
