@@ -2,9 +2,9 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3 as sql
 from datetime import datetime
 from config import dbconn
-from login import login, impLogout
-from ingresos import borrarIngresos, editarIngreso, editarDb, nuevoIngreso
-from insumos import nuevoInsumoDB
+from models.login import login, impLogout
+from models.ingresos import borrarIngresos, editarIngreso, editarDb, nuevoIngreso
+from models.insumos import nuevoInsumoDB
 
 app = Flask(__name__)
 

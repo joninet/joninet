@@ -2,8 +2,8 @@ from flask import request, session, redirect, url_for, render_template
 import sqlite3 as sql
 from datetime import datetime
 from config import dbconn
-from stock import stockActualInsumo
-from funciones import editarStock
+from models.stock import stockActualInsumo
+from helpers.funciones import editarStock
 
 def borrarIngresos():
     try:

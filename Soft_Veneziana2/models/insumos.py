@@ -2,7 +2,7 @@ from flask import request, session, redirect, url_for, render_template
 import sqlite3 as sql
 from datetime import datetime
 from config import dbconn
-from funciones import codAleatorio
+from helpers.funciones import codAleatorio
 
 def nuevoInsumoDB():
     codigo = codAleatorio()
