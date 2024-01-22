@@ -1,11 +1,12 @@
 from flask import request, session, redirect, url_for, render_template
 import sqlite3 as sql
 from datetime import datetime
+from config import dbconn
 from stock import stockActualInsumo
 
 def borrarIngresos():
     try:
-        conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+        conn = sql.connect(dbconn)
         id = request.form['id']
         cursor = conn.cursor()
         
@@ -21,7 +22,7 @@ def borrarIngresos():
 
 def editarIngreso():
     id = request.form.get('id')  # Obtén el valor de 'id' del formulario
-    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    conn = sql.connect(dbconn)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM ingresos WHERE id = ?", (id,))
     editar = cursor.fetchall()
@@ -40,7 +41,7 @@ def editarDb():
     vto = request.form['vto']
     estado = request.form['estado']
 
-    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    conn = sql.connect(dbconn)
     cursor = conn.cursor()
 
     query = """UPDATE ingresos
@@ -70,7 +71,7 @@ def nuevoIngreso():
     dateIngreso=d.strftime("%Y-%m-%d %H:%M:%S")
 
     if codigo and descripcion != "Codigo Incorrecto" and cantidad and proveedor and oc:
-        conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+        conn = sql.connect(dbconn)
         cursor = conn.cursor()
         # Insertar datos en la tabla 'ingresos'
         cursor.execute("INSERT INTO ingresos (fecha, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado, usuarioIngreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -83,7 +84,7 @@ def nuevoIngreso():
         #agregamos al stock
         stockNuevo = int(cantidad) + int(stockActualInsumo(codigo))
 
-        conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+        conn = sql.connect(dbconn)
         cursor = conn.cursor()
         consulta_busqueda = "SELECT * FROM insumos WHERE codigo = ?"
         cursor.execute(consulta_busqueda, (codigo,))
@@ -103,7 +104,7 @@ def nuevoIngreso():
     
 
 def main():
-    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    conn = sql.connect(dbconn)
     cursor = conn.cursor()  
 
     cursor.execute("SELECT * FROM ingresos WHERE eliminado = False")

@@ -1,4 +1,5 @@
 from flask import request, session, redirect, url_for, render_template
+from config import dbconn
 import sqlite3 as sql
 
 def impLogout():
@@ -9,7 +10,7 @@ def login():
     email = request.form['email']
     password = request.form['password']
 
-    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    conn = sql.connect(dbconn)
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM usuario WHERE email = ? AND password = ?", (email, password))

@@ -1,6 +1,7 @@
 from flask import request, session, redirect, url_for, render_template
 import sqlite3 as sql
 from datetime import datetime
+from config import dbconn
 from funciones import codAleatorio
 
 def nuevoInsumoDB():
@@ -12,7 +13,7 @@ def nuevoInsumoDB():
     if not (codigo and nombre and tipo and um):
         return render_template('nuevoInsumo.html', errorIngresoInsumo="Las credenciales no son correctas o existen campos vacíos")
 
-    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    conn = sql.connect(dbconn)
     cursor = conn.cursor()
 
     # Verificar si el nombre ya existe en la base de datos

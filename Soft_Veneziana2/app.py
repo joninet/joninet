@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3 as sql
 from datetime import datetime
+from config import dbconn
 from login import login, impLogout
 from ingresos import borrarIngresos, editarIngreso, editarDb, nuevoIngreso
 from insumos import nuevoInsumoDB
@@ -11,7 +12,7 @@ app.secret_key = 'd5fb8c4fa8bd46638dadc4e751e0d68d'
 
 @app.route('/main', methods=['GET'])
 def main():
-    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    conn = sql.connect(dbconn)
     cursor = conn.cursor()  
 
     cursor.execute("SELECT * FROM ingresos WHERE eliminado = False")
@@ -81,7 +82,7 @@ def impNuevoInsumo():
 def buscarCodigo(codigo):
     try:
         # Conéctate a la base de datos
-        conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+        conn = sql.connect(dbconn)
         cursor = conn.cursor()
 
         # Realiza la consulta para obtener el nombre asociado al código
