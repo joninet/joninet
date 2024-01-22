@@ -16,7 +16,6 @@ def nuevoInsumoDB():
     conn = sql.connect(dbconn)
     cursor = conn.cursor()
 
-    # Verificar si el nombre ya existe en la base de datos
     cursor.execute("SELECT COUNT(*) FROM insumos WHERE nombre = ?", (nombre,))
     count = cursor.fetchone()[0]
 
@@ -24,13 +23,10 @@ def nuevoInsumoDB():
         conn.close()
         return render_template('nuevoInsumo.html', errorIngresoInsumo="El nombre ya existe en la base de datos")
 
-    # Insertar datos en la tabla 'insumos'
     cursor.execute("INSERT INTO insumos (codigo, nombre, cantidad, tipo, um) VALUES (?, ?, ?, ?, ?)", (codigo, nombre, 0, tipo, um))
 
-    # Commit para aplicar cambios
     conn.commit()
 
-    # Cerrar la conexión
     conn.close()
 
     return redirect(url_for('main'))

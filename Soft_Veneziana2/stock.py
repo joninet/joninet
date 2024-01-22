@@ -12,7 +12,7 @@ def stockActualInsumo(codigo):
     conexion.close()
 
     if resultado:
-        return resultado[0]# El resultado es una tupla, tomamos el primer elemento
+        return resultado[0]
     else:
-        return 0  # Código no encontrado
+        return 0 
 

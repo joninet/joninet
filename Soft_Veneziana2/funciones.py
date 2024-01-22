@@ -18,5 +18,17 @@ def codAleatorio():
             conn.close()
             paso=True
             return codigo
+                
+def editarStock(stockN, codigoN):
+    conn = sql.connect(dbconn)
+    cursor = conn.cursor()
+    consulta_busqueda = "SELECT * FROM insumos WHERE codigo = ?"
+    cursor.execute(consulta_busqueda, (codigoN,))
+    resultado = cursor.fetchone()
 
+    if resultado:
+        consulta_actualizacion = "UPDATE insumos SET cantidad = ? WHERE codigo = ?"
+        cursor.execute(consulta_actualizacion, (stockN, codigoN))
+        conn.commit()
+        conn.close()
         

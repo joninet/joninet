@@ -81,21 +81,18 @@ def impNuevoInsumo():
 @app.route('/buscar-codigo/<int:codigo>', methods=['GET'])
 def buscarCodigo(codigo):
     try:
-        # Conéctate a la base de datos
         conn = sql.connect(dbconn)
         cursor = conn.cursor()
 
-        # Realiza la consulta para obtener el nombre asociado al código
         cursor.execute("SELECT nombre FROM insumos WHERE codigo = ?", (codigo,))
         nombre = cursor.fetchone()
 
-        # Cierra la conexión a la base de datos
         conn.close()
 
         if nombre:
-            return nombre[0]  # Devuelve el nombre como respuesta
+            return nombre[0]  
         else:
-            return 'Codigo Incorrecto'  # Devuelve una cadena vacía si no se encuentra el código
+            return 'Codigo Incorrecto' 
 
     except Exception as e:
         return str("Descripcion")

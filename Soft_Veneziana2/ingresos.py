@@ -3,6 +3,7 @@ import sqlite3 as sql
 from datetime import datetime
 from config import dbconn
 from stock import stockActualInsumo
+from funciones import editarStock
 
 def borrarIngresos():
     try:
@@ -21,7 +22,7 @@ def borrarIngresos():
         return f"Error al borrar el ingreso: {str(e)}"
 
 def editarIngreso():
-    id = request.form.get('id')  # Obtén el valor de 'id' del formulario
+    id = request.form.get('id') 
     conn = sql.connect(dbconn)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM ingresos WHERE id = ?", (id,))
@@ -49,11 +50,9 @@ def editarDb():
                     proveedor = ?, oc = ?, lote = ?, vto = ?, estado = ?
                 WHERE id = ?"""
     params = (codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, id)
-            # Ejecutar la consulta de actualización
+
     cursor.execute(query, params)
-            # Commit para aplicar los cambios
     conn.commit()
-            # Cerrar la conexión
     conn.close()
 
     return redirect(url_for('main'))
@@ -73,32 +72,16 @@ def nuevoIngreso():
     if codigo and descripcion != "Codigo Incorrecto" and cantidad and proveedor and oc:
         conn = sql.connect(dbconn)
         cursor = conn.cursor()
-        # Insertar datos en la tabla 'ingresos'
         cursor.execute("INSERT INTO ingresos (fecha, codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, eliminado, usuarioIngreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                            (dateIngreso, codigo, descripcion, cantidad, proveedor, oc, lote, vto, 'En Revision', False, usuarioIngreso))
-        # Commit para aplicar cambios
         conn.commit()
-        # Cerrar la conexión
         conn.close()
 
-        #agregamos al stock
         stockNuevo = int(cantidad) + int(stockActualInsumo(codigo))
 
-        conn = sql.connect(dbconn)
-        cursor = conn.cursor()
-        consulta_busqueda = "SELECT * FROM insumos WHERE codigo = ?"
-        cursor.execute(consulta_busqueda, (codigo,))
-        resultado = cursor.fetchone()
-
-        if resultado:
-            consulta_actualizacion = "UPDATE insumos SET cantidad = ? WHERE codigo = ?"
-            cursor.execute(consulta_actualizacion, (stockNuevo, codigo))
-            conn.commit()
-            conn.close()
-
+        editarStock(stockNuevo, codigo)
+        
         return redirect(url_for('main'))
-    
-
     else:
         return render_template('nuevoIngresos.html', errorIngresoInsumo="Las credenciales no son correctas o existen campos vacios")
     
