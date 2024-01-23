@@ -4,7 +4,7 @@ from datetime import datetime
 from config import dbconn
 from models.stock import stockActualInsumo
 from helpers.funciones import editarStock
-from helpers.funcionesDb import insertarDatos, borrarFila
+from helpers.funcionesDb import insertarDatos, borrarFila, actualizarDatos
 
 def borrarIngresos():
     idBorrar = request.form['id']
@@ -23,7 +23,7 @@ def editarIngreso():
     return render_template('editarIngresos2.html', registro=editar)
 
 def editarDb():
-    id = request.form.get('id')
+    idEditar = f"id = {request.form.get('id')}"
     codigo = request.form['codigo']
     descripcion = request.form['descripcion']
     cantidad = request.form['cantidad']
@@ -33,18 +33,10 @@ def editarDb():
     vto = request.form['vto']
     estado = request.form['estado']
 
-    conn = sql.connect(dbconn)
-    cursor = conn.cursor()
+    columnas = ["codigo", "descripcion", "cantidad", "proveedor", "oc", "lote", "vto", "estado", "eliminado"]
+    valores = [codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, False]
 
-    query = """UPDATE ingresos
-                SET codigo = ?, descripcion = ?, cantidad = ?, 
-                    proveedor = ?, oc = ?, lote = ?, vto = ?, estado = ?
-                WHERE id = ?"""
-    params = (codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, id)
-
-    cursor.execute(query, params)
-    conn.commit()
-    conn.close()
+    actualizarDatos(dbconn, "insumos", columnas, valores, idEditar)
 
     return redirect(url_for('main'))
 
