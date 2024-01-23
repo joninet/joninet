@@ -4,23 +4,13 @@ from datetime import datetime
 from config import dbconn
 from models.stock import stockActualInsumo
 from helpers.funciones import editarStock
-from helpers.funcionesDb import insertar_datos_generico
+from helpers.funcionesDb import insertarDatos, borrarFila
 
 def borrarIngresos():
-    try:
-        conn = sql.connect(dbconn)
-        id = request.form['id']
-        cursor = conn.cursor()
-        
-        cursor.execute("DELETE FROM ingresos WHERE id = ?", (id,))
+    idBorrar = request.form['id']
+    borrarFila(dbconn, 'ingresos', idBorrar)
 
-        conn.commit()
-        conn.close()
-
-        return redirect(url_for('main'))
-
-    except Exception as e:
-        return f"Error al borrar el ingreso: {str(e)}"
+    return redirect(url_for('main'))
 
 def editarIngreso():
     id = request.form.get('id') 
@@ -74,7 +64,7 @@ def nuevoIngreso():
         columnas = ["fecha", "codigo", "descripcion", "cantidad", "proveedor", "oc", "lote", "vto", "estado", "eliminado", "usuarioIngreso"]
         valores = [dateIngreso, codigo, descripcion, cantidad, proveedor, oc, lote, vto, 'En Revision', False, usuarioIngreso]
 
-        insertar_datos_generico(dbconn, "ingresos", columnas, valores)
+        insertarDatos(dbconn, "ingresos", columnas, valores)
 
         stockNuevo = int(cantidad) + int(stockActualInsumo(codigo))
 
