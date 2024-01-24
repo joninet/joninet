@@ -67,13 +67,4 @@ def nuevoIngreso():
         return render_template('nuevoIngresos.html', errorIngresoInsumo="Las credenciales no son correctas o existen campos vacios")
     
 
-def main():
-    conn = sql.connect(dbconn)
-    cursor = conn.cursor()  
 
-    cursor.execute("SELECT * FROM ingresos WHERE eliminado = False")
-    ingreso = cursor.fetchall()
-
-    conn.close()
-
-    return render_template('main.html', ingreso=ingreso)

@@ -5,6 +5,7 @@ from config import dbconn
 from models.login import login, impLogout
 from models.ingresos import borrarIngresos, editarIngreso, editarDb, nuevoIngreso
 from models.insumos import nuevoInsumoDB
+from helpers.funcionesDb import mostrarUltimasFilas
 
 app = Flask(__name__)
 
@@ -12,15 +13,9 @@ app.secret_key = 'd5fb8c4fa8bd46638dadc4e751e0d68d'
 
 @app.route('/main', methods=['GET'])
 def main():
-    conn = sql.connect(dbconn)
-    cursor = conn.cursor()  
-
-    cursor.execute("SELECT * FROM ingresos WHERE eliminado = False")
-    ingreso = cursor.fetchall()
-
-    conn.close()
-
-    return render_template('main.html', ingreso=ingreso)
+    ultmiosIngresos = mostrarUltimasFilas(dbconn, "ingresos", 5)
+    ultimosInsumos = mostrarUltimasFilas(dbconn, "insumos", 5)
+    return render_template('main.html', ingreso=ultmiosIngresos, insumos=ultimosInsumos)
 
 @app.route('/', methods=['GET'])
 def home():

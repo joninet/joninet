@@ -37,6 +37,7 @@
                     <th class="centrado">Acciones</th>
                 </tr>
             </thead>
+            <div><h5 class="text-white">Ultimos Ingresos agregados</h5></div>
             <tbody>
             {% for ingreso in ingreso %}
                 <tr>
@@ -51,6 +52,44 @@
                     <td class="centrado small">{{ ingreso[8] }}</td>
                     <td class="centrado small">{{ ingreso[9] }}</td>
                     <td class="centrado small">{{ ingreso[11] }}</td>
+                    <td>
+                        <div style="display: flex;"> 
+                            <form action="/editar-ingreso" method="POST">
+                                <input type="hidden" name="id" value="{{ ingreso[0] }}">
+                                <a href="#" onclick="this.parentNode.submit()">
+                                    <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
+                                </a>
+                            </form>
+                            <form class="deleteForm" action="/borrarIngresos" method="POST">
+                                <input type="hidden" name="id" value="{{ ingreso[0] }}">
+                                <a href="#" onclick="confirmarBorrado('{{ ingreso[0] }}', event)">
+                                    <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
+                                </a>
+                            </form>
+                        </div>
+                    </td>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </article>
+    <article>
+        <table class="table table-striped mt-2">
+            <thead>
+                <tr>
+                    <th class="centrado">Id</th>
+                    <th class="centrado">Fecha</th>
+                    <th class="centrado">Codigo</th>
+                    <th class="centrado">Codigo</th>
+                </tr>
+            </thead>
+            <div><h5 class="text-white">Ultimos Insumos agredados</h5></div>
+            <tbody>
+            {% for ingreso in insumos %}
+                <tr>
+                    <td class="centrado small">{{ ingreso[0] }}</td>
+                    <td class="centrado small">{{ ingreso[1] }}</td>
+                    <td class="centrado small">{{ ingreso[2] }}</td>
                     <td>
                         <div style="display: flex;"> 
                             <form action="/editar-ingreso" method="POST">

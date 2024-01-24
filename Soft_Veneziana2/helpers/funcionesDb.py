@@ -1,4 +1,5 @@
 import sqlite3 as sql
+from flask import Flask, render_template
 def insertarDatos(dbconn, tabla, columnas, valores):
     try:
         conn = sql.connect(dbconn)
@@ -43,3 +44,13 @@ def borrarFila(dbconn, tabla, id):
 
     except Exception as e:
         print(f"Error al borrar la fila: {e}")
+
+def mostrarUltimasFilas(dbconn, tabla, limite):
+    conn = sql.connect(dbconn)
+    cursor = conn.cursor()  
+
+    cursor.execute(f"SELECT * FROM {tabla} LIMIT {limite}")
+    ingreso = cursor.fetchall()
+
+    conn.close()
+    return ingreso
