@@ -57,11 +57,9 @@
                     <td class="centrado small">{{ ingreso[11] }}</td>
                     <td>
                         <div style="display: flex;"> 
-                            <form action="/editar-ingreso" method="POST">
-                                <input type="hidden" name="id" value="{{ ingreso[0] }}">
-                                <a href="#" onclick="this.parentNode.submit()">
-                                    <img class="navbar-brand" src="{{url_for('static', filename='images/anglesolid.svg')}}" alt="Editar">
-                                </a>
+                            <form action="/editar" method="POST">
+                                <input type="hidden" name="id8" value="some_value"> <!-- Agrega un valor válido aquí -->
+                                <img class="navbar-brand" src="{{url_for('static', filename='images/angles.svg')}}" alt="Editar">
                             </form>
                             <form action="/editar-ingreso" method="POST">
                                 <input type="hidden" name="id" value="{{ ingreso[0] }}">
@@ -77,6 +75,7 @@
                             </form>
                         </div>
                     </td>
+                    
                 {% endfor %}
                 
             </tbody>
