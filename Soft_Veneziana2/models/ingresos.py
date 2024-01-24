@@ -36,7 +36,7 @@ def editarDb():
     columnas = ["codigo", "descripcion", "cantidad", "proveedor", "oc", "lote", "vto", "estado", "eliminado"]
     valores = [codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, False]
 
-    actualizarDatos(dbconn, "insumos", columnas, valores, idEditar)
+    actualizarDatos(dbconn, "ingresos", columnas, valores, idEditar)
 
     return redirect(url_for('main'))
 
