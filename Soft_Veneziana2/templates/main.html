@@ -20,7 +20,11 @@
 <body>
     {% include 'menu.html' %}
     <article>
-        <table class="table table-striped mt-2">
+        <div class="m-2"></div>
+        <table class="table table-striped m-0">
+            <thead><tr><th class="bg-success text-white">Ultimos Ingresos agregados</tr></thead>
+        </table>
+        <table class="table table-striped m-0">
             <thead>
                 <tr>
                     <th class="centrado">Id</th>
@@ -37,7 +41,6 @@
                     <th class="centrado">Acciones</th>
                 </tr>
             </thead>
-            <div><h5 class="text-white">Ultimos Ingresos agregados</h5></div>
             <tbody>
             {% for ingreso in ingreso %}
                 <tr>
@@ -72,9 +75,16 @@
                 
             </tbody>
         </table>
+        <table class="table table-striped m-0">
+            <thead><tr><th><button type="button" class="btn btn-success text-white btn-sm">Ver todos</button></tr></thead>
+        </table>
     </article>
     <article>
-        <table class="table table-striped mt-2">
+        <div class="m-2"></div>
+        <table class="table table-striped m-0">
+            <thead><tr><th class="bg-success text-white">Ultimos Insumos agregados</tr></thead>
+        </table>
+        <table class="table table-striped m-0">
             <thead>
                 <tr>
                     <th class="centrado">Id</th>
@@ -83,7 +93,6 @@
                     <th class="centrado">Codigo</th>
                 </tr>
             </thead>
-            <div><h5 class="text-white">Ultimos Insumos agredados</h5></div>
             <tbody>
             {% for ingreso in insumos %}
                 <tr>
@@ -109,6 +118,9 @@
                 {% endfor %}
                 
             </tbody>
+        </table>
+        <table class="table table-striped m-0">
+            <thead><tr><th><button type="button" class="btn btn-success text-white btn-sm">Ver todos</button></tr></thead>
         </table>
     </article>
     <script>
