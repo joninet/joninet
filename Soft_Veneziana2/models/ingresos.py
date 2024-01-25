@@ -51,10 +51,11 @@ def nuevoIngreso():
     usuarioIngreso = request.form['usuarioIngreso']
     d = datetime.now()
     dateIngreso=d.strftime("%Y-%m-%d %H:%M:%S")
+    remito=request.form['remito']
 
     if codigo and descripcion != "Codigo Incorrecto" and cantidad and proveedor and oc:
-        columnas = ["fecha", "codigo", "descripcion", "cantidad", "proveedor", "oc", "lote", "vto", "estado", "eliminado", "usuarioIngreso"]
-        valores = [dateIngreso, codigo, descripcion, cantidad, proveedor, oc, lote, vto, 'En Revision', False, usuarioIngreso]
+        columnas = ["fecha", "codigo", "descripcion", "cantidad", "proveedor", "oc", "lote", "vto", "estado", "eliminado", "usuarioIngreso", "remito"]
+        valores = [dateIngreso, codigo, descripcion, cantidad, proveedor, oc, lote, vto, 'En Revision', False, usuarioIngreso, remito]
 
         insertarDatos(dbconn, "ingresos", columnas, valores)
 

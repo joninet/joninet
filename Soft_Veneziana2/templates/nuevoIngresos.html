@@ -49,8 +49,8 @@
                                 <input type="number" class="form-control mb-3" name="oc">
                             </div>
                             <div class="col-6">
-                                <label>Lote</label>
-                                <input type="text" class="form-control mb-3" name="lote">
+                                <label>N° Remito/Factura</label>
+                                <input type="text" class="form-control mb-3" name="remito">
                             </div>
                         </div>
                         <div class="row">
@@ -58,6 +58,12 @@
                                 <label>Vencimiento</label>
                                 <input type="date" class="form-control mb-3" name="vto">
                             </div>
+                            <div class="col-6">
+                                <label>Lote</label>
+                                <input type="text" class="form-control mb-3" name="lote">
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-6">
                                 <label>Usuario</label>
                                 <input type="text" class="form-control mb-3" name="usuarioIngreso" value="{{session['nombreUsuario']}}" readonly>

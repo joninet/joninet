@@ -9,7 +9,7 @@ def tabla_existe(cursor, nombre_tabla):
     return cursor.fetchone() is not None
 
 def nueva_tabla():
-    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    conn = sql.connect("Soft_Veneziana2/baseDatos.db")
     cursor = conn.cursor()
     
     nombre_tabla = "insumos"
@@ -82,24 +82,24 @@ def eliminarTabla():
         
 
 def agregarColumnaIdUsuario():
-    conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
+    conn = sql.connect("Soft_Veneziana2/baseDatos.db")
     cursor = conn.cursor()
 
     try:
         # Agrega la nueva columna 'idusuario' a la tabla 'ingresos'
-        cursor.execute("ALTER TABLE usuario ADD COLUMN nombreUsuario TEXT")
+        cursor.execute("ALTER TABLE ingresos ADD COLUMN remito TEXT")
 
         # Guarda los cambios en la base de datos
         conn.commit()
-        print("Columna 'nombreusuario' agregada correctamente.")
+        print("Columna 'remito' agregada correctamente.")
 
     except sql.Error as e:
-        print(f"Error al agregar la columna 'idusuario': {e}")
+        print(f"Error al agregar la columna 'remito': {e}")
 
     finally:
         conn.close()
 
-#agregarColumnaIdUsuario()
+agregarColumnaIdUsuario()
         
 def modificarColumnaIdUsuario():
     conn = sql.connect("Soft_Veneziana2/venezianaDB.db")
@@ -181,7 +181,7 @@ def eliminar_filas_por_ids(database, table, id_column, ids_to_delete):
         conn.close()
 
 # Uso de la función para eliminar filas con IDs 1, 2, 3, 4, 5
-eliminar_filas_por_ids("Soft_Veneziana2/venezianaDB.db", "insumos", "id", [1, 2, 3, 4, 5])
+#eliminar_filas_por_ids("Soft_Veneziana2/venezianaDB.db", "insumos", "id", [1, 2, 3, 4, 5])
 
 
 
