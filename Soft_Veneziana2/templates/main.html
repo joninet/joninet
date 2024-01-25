@@ -130,7 +130,7 @@
                                     </a>
                                 </form>
                                 <form class="deleteForm" action="/borrarInsumos" method="POST">
-                                    <input type="hidden" name="idinsumos" value="{{ ingreso[0] }}">
+                                    <input type="hidden" name="id" value="{{ ingreso[0] }}">
                                     <a href="#" onclick="confirmarBorradoInsumos('{{ ingreso[0] }}', event)">
                                         <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
                                     </a>
@@ -157,15 +157,6 @@
                 document.querySelector('.deleteForm').submit();
             }
         }
-        function confirmarBorradoInsumos(id, event) {
-            event.preventDefault();  // Evitar el comportamiento predeterminado del enlace
-            if (confirm('¿Estás seguro de que deseas eliminar este ingreso?')) {
-                // Si el usuario confirma, enviar el formulario de borrado asociado a este ícono
-                document.querySelector('.deleteForm input[name="idinsumos"]').value = id;
-                document.querySelector('.deleteForm').submit();
-            }
-        }
-        
     </script>
     <script>
         document.querySelectorAll('a[data-bs-toggle="modal"]').forEach(link => {
