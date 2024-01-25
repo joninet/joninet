@@ -4,7 +4,7 @@ from datetime import datetime
 from config import dbconn
 from models.login import login, impLogout
 from models.ingresos import borrarIngresos, editarIngreso, editarDb, nuevoIngreso
-from models.insumos import nuevoInsumoDB
+from models.insumos import nuevoInsumoDB, borrarInsumos
 from helpers.funcionesDb import mostrarUltimasFilas
 
 app = Flask(__name__)
@@ -48,6 +48,10 @@ def editarIngresos():
 @app.route('/borrarIngresos', methods=['POST'])
 def impBorrarIngresos():
     return borrarIngresos()
+
+@app.route('/borrarInsumos', methods=['POST'])
+def impBorrarInsumos():
+    return borrarInsumos()
 
 @app.route('/nuevoUsuario', methods=['GET'])
 def nuevoUsuario():

@@ -3,6 +3,13 @@ import sqlite3 as sql
 from datetime import datetime
 from config import dbconn
 from helpers.funciones import codAleatorio
+from helpers.funcionesDb import insertarDatos, borrarFila, actualizarDatos
+
+def borrarInsumos():
+    idBorrar = request.form['id']
+    borrarFila(dbconn, 'insumos', idBorrar)
+
+    return redirect(url_for('main'))
 
 def nuevoInsumoDB():
     codigo = codAleatorio()

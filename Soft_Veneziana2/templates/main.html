@@ -19,140 +19,149 @@
 </head>
 <body>
     {% include 'menu.html' %}
-    <article>
-        <div class="m-2"></div>
-        <table class="table table-striped m-0">
-            <thead><tr><th class="bg-success text-white">Ultimos Ingresos agregados</tr></thead>
-        </table>
-        <table class="table table-striped m-0">
-            <thead>
-                <tr>
-                    <th class="centrado">Id</th>
-                    <th class="centrado">Fecha</th>
-                    <th class="centrado">Codigo</th>
-                    <th class="centrado">Descripcion</th>
-                    <th class="centrado">Cantidad</th>
-                    <th class="centrado">Proveedor</th>
-                    <th class="centrado">Oc</th>
-                    <th class="centrado">lote</th>
-                    <th class="centrado">Vencimiento</th>
-                    <th class="centrado">Estado</th>
-                    <th class="centrado">Usuario</th>
-                    <th class="centrado">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for ingreso in ingreso %}
-                <tr>
-                    <td class="centrado small">{{ ingreso[0] }}</td>
-                    <td class="centrado small">{{ ingreso[1] }}</td>
-                    <td class="centrado small">{{ ingreso[2] }}</td>
-                    <td class="centrado small">{{ ingreso[3] }}</td>
-                    <td class="centrado small">{{ ingreso[4] }}</td>
-                    <td class="centrado small">{{ ingreso[5] }}</td>
-                    <td class="centrado small">{{ ingreso[6] }}</td>
-                    <td class="centrado small">{{ ingreso[7] }}</td>
-                    <td class="centrado small">{{ ingreso[8] }}</td>
-                    <td class="centrado small">{{ ingreso[9] }}</td>
-                    <td class="centrado small">{{ ingreso[11] }}</td>
-                    <td>
-                        <div style="display: flex;"> 
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <img src="{{url_for('static', filename='images/solid.svg')}}" alt="">
-                            </a>
-                            <form action="/editar-ingreso" method="POST">
-                                <input type="hidden" name="id" value="{{ ingreso[0] }}">
-                                <a href="#" onclick="this.parentNode.submit()">
-                                    <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
-                                </a>
-                            </form>
-                            <form class="deleteForm" action="/borrarIngresos" method="POST">
-                                <input type="hidden" name="id" value="{{ ingreso[0] }}">
-                                <a href="#" onclick="confirmarBorrado('{{ ingreso[0] }}', event)">
-                                    <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
-                                </a>
-                            </form>
-                        </div>
-                    </td>
-                    <!-- Modal Ingresos-->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <main class="d-flex">
+        <div class="container-fluid row m-0 vh-50 justify-content-center align-items-center" style="height: 50vh;">
+            <article>
+                <div class="m-2"></div>
+                <table class="table table-striped m-0">
+                    <thead><tr><th class="bg-success text-white">Ultimos Ingresos agregados</tr></thead>
+                </table>
+                <table class="table table-striped m-0">
+                    <thead>
+                        <tr>
+                            <th class="centrado">Fecha</th>
+                            <th class="centrado">Codigo</th>
+                            <th class="centrado">Descripcion</th>
+                            <th class="centrado">Cantidad</th>
+                            <th class="centrado">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for ingreso in ingreso %}
+                        <tr>
+                            <td class="centrado small">{{ ingreso[1] }}</td>
+                            <td class="centrado small">{{ ingreso[2] }}</td>
+                            <td class="centrado small">{{ ingreso[3] }}</td>
+                            <td class="centrado small">{{ ingreso[4] }}</td>
+                            <td>
+                                <div style="display: flex;"> 
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <img src="{{url_for('static', filename='images/solid.svg')}}" alt="">
+                                    </a>
+                                    <form action="/editar-ingreso" method="POST">
+                                        <input type="hidden" name="id" value="{{ ingreso[0] }}">
+                                        <a href="#" onclick="this.parentNode.submit()">
+                                            <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
+                                        </a>
+                                    </form>
+                                    <form class="deleteForm" action="/borrarIngresos" method="POST">
+                                        <input type="hidden" name="id" value="{{ ingreso[0] }}">
+                                        <a href="#" onclick="confirmarBorrado('{{ ingreso[0] }}', event)">
+                                            <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
+                                        </a>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                            <!-- Modal Ingresos-->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="m-3">
+                                        <h5>Id: {{ ingreso[0] }}</h5>
+                                        <h5>Fecha: {{ ingreso[1] }}</h5>
+                                        <h5>Codigo: {{ ingreso[2] }}</h5>
+                                        <h5>Descripcion: {{ ingreso[3] }}</h5>
+                                        <h5>Cantidad: {{ ingreso[4] }}</h5>
+                                        <h5>Proveedor: {{ ingreso[5] }}</h5>
+                                        <h5>Oc: {{ ingreso[6] }}</h5>
+                                        <h5>Lote: {{ ingreso[7] }}</h5>
+                                        <h5>Vencimiento: {{ ingreso[8] }}</h5>
+                                        <h5>Estado: {{ ingreso[9] }}</h5>
+                                        <h5>Usuario: {{ ingreso[11] }}</h5>
+                                    </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
-                            <div class="m-3">
-                                <h5>Id: {{ ingreso[0] }}</h5>
-                                <h5>Fecha: {{ ingreso[1] }}</h5>
-                                <h5>Codigo: {{ ingreso[2] }}</h5>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+                <table class="table table-striped m-0">
+                    <thead><tr><th><button type="button" class="btn btn-success text-white btn-sm">Ver todos</button></tr></thead>
+                </table>
+            </article>
+            <article>
+                <div class="m-2"></div>
+                <table class="table table-striped m-0">
+                    <thead><tr><th class="bg-success text-white">Ultimos Insumos agregados</tr></thead>
+                </table>
+                <table class="table table-striped m-0">
+                    <thead>
+                        <tr>
+                            <th class="centrado">Codigo</th>
+                            <th class="centrado">Nombre</th>
+                            <th class="centrado">Tipo</th>
+                            <th class="centrado">Uni. Medida</th>
+                            <th class="centrado">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for ingreso in insumos %}
+                    <tr>
+                        <td class="centrado small">{{ ingreso[1] }}</td>
+                        <td class="centrado small">{{ ingreso[2] }}</td>
+                        <td class="centrado small">{{ ingreso[4] }}</td>
+                        <td class="centrado small">{{ ingreso[5] }}</td>
+                        <td>
+                            <div style="display: flex;"> 
+                                <form action="/editar-ingreso" method="POST">
+                                    <input type="hidden" name="id" value="{{ ingreso[0] }}">
+                                    <a href="#" onclick="this.parentNode.submit()">
+                                        <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
+                                    </a>
+                                </form>
+                                <form class="deleteForm" action="/borrarInsumos" method="POST">
+                                    <input type="hidden" name="idinsumos" value="{{ ingreso[0] }}">
+                                    <a href="#" onclick="confirmarBorradoInsumos('{{ ingreso[0] }}', event)">
+                                        <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
+                                    </a>
+                                </form>
                             </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                          </div>
-                        </div>
-                    </div>
-                {% endfor %}
-                
-            </tbody>
-        </table>
-        <table class="table table-striped m-0">
-            <thead><tr><th><button type="button" class="btn btn-success text-white btn-sm">Ver todos</button></tr></thead>
-        </table>
-    </article>
-    <article>
-        <div class="m-2"></div>
-        <table class="table table-striped m-0">
-            <thead><tr><th class="bg-success text-white">Ultimos Insumos agregados</tr></thead>
-        </table>
-        <table class="table table-striped m-0">
-            <thead>
-                <tr>
-                    <th class="centrado">Id</th>
-                    <th class="centrado">Fecha</th>
-                    <th class="centrado">Codigo</th>
-                    <th class="centrado">Codigo</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for ingreso in insumos %}
-                <tr>
-                    <td class="centrado small">{{ ingreso[0] }}</td>
-                    <td class="centrado small">{{ ingreso[1] }}</td>
-                    <td class="centrado small">{{ ingreso[2] }}</td>
-                    <td>
-                        <div style="display: flex;"> 
-                            <img class="navbar-brand mr-3" src="{{url_for('static', filename='images/solid.svg')}}" alt="">
-                            <form action="/editar-ingreso" method="POST">
-                                <input type="hidden" name="id" value="{{ ingreso[0] }}">
-                                <a href="#" onclick="this.parentNode.submit()">
-                                    <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
-                                </a>
-                            </form>
-                            <form class="deleteForm" action="/borrarIngresos" method="POST">
-                                <input type="hidden" name="id" value="{{ ingreso[0] }}">
-                                <a href="#" onclick="confirmarBorrado('{{ ingreso[0] }}', event)">
-                                    <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
-                                </a>
-                            </form>
-                        </div>
-                    </td>
-                {% endfor %}
-                
-            </tbody>
-        </table>
-        <table class="table table-striped m-0">
-            <thead><tr><th><button type="button" class="btn btn-success text-white btn-sm">Ver todos</button></tr></thead>
-        </table>
-    </article>
+                        </td>
+                    </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+                <table class="table table-striped m-0">
+                    <thead><tr><th><button type="button" class="btn btn-success text-white btn-sm">Ver todos</button></tr></thead>
+                </table>
+            </article>
+        </div>
+    </main>
     <script>
         function confirmarBorrado(id, event) {
             event.preventDefault();  // Evitar el comportamiento predeterminado del enlace
             if (confirm('¿Estás seguro de que deseas eliminar este ingreso?')) {
                 // Si el usuario confirma, enviar el formulario de borrado asociado a este ícono
                 document.querySelector('.deleteForm input[name="id"]').value = id;
+                document.querySelector('.deleteForm').submit();
+            }
+        }
+        function confirmarBorradoInsumos(id, event) {
+            event.preventDefault();  // Evitar el comportamiento predeterminado del enlace
+            if (confirm('¿Estás seguro de que deseas eliminar este ingreso?')) {
+                // Si el usuario confirma, enviar el formulario de borrado asociado a este ícono
+                document.querySelector('.deleteForm input[name="idinsumos"]').value = id;
                 document.querySelector('.deleteForm').submit();
             }
         }
@@ -164,7 +173,15 @@
           const targetRow = event.target.closest('tr'); // Obtiene la fila seleccionada
           const id = targetRow.querySelector('td:first-child').textContent; // Extrae el ID
           const fecha = targetRow.querySelector('td:nth-child(2)').textContent;
-          const codigo = targetRow.querySelector('td:nth-child(3)').textContent; // Extrae la fecha
+          const codigo = targetRow.querySelector('td:nth-child(3)').textContent;
+          const descripcion = targetRow.querySelector('td:nth-child(4)').textContent;
+          const cantidad = targetRow.querySelector('td:nth-child(5)').textContent;
+          const proveedor = targetRow.querySelector('td:nth-child(6)').textContent;
+          const oc = targetRow.querySelector('td:nth-child(7)').textContent;
+          const lote = targetRow.querySelector('td:nth-child(8)').textContent;
+          const vto = targetRow.querySelector('td:nth-child(9)').textContent;
+          const estado = targetRow.querySelector('td:nth-child(10)').textContent;
+          const usuario = targetRow.querySelector('td:nth-child(11)').textContent; // Extrae la fecha
 
           // Actualiza el contenido del modal con los datos actuales
           const modal = document.getElementById('exampleModal');
@@ -172,6 +189,14 @@
           modal.querySelector('.m-3 h5:first-child').textContent = `Id: ${id}`;
           modal.querySelector('.m-3 h5:nth-child(2)').textContent = `Fecha: ${fecha}`;
           modal.querySelector('.m-3 h5:nth-child(3)').textContent = `Codigo: ${codigo}`;
+          modal.querySelector('.m-3 h5:nth-child(4)').textContent = `Descripcion: ${descripcion}`;
+          modal.querySelector('.m-3 h5:nth-child(5)').textContent = `Cantidad: ${cantidad}`;
+          modal.querySelector('.m-3 h5:nth-child(6)').textContent = `Proveedor: ${proveedor}`;
+          modal.querySelector('.m-3 h5:nth-child(7)').textContent = `Oc: ${oc}`;
+          modal.querySelector('.m-3 h5:nth-child(8)').textContent = `Lote: ${lote}`;
+          modal.querySelector('.m-3 h5:nth-child(9)').textContent = `Vencimiento: ${vto}`;
+          modal.querySelector('.m-3 h5:nth-child(10)').textContent = `Estado: ${estado}`;
+          modal.querySelector('.m-3 h5:nth-child(11)').textContent = `Usuario: ${usuario}`;
       });
   });
     </script>
