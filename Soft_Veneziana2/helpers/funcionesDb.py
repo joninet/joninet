@@ -33,11 +33,11 @@ def actualizarDatos(dbconn, tabla, columnas, valores, condicion):
             conn.close()
 
 
-def borrarFila(dbconn, tabla, id):
+def borrarFila(dbconn, tabla, id_fila):
     try:
         conn = sql.connect(dbconn)
         cursor = conn.cursor()
-        cursor.execute(f"DELETE FROM {tabla} WHERE id = ?", (id,))
+        cursor.execute(f"DELETE FROM {tabla} WHERE id = ?", (id_fila,))
 
         conn.commit()
         conn.close()

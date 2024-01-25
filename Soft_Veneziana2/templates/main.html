@@ -115,26 +115,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for ingreso in insumos %}
+                    {% for ins in insumos %}
                     <tr>
-                        <td class="centrado small">{{ ingreso[1] }}</td>
-                        <td class="centrado small">{{ ingreso[2] }}</td>
-                        <td class="centrado small">{{ ingreso[4] }}</td>
-                        <td class="centrado small">{{ ingreso[5] }}</td>
+                        <td class="centrado small">{{ ins[1] }}</td>
+                        <td class="centrado small">{{ ins[2] }}</td>
+                        <td class="centrado small">{{ ins[4] }}</td>
+                        <td class="centrado small">{{ ins[5] }}</td>
                         <td>
                             <div style="display: flex;"> 
                                 <form action="/editar-ingreso" method="POST">
-                                    <input type="hidden" name="id" value="{{ ingreso[0] }}">
+                                    <input type="hidden" name="id" value="{{ ins[0] }}">
                                     <a href="#" onclick="this.parentNode.submit()">
                                         <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
                                     </a>
                                 </form>
-                                <form class="deleteForm" action="/borrarInsumos" method="POST">
-                                    <input type="hidden" name="id" value="{{ ingreso[0] }}">
-                                    <a href="#" onclick="confirmarBorradoInsumos('{{ ingreso[0] }}', event)">
-                                        <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
-                                    </a>
-                                </form>
+                                <a href="/borrarInsumos/{{ ins[0] }}">b</a>
                             </div>
                         </td>
                     </tr>

@@ -6,7 +6,7 @@ from helpers.funciones import codAleatorio
 from helpers.funcionesDb import insertarDatos, borrarFila, actualizarDatos
 
 def borrarInsumos():
-    idBorrar = request.form['id']
+    idBorrar = request.form['idInsumo']
     borrarFila(dbconn, 'insumos', idBorrar)
 
     return redirect(url_for('main'))
