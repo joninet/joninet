@@ -6,6 +6,12 @@ from models.stock import stockActualInsumo
 from helpers.funciones import editarStock
 from helpers.funcionesDb import insertarDatos, borrarFila, actualizarDatos
 
+def mostrarIngreso(id_fila):
+  db = sql.connect(dbconn)
+  ingreso = db.execute("SELECT * FROM ingresos WHERE id = {}".format(id_fila)).fetchone()
+
+  return render_template("mostrarIngreso.html", ingreso=ingreso)
+
 def borrarIngresos():
     idBorrar = request.form['id']
     borrarFila(dbconn, 'ingresos', idBorrar)

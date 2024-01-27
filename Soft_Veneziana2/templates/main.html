@@ -48,7 +48,7 @@
                             <td class="centrado small">{{ ingreso[4] }}</td>
                             <td>
                                 <div style="display: flex;"> 
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <a href="/mostrar/{{ ingreso[0] }}">
                                         <img src="{{url_for('static', filename='images/solid.svg')}}" alt="">
                                     </a>
                                     <form action="/editar-ingreso" method="POST">
@@ -66,34 +66,7 @@
                                 </div>
                             </td>
                         </tr>
-                            <!-- Modal Ingresos-->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="m-3">
-                                        <h5>Id: {{ ingreso[0] }}</h5>
-                                        <h5>Fecha: {{ ingreso[1] }}</h5>
-                                        <h5>Codigo: {{ ingreso[2] }}</h5>
-                                        <h5>Descripcion: {{ ingreso[3] }}</h5>
-                                        <h5>Cantidad: {{ ingreso[4] }}</h5>
-                                        <h5>Proveedor: {{ ingreso[5] }}</h5>
-                                        <h5>Oc: {{ ingreso[6] }}</h5>
-                                        <h5>Lote: {{ ingreso[7] }}</h5>
-                                        <h5>Vencimiento: {{ ingreso[8] }}</h5>
-                                        <h5>Estado: {{ ingreso[9] }}</h5>
-                                        <h5>Usuario: {{ ingreso[11] }}</h5>
-                                    </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
+
                         {% endfor %}
                         
                     </tbody>
@@ -155,39 +128,6 @@
                 document.querySelector('.deleteForm').submit();
             }
         }
-    </script>
-    <script>
-        document.querySelectorAll('a[data-bs-toggle="modal"]').forEach(link => {
-      link.addEventListener('click', (event) => {
-          const targetRow = event.target.closest('tr'); // Obtiene la fila seleccionada
-          const id = targetRow.querySelector('td:first-child').textContent; // Extrae el ID
-          const fecha = targetRow.querySelector('td:nth-child(2)').textContent;
-          const codigo = targetRow.querySelector('td:nth-child(3)').textContent;
-          const descripcion = targetRow.querySelector('td:nth-child(4)').textContent;
-          const cantidad = targetRow.querySelector('td:nth-child(5)').textContent;
-          const proveedor = targetRow.querySelector('td:nth-child(6)').textContent;
-          const oc = targetRow.querySelector('td:nth-child(7)').textContent;
-          const lote = targetRow.querySelector('td:nth-child(8)').textContent;
-          const vto = targetRow.querySelector('td:nth-child(9)').textContent;
-          const estado = targetRow.querySelector('td:nth-child(10)').textContent;
-          const usuario = targetRow.querySelector('td:nth-child(11)').textContent; // Extrae la fecha
-
-          // Actualiza el contenido del modal con los datos actuales
-          const modal = document.getElementById('exampleModal');
-          modal.querySelector('.modal-title').textContent = `Ingreso`;
-          modal.querySelector('.m-3 h5:first-child').textContent = `Id: ${id}`;
-          modal.querySelector('.m-3 h5:nth-child(2)').textContent = `Fecha: ${fecha}`;
-          modal.querySelector('.m-3 h5:nth-child(3)').textContent = `Codigo: ${codigo}`;
-          modal.querySelector('.m-3 h5:nth-child(4)').textContent = `Descripcion: ${descripcion}`;
-          modal.querySelector('.m-3 h5:nth-child(5)').textContent = `Cantidad: ${cantidad}`;
-          modal.querySelector('.m-3 h5:nth-child(6)').textContent = `Proveedor: ${proveedor}`;
-          modal.querySelector('.m-3 h5:nth-child(7)').textContent = `Oc: ${oc}`;
-          modal.querySelector('.m-3 h5:nth-child(8)').textContent = `Lote: ${lote}`;
-          modal.querySelector('.m-3 h5:nth-child(9)').textContent = `Vencimiento: ${vto}`;
-          modal.querySelector('.m-3 h5:nth-child(10)').textContent = `Estado: ${estado}`;
-          modal.querySelector('.m-3 h5:nth-child(11)').textContent = `Usuario: ${usuario}`;
-      });
-  });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>           
 </body>
