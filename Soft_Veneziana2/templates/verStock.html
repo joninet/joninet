@@ -19,69 +19,37 @@
 </head>
 <body>
     {% include 'menu.html' %}
-    <article>
-        <table class="table table-striped mt-2">
-            <thead>
-                <tr>
-                    <th class="centrado">Id</th>
-                    <th class="centrado">Fecha</th>
-                    <th class="centrado">Codigo</th>
-                    <th class="centrado">Descripcion</th>
-                    <th class="centrado">Cantidad</th>
-                    <th class="centrado">Proveedor</th>
-                    <th class="centrado">Oc</th>
-                    <th class="centrado">lote</th>
-                    <th class="centrado">Vencimiento</th>
-                    <th class="centrado">Estado</th>
-                    <th class="centrado">Usuario</th>
-                    <th class="centrado">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for ingreso in ingreso %}
-                <tr>
-                    <td class="centrado small">{{ ingreso[0] }}</td>
-                    <td class="centrado small">{{ ingreso[1] }}</td>
-                    <td class="centrado small">{{ ingreso[2] }}</td>
-                    <td class="centrado small">{{ ingreso[3] }}</td>
-                    <td class="centrado small">{{ ingreso[4] }}</td>
-                    <td class="centrado small">{{ ingreso[5] }}</td>
-                    <td class="centrado small">{{ ingreso[6] }}</td>
-                    <td class="centrado small">{{ ingreso[7] }}</td>
-                    <td class="centrado small">{{ ingreso[8] }}</td>
-                    <td class="centrado small">{{ ingreso[9] }}</td>
-                    <td class="centrado small">{{ ingreso[11] }}</td>
-                    <td>
-                        <div style="display: flex;"> 
-                            <form action="/editar-ingreso" method="POST">
-                                <input type="hidden" name="id" value="{{ ingreso[0] }}">
-                                <a href="#" onclick="this.parentNode.submit()">
-                                    <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
-                                </a>
-                            </form>
-                            <form class="deleteForm" action="/borrarIngresos" method="POST">
-                                <input type="hidden" name="id" value="{{ ingreso[0] }}">
-                                <a href="#" onclick="confirmarBorrado('{{ ingreso[0] }}', event)">
-                                    <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
-                                </a>
-                            </form>
-                        </div>
-                    </td>
-                {% endfor %}
-                
-            </tbody>
-        </table>
-    </article>
-    <script>
-        function confirmarBorrado(id, event) {
-            event.preventDefault();  // Evitar el comportamiento predeterminado del enlace
-            if (confirm('¿Estás seguro de que deseas eliminar este ingreso?')) {
-                // Si el usuario confirma, enviar el formulario de borrado asociado a este ícono
-                document.querySelector('.deleteForm input[name="id"]').value = id;
-                document.querySelector('.deleteForm').submit();
-            }
-        }
-    </script>
+    <main class="d-flex">
+        <div class="container-fluid row m-2 vh-100 justify-content-center align-items-top">
+            <div class="card shadow w-50">
+                <div class="card-body">
+                    <article>
+                        <table class="table table-striped mt-2">
+                            <thead>
+                                <tr>
+                                    <th class="centrado">Codigo</th>
+                                    <th class="centrado">Nombre</th>
+                                    <th class="centrado">Unidad de medida</th>
+                                    <th class="centrado">Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for insumo in insumo %}
+                                <tr>
+                                    <td class="centrado small">{{ insumo[1] }}</td>
+                                    <td class="centrado small">{{ insumo[2] }}</td>
+                                    <td class="centrado small">{{ insumo[5] }}</td>
+                                    <td class="centrado small">{{ insumo[3] }}</td>
+                                </tr>
+                            {% endfor %}
+                                
+                            </tbody>
+                        </table>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>           
 </body>
 </html>

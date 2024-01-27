@@ -15,6 +15,7 @@ app.secret_key = 'd5fb8c4fa8bd46638dadc4e751e0d68d'
 def impMostrarIngreso(id_fila):
     return mostrarIngreso(id_fila)
 
+
 @app.route("/editarIng/<id_fila>", methods=['POST'])
 def impEditarIng(id_fila):
     return editarDb(id_fila)
@@ -45,9 +46,10 @@ def impLogin():
 def nuevoIngresos():
     return render_template('nuevoIngresos.html')
 
-@app.route('/verStock', methods=['GET'])
+@app.route('/verStock')
 def verStock():
-    return render_template('verStock.html')
+    stockInsumo = mostrarUltimasFilas(dbconn, "insumos", 99995)
+    return render_template('verStock.html', insumo=stockInsumo)
 
 @app.route('/nuevoInsumo', methods=['GET'])
 def nuevoInsumo():
