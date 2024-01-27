@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <h4 class="text-center text-secondary">FORMULARIO PARA EDITAR INGRESOS</h4>
                         {% for editar in registro %}
-                        <form action="/editar-db" method="post" id="nuevo-ingreso">
+                        <form action="/editarIng/{{ editar[0] }}" method="post" id="editarIng">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
@@ -70,8 +70,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label>ID</label>
-                                    <input type="number" class="form-control mb-3" name="id" value="{{ editar[0] }}" readonly>
+                                    <label>Remito</label>
+                                    <input type="text" class="form-control mb-3" name="remito" value="{{ editar[12] }}">
                                 </div>
                             </div>
                             {% endfor %}

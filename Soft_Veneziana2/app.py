@@ -11,9 +11,13 @@ app = Flask(__name__)
 
 app.secret_key = 'd5fb8c4fa8bd46638dadc4e751e0d68d'
 
-@app.route("/mostrar/<id_fila>")
+@app.route("/mostrarIng/<id_fila>")
 def impMostrarIngreso(id_fila):
     return mostrarIngreso(id_fila)
+
+@app.route("/editarIng/<id_fila>", methods=['POST'])
+def impEditarIng(id_fila):
+    return editarDb(id_fila)
 
 @app.route('/main', methods=['GET'])
 def main():

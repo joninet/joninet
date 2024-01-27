@@ -28,8 +28,7 @@ def editarIngreso():
     conn.close()
     return render_template('editarIngresos2.html', registro=editar)
 
-def editarDb():
-    idEditar = f"id = {request.form.get('id')}"
+def editarDb(id_fila):
     codigo = request.form['codigo']
     descripcion = request.form['descripcion']
     cantidad = request.form['cantidad']
@@ -38,12 +37,12 @@ def editarDb():
     lote = request.form['lote']
     vto = request.form['vto']
     estado = request.form['estado']
+    remito = request.form['remito']
 
-    columnas = ["codigo", "descripcion", "cantidad", "proveedor", "oc", "lote", "vto", "estado", "eliminado"]
-    valores = [codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, False]
+    columnas = ["codigo", "descripcion", "cantidad", "proveedor", "oc", "lote", "vto", "estado", "remito"]
+    valores = [codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, remito]
 
-    actualizarDatos(dbconn, "ingresos", columnas, valores, idEditar)
-
+    actualizarDatos(dbconn, "ingresos", columnas, valores, f"id = ?", (id_fila,))
     return redirect(url_for('main'))
 
 def nuevoIngreso():
