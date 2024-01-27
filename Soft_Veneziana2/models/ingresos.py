@@ -16,7 +16,7 @@ def borrarIngresos():
     idBorrar = request.form['id']
     borrarFila(dbconn, 'ingresos', idBorrar)
 
-    return redirect(url_for('main'))
+    return render_template('datosActualizados.html')
 
 def editarIngreso():
     id = request.form.get('id') 
@@ -43,7 +43,7 @@ def editarDb(id_fila):
     valores = [codigo, descripcion, cantidad, proveedor, oc, lote, vto, estado, remito]
 
     actualizarDatos(dbconn, "ingresos", columnas, valores, f"id = ?", (id_fila,))
-    return redirect(url_for('main'))
+    return render_template('datosActualizados.html')
 
 def nuevoIngreso():
     codigo = request.form['codigo']
@@ -68,7 +68,7 @@ def nuevoIngreso():
 
         editarStock(stockNuevo, codigo)
         
-        return redirect(url_for('main'))
+        return render_template('datosActualizados.html')
     else:
         return render_template('nuevoIngresos.html', errorIngresoInsumo="Las credenciales no son correctas o existen campos vacios")
     

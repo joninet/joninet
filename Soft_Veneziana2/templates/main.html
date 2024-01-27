@@ -50,7 +50,6 @@
                                 <div style="display: flex;"> 
                                     <a href="/mostrarIng/{{ ingreso[0] }}">
                                         <img src="{{url_for('static', filename='images/solid.svg')}}" alt="">
-                                    </a>
                                     <form action="/editar-ingreso" method="POST">
                                         <input type="hidden" name="id" value="{{ ingreso[0] }}">
                                         <a href="#" onclick="this.parentNode.submit()">
@@ -99,7 +98,7 @@
                         <td class="centrado small">{{ ins[5] }}</td>
                         <td>
                             <div style="display: flex;"> 
-                                <form action="/editar-ingreso" method="POST">
+                                <form action="/editar-insumo" method="POST">
                                     <input type="hidden" name="id" value="{{ ins[0] }}">
                                     <a href="#" onclick="this.parentNode.submit()">
                                         <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">

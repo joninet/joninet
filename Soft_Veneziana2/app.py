@@ -4,7 +4,7 @@ from datetime import datetime
 from config import dbconn
 from models.login import login, impLogout
 from models.ingresos import borrarIngresos, editarIngreso, editarDb, nuevoIngreso, mostrarIngreso
-from models.insumos import nuevoInsumoDB, borrarInsumos, borrarFila
+from models.insumos import nuevoInsumoDB, borrarInsumos, borrarFila, editarInsumo, editarDbInsumo
 from helpers.funcionesDb import mostrarUltimasFilas
 
 app = Flask(__name__)
@@ -18,6 +18,10 @@ def impMostrarIngreso(id_fila):
 @app.route("/editarIng/<id_fila>", methods=['POST'])
 def impEditarIng(id_fila):
     return editarDb(id_fila)
+
+@app.route("/editarIns/<id_fila>", methods=['POST'])
+def impEditarIns(id_fila):
+    return editarDbInsumo(id_fila)
 
 @app.route('/main', methods=['GET'])
 def main():
@@ -49,10 +53,6 @@ def verStock():
 def nuevoInsumo():
     return render_template('nuevoInsumo.html')
 
-@app.route('/editarIngresos', methods=['GET'])
-def editarIngresos():
-    return render_template('editarIngresos.html')
-
 @app.route('/borrarIngresos', methods=['POST'])
 def impBorrarIngresos():
     return borrarIngresos()
@@ -60,7 +60,7 @@ def impBorrarIngresos():
 @app.route('/borrarInsumos/<id_fila>')
 def impBorrarInsumos(id_fila):
     borrarFila(dbconn, 'insumos', id_fila)
-    return redirect(url_for('main'))
+    return render_template('datosActualizados.html')
 
 @app.route('/nuevoUsuario', methods=['GET'])
 def nuevoUsuario():
@@ -74,9 +74,9 @@ def borrarUsuario():
 def impEditarIngresos():
     return editarIngreso()
 
-@app.route('/editar-db', methods=['POST'])
-def impEditarDB():
-    return editarDb()
+@app.route('/editar-insumo', methods=['POST'])
+def impEditarInsumo():
+    return editarInsumo()
 
 @app.route('/nuevo-ingreso', methods=['POST'])
 def impNuevoIngreso():

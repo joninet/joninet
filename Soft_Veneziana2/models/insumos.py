@@ -9,7 +9,7 @@ def borrarInsumos():
     idBorrar = request.form['idInsumo']
     borrarFila(dbconn, 'insumos', idBorrar)
 
-    return redirect(url_for('main'))
+    return render_template('datosActualizados.html')
 
 def nuevoInsumoDB():
     codigo = codAleatorio()
@@ -36,6 +36,27 @@ def nuevoInsumoDB():
 
     conn.close()
 
-    return redirect(url_for('main'))
+    return render_template('datosActualizados.html')
+
+def editarInsumo():
+    id = request.form.get('id') 
+    conn = sql.connect(dbconn)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM insumos WHERE id = ?", (id,))
+    editar = cursor.fetchall()
+
+    conn.close()
+    return render_template('editarInsumo.html', registro=editar)
+
+def editarDbInsumo(id_fila):
+    nombre = request.form['nombre']
+    tipo = request.form['tipo']
+    um = request.form['um']
+
+    columnas = ["nombre", "tipo", "um"]
+    valores = [nombre, tipo, um]
+
+    actualizarDatos(dbconn, "insumos", columnas, valores, f"id = ?", (id_fila,))
+    return render_template('datosActualizados.html')
 
 
