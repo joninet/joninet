@@ -4,7 +4,7 @@ from datetime import datetime
 from config import dbconn
 from models.stock import stockActualInsumo
 from helpers.funciones import editarStock
-from helpers.funcionesDb import insertarDatos, borrarFila, actualizarDatos
+from helpers.funcionesDb import insertarDatos, borrarFila, actualizarDatos, imprimirDatos
 
 def mostrarIngreso(id_fila):
   db = sql.connect(dbconn)
@@ -14,6 +14,11 @@ def mostrarIngreso(id_fila):
 
 def borrarIngresos():
     idBorrar = request.form['id']
+    codigo = imprimirDatos(dbconn, idBorrar, "codigo", "ingresos", "id")
+    cantidadIngreso= imprimirDatos(dbconn, codigo, "cantidad", "ingresos", "codigo")
+    stockNuevo = int(stockActualInsumo(codigo)) - int(cantidadIngreso)
+    editarStock(stockNuevo, codigo)
+
     borrarFila(dbconn, 'ingresos', idBorrar)
 
     return render_template('datosActualizados.html')

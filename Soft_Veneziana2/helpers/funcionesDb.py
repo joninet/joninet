@@ -1,5 +1,6 @@
 import sqlite3 as sql
 from flask import Flask, render_template
+
 def insertarDatos(dbconn, tabla, columnas, valores):
     try:
         conn = sql.connect(dbconn)
@@ -57,3 +58,18 @@ def mostrarUltimasFilas(dbconn, tabla, limite):
 
     conn.close()
     return ingreso
+
+def imprimirDatos(dbconn, valorBuscar, columnaMostrar, tabla, columnaBuscar):
+    conn = sql.connect(dbconn)
+    cursor = conn.cursor()
+
+    cursor.execute(f"SELECT {columnaMostrar} FROM {tabla} WHERE {columnaBuscar} = ?", (valorBuscar,))
+    resultado = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    if resultado:
+        # Devuelve el código si se encontró el ID
+        return resultado[0]
+    
