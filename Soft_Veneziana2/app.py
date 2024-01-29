@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify 
 import sqlite3 as sql
 from datetime import datetime
 from config import dbconn
@@ -6,6 +6,8 @@ from models.login import login, impLogout
 from models.ingresos import borrarIngresos, editarIngreso, editarDb, nuevoIngreso, mostrarIngreso
 from models.insumos import nuevoInsumoDB, borrarInsumos, borrarFila, editarInsumo, editarDbInsumo
 from helpers.funcionesDb import mostrarUltimasFilas
+from models.stock import nuevoDescuento
+
 
 app = Flask(__name__)
 
@@ -45,6 +47,10 @@ def impLogin():
 @app.route('/nuevoIngresos', methods=['GET'])
 def nuevoIngresos():
     return render_template('nuevoIngresos.html')
+
+@app.route('/generarDesc', methods=['GET'])
+def generarDesc():
+    return render_template('descuentos.html')
 
 @app.route('/verStock')
 def verStock():
@@ -88,24 +94,28 @@ def impNuevoIngreso():
 def impNuevoInsumo():
     return nuevoInsumoDB()
 
+@app.route('/nuevo-descuento', methods=['GET', 'POST'])
+def impNuevoDescuento():
+    return nuevoDescuento()
+
 @app.route('/buscar-codigo/<int:codigo>', methods=['GET'])
 def buscarCodigo(codigo):
     try:
         conn = sql.connect(dbconn)
         cursor = conn.cursor()
 
-        cursor.execute("SELECT nombre FROM insumos WHERE codigo = ?", (codigo,))
-        nombre = cursor.fetchone()
+        cursor.execute("SELECT nombre, um FROM insumos WHERE codigo = ?", (codigo,))
+        resultado = cursor.fetchone()
 
         conn.close()
 
-        if nombre:
-            return nombre[0]  
+        if resultado:
+            return jsonify({'nombre': resultado[0], 'um': resultado[1]})
         else:
-            return 'Codigo Incorrecto' 
+            return jsonify({'error': 'Código incorrecto'})
 
     except Exception as e:
-        return str("Descripcion")
+        return jsonify({'error': str(e)})
 
   
 if __name__ == '__main__':
