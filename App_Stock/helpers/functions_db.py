@@ -37,3 +37,24 @@ def viewRow(dbconn, id, table):
             raise HTTPException(status_code=404, detail=f"Row with ID {id} not found in table {table}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+def editRow(dbconn, tabla, columnas, valores, condicion, condicion_valores):
+    try:
+        conn = sql.connect(dbconn)
+        cursor = conn.cursor()
+
+        set_clause = ', '.join([f"{columna} = ?" for columna in columnas])
+        query = f"UPDATE {tabla} SET {set_clause} WHERE {condicion}"
+
+        # Añadimos los valores de la condición al final de la lista de valores
+        valores.extend(condicion_valores)
+
+        cursor.execute(query, tuple(valores))
+        conn.commit()
+        conn.close()
+        return "corrrecto"
+
+    except sql.Error as e:
+        print(f"Error al actualizar datos: {e}")
+        if conn:
+            conn.close()
