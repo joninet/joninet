@@ -1,4 +1,6 @@
 import sqlite3 as sql
+import json
+from fastapi import HTTPException
 
 def insertData(dbconn, table, column, values):
     conn = None
@@ -17,16 +19,21 @@ def insertData(dbconn, table, column, values):
         if conn:
             conn.close()
 
-import json
-
 def viewRow(dbconn, id, table):
-    db = sql.connect(dbconn)
-    cursor = db.cursor()
-    view = cursor.execute(f"SELECT * FROM {table} WHERE id = ?", (id,)).fetchone()
-    db.close()
+    try:
+        db = sql.connect(dbconn)
+        cursor = db.cursor()
+        cursor.execute(f"SELECT * FROM {table} WHERE id = ?", (id,))
+        row = cursor.fetchone()
+        db.close()
 
-    if view:
-        view_dict = dict(zip([desc[0] for desc in cursor.description], view))
-        return json.dumps(view_dict)
-    else:
-        return None 
+        if row:
+            #cursor.description (me muestra la descripcion de cada columna)
+            columns = [desc[0] for desc in cursor.description]
+            #zip convina column y row, y despues con dict las convierte en diccionario a las 2 parejas
+            result = dict(zip(columns, row))
+            return result
+        else:
+            raise HTTPException(status_code=404, detail=f"Row with ID {id} not found in table {table}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
