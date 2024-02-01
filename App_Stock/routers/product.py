@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query, Path
 from models.product import Product
 from config import dbconn
-from helpers.functions_db import insertData, viewRow, editRow
+from helpers.functions_db import insertData, viewRow, editRow, printData, deleteRow
 from helpers.functions_other import randomCode
 import random
 
@@ -27,9 +27,18 @@ def getProduct(id: int = Path(gt=0)):
 
 @router.put('/products/{id}')
 def updateProduct(id: int, product: Product):
-    column = ["name", "code", "stock", "typeProduct", "um"]
-    values = [product.name, product.code, product.stock, product.typeProduct, product.um]
+    code=printData(dbconn, 2, "code","products","id")
 
-    editRow(dbconn, "products", column, values, f"id = ?", (id,))
+    if product.code is None:
+        column = ["name", "code", "stock", "typeProduct", "um"]
+        values = [product.name, code, product.stock, product.typeProduct, product.um]
 
-    return "bienn"
+        editRow(dbconn, "products", column, values, f"id = ?", (id,))
+
+        return {"message": "Product edit successfully"}
+    else:
+        return {"message": "Failed to create product: the code cannot be edited"}
+    
+@router.delete('/products/{id}')
+def deleteProduct(id: int):
+    return deleteRow(dbconn,"products",id)

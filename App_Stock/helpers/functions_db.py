@@ -58,3 +58,35 @@ def editRow(dbconn, tabla, columnas, valores, condicion, condicion_valores):
         print(f"Error al actualizar datos: {e}")
         if conn:
             conn.close()
+
+def printData(dbconn, valueSearch, columnView, table, columnSearch):
+    conn = sql.connect(dbconn)
+    cursor = conn.cursor()
+
+    cursor.execute(f"SELECT {columnView} FROM {table} WHERE {columnSearch} = ?", (valueSearch,))
+    resultado = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    if resultado:
+        return resultado[0]
+    else:
+        return None
+    
+def deleteRow(dbconn, table, id):
+    checkId=printData(dbconn, id, "id", "products", "id")
+    if checkId is None:
+        return {"message": "ID not found"}
+    else:
+        try:
+            conn = sql.connect(dbconn)
+            cursor = conn.cursor()
+            cursor.execute(f"DELETE FROM {table} WHERE id = ?", (id,))
+
+            conn.commit()
+            conn.close()
+            return {"message": "Delet Product successfully"}
+
+        except Exception as e:
+            return {"message": "Error deleting row:"}
