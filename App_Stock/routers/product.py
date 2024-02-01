@@ -2,12 +2,17 @@ from fastapi import APIRouter, HTTPException, Query, Path
 from models.product import Product
 from config import dbconn
 from helpers.functions_db import insertData, viewRow, editRow
+from helpers.functions_other import randomCode
+import random
 
 router = APIRouter()
 
 @router.post('/products')
 def createProduct(product: Product):
     column = ["name", "code", "stock", "typeProduct", "um"]
+    if not product.code:
+        product.code = randomCode()
+
     values = [product.name, product.code, product.stock, product.typeProduct, product.um]
 
     try:
