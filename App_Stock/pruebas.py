@@ -2,7 +2,7 @@ import sqlite3 as sql
 import json
 from fastapi import HTTPException
 
-dbconn = "baseDatos.db"
+dbconn = "App_Stock/baseDatos.db"
 def printData(dbconn, valueSearch, columnView, table, columnSearch):
     conn = sql.connect(dbconn)
     cursor = conn.cursor()
@@ -15,5 +15,7 @@ def printData(dbconn, valueSearch, columnView, table, columnSearch):
 
     if resultado:
         return resultado[0]
+    else:
+        return None
     
-print()
+print(printData(dbconn, 1, "code","products","id"))

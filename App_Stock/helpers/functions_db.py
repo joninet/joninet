@@ -59,20 +59,21 @@ def editRow(dbconn, tabla, columnas, valores, condicion, condicion_valores):
         if conn:
             conn.close()
 
-def printData(dbconn, valueSearch, columnView, table, columnSearch):
-    conn = sql.connect(dbconn)
-    cursor = conn.cursor()
+def printData(dbconn, value_search, column_view, table, column_search):
+    try:
+        conn = sql.connect(dbconn)
+        cursor = conn.cursor()
 
-    cursor.execute(f"SELECT {columnView} FROM {table} WHERE {columnSearch} = ?", (valueSearch,))
-    resultado = cursor.fetchone()
+        cursor.execute(f"SELECT {column_view} FROM {table} WHERE {column_search} = ?", (value_search,))
+        result = cursor.fetchone()
 
-    cursor.close()
-    conn.close()
-
-    if resultado:
-        return resultado[0]
-    else:
+        return result[0] if result else None
+    except sql.Error as e:
+        print(f"Error al consultar datos: {e}")
         return None
+    finally:
+        if conn:
+            conn.close()
     
 def deleteRow(dbconn, table, id):
     checkId=printData(dbconn, id, "id", "products", "id")
@@ -90,3 +91,23 @@ def deleteRow(dbconn, table, id):
 
         except Exception as e:
             return {"message": "Error deleting row:"}
+
+def viewRowLimit(dbconn, table, limit):
+    try:
+        conn = sql.connect(dbconn)
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM {table} LIMIT {limit}")
+        rows = cursor.fetchall()
+
+        # Convertir las filas a una lista de diccionarios
+        columns = [column[0] for column in cursor.description]
+        result = [dict(zip(columns, row)) for row in rows]
+
+        return result
+
+    except sql.Error as e:
+        print(f"Error al consultar datos: {e}")
+        return None
+    finally:
+        if conn:
+            conn.close()

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query, Path
 from models.product import Product
 from config import dbconn
-from helpers.functions_db import insertData, viewRow, editRow, printData, deleteRow
+from helpers.functions_db import insertData, viewRow, editRow, printData, deleteRow, viewRowLimit
 from helpers.functions_other import randomCode
 import random
 
@@ -25,9 +25,13 @@ def createProduct(product: Product):
 def getProduct(id: int = Path(gt=0)):
     return viewRow(dbconn, id, "products")
 
+@router.get('/products')
+def getProductsLimit():
+    return viewRowLimit(dbconn, "products", 9000)
+
 @router.put('/products/{id}')
 def updateProduct(id: int, product: Product):
-    code=printData(dbconn, 2, "code","products","id")
+    code=printData(dbconn, id, "code","products","id")
 
     if product.code is None:
         column = ["name", "code", "stock", "typeProduct", "um"]
