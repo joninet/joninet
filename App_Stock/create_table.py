@@ -6,13 +6,17 @@ def create_table():
     connection = sqlite3.connect(DATABASE_FILE)
     cursor = connection.cursor()
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS products (
+        CREATE TABLE IF NOT EXISTS entryproducts (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
+            date DATE,
             code INTEGER,
-            stock REAL,
-            typeProduct TEXT,
-            um TEXT
+            name TEXT,
+            um TEXT,
+            quantity REAL,
+            warehouse INTEGER,
+            supplier TEXT,
+            invoice TEXT,
+            comment TEXT
         )
     ''')
     connection.commit()

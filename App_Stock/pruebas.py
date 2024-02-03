@@ -18,4 +18,4 @@ def printData(dbconn, valueSearch, columnView, table, columnSearch):
     else:
         return None
     
-print(printData(dbconn, 1, "code","products","id"))
+print(printData(dbconn, 52145, "name", "products", "code"))

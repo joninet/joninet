@@ -59,12 +59,12 @@ def editRow(dbconn, tabla, columnas, valores, condicion, condicion_valores):
         if conn:
             conn.close()
 
-def printData(dbconn, value_search, column_view, table, column_search):
+def printData(dbconn, valueSearch, columnView, table, columnSearch):
     try:
         conn = sql.connect(dbconn)
         cursor = conn.cursor()
 
-        cursor.execute(f"SELECT {column_view} FROM {table} WHERE {column_search} = ?", (value_search,))
+        cursor.execute(f"SELECT {columnView} FROM {table} WHERE {columnSearch} = ?", (valueSearch,))
         result = cursor.fetchone()
 
         return result[0] if result else None
