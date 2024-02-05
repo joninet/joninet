@@ -60,7 +60,7 @@ def nuevoIngreso():
     vto = request.form['vto']
     usuarioIngreso = request.form['usuarioIngreso']
     d = datetime.now()
-    dateIngreso=d.strftime("%Y-%m-%d %H:%M:%S")
+    dateIngreso=d.strftime("%d-%m-Y %H:%M:%S")
     remito=request.form['remito']
 
     if codigo and descripcion != "Codigo Incorrecto" and cantidad and proveedor and oc:

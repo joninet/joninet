@@ -3,6 +3,7 @@ from models.product import Product
 from config import dbconn
 from helpers.functions_db import printData, insertData
 import random
+from datetime import datetime
 
 routerEntry = APIRouter()
 
@@ -17,11 +18,13 @@ async def entryProduct(
     codeSearch=printData(dbconn, code, "code", "products", "code")
 
     if codeSearch is not None:
-        
+        d = datetime.now()
+        dateEntry=d.strftime("%Y-%m-%d %H:%M:%S")
         name=printData(dbconn, code, "name", "products", "code")
         um=printData(dbconn, code, "um", "products", "code")
-        column = ["code", "name", "um", "quantity", "warehouse", "supplier", "invoice"]
-        values = [code, name, um, quantity, warehouse, supplier, invoice]
+        column = ["date", "code", "name", "um", "quantity", "warehouse", "supplier", "invoice"]
+        values = [dateEntry, code, name, um, quantity, warehouse, supplier, invoice]
+        
         insertData(dbconn, "entryproducts", column, values)
 
         return {"message": "Entry successfully"}
