@@ -2,6 +2,10 @@ import sqlite3 as sql
 import json
 from fastapi import HTTPException
 
+#funcion para insertar datos en una tabla
+#dbconn: conexion db, table: nombre de la db
+#column: nombres de las columnas en formato lista column = ["name", "code"]
+#values: valores de la columna en formato lista values = ["valorName", "valorCode"]
 def insertData(dbconn, table, column, values):
     conn = None
     try:

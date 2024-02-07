@@ -7,6 +7,7 @@ import random
 
 router = APIRouter()
 
+#funcion para crear un producto nuevo e insertarlo en la db
 @router.post('/products')
 def createProduct(product: Product):
     column = ["name", "code", "stock", "typeProduct", "um"]
@@ -21,14 +22,17 @@ def createProduct(product: Product):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to create product: {str(e)}")
     
+#funcion para mostrar un registro segun su id
 @router.get('/products/{id}')
 def getProduct(id: int = Path(gt=0)):
     return viewRow(dbconn, id, "products")
 
+#funcion para mostrar varios registros segun limite
 @router.get('/products')
 def getProductsLimit():
     return viewRowLimit(dbconn, "products", 9000)
 
+#funcion para editar un producto
 @router.put('/products/{id}')
 def updateProduct(id: int, product: Product):
     code=printData(dbconn, id, "code","products","id")
