@@ -16,7 +16,7 @@ class HandleDB():
       self._cur.execute(query, values)
       self._con.commit()
     except sql.Error as e:
-        print(f"Failed to insert data: {e}")
+      print(f"Failed to insert data: {e}")
 
   #funcion para ver ver un registro segun el id
   #id: id del cual queremos la informacion

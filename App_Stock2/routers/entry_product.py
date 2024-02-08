@@ -1,0 +1,46 @@
+from fastapi import APIRouter, HTTPException, Query, Path
+from typing import Optional
+from models.product import Product
+from config import dbconn
+from helpers.handle_db import HandleDB
+import random
+from datetime import datetime
+
+router = APIRouter()
+
+# Función para registrar la entrada de un producto
+@router.get('/entryproduct/{code}/{quantity}/{warehouse}/{supplier}/{invoice}/comment')
+async def entryProduct(
+    code: int = Path(..., title="Código del producto", ge=0),
+    quantity: float = Path(..., title="Cantidad del producto", ge=0),
+    warehouse: str = Path(..., title="Almacén"),
+    supplier: str = Path(..., title="Proveedor"),
+    invoice: str = Path(..., title="Factura"),
+    comment: Optional[str] = None
+):
+    
+    # Verificamos si el codigo que se envio existe 
+    db = HandleDB()
+    codeSearch = db.printData(code, "code", "products", "code")
+
+    if codeSearch is not None:
+        d = datetime.now()
+        dateEntry=d.strftime("%Y-%m-%d %H:%M:%S")
+
+        # Obtenemos el nombre y la unidad de medida del producto segun el codigo
+        name = db.printData(code, "name", "products", "code")
+        um = db.printData(code, "um", "products", "code")
+
+        #verificamos si el registro tiene comentarios
+        if comment is not None:
+            column = ["date", "code", "name", "um", "quantity", "warehouse", "supplier", "invoice","comment"]
+            values = [dateEntry, code, name, um, quantity, warehouse, supplier, invoice, comment]
+        else:
+            column = ["date", "code", "name", "um", "quantity", "warehouse", "supplier", "invoice"]
+            values = [dateEntry, code, name, um, quantity, warehouse, supplier, invoice]
+        
+        #insertamos el registro en la db
+        db.insertData("entryproducts", column, values)
+        return {"message": "Entry successfully"}
+    else:
+        return {"message": "The code does not exist"}
