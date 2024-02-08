@@ -44,3 +44,21 @@ async def entryProduct(
         return {"message": "Entry successfully"}
     else:
         return {"message": "The code does not exist"}
+    
+#Funcion para borrar un registro en la db segun su id
+@router.delete('/entryproduct/{id}')
+def deleteEntryProduct(id: int):
+    db = HandleDB()
+    return db.deleteRow(dbconn, "entryproducts",id)
+
+#Funcion para imprimir datos de un registro de la db segun su id
+@router.get('/entryproduct/{id}')
+def getEntryProduct(id: int = Path(gt=0)):
+    db = HandleDB()
+    return db.viewRow(dbconn, id, "entryproducts")
+
+#Funcion para imprimir datos de una tabla
+@router.get('/entryproduct')
+def getAllEntryProduct():
+    db = HandleDB()
+    return db.viewRowLimit(dbconn, "entryproducts", 9000)
