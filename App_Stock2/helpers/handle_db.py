@@ -7,6 +7,9 @@ class HandleDB():
     self._con = sql.connect("./baseDatos.db")
     self._cur = self._con.cursor()
 
+  #funcion para insertar datos en una tabla
+  #column: nombres de las columnas en formato lista column = ["name", "code"]
+  #values: valores de la columna en formato lista values = ["valorName", "valorCode"]
   def insertData(self, table, column, values):
     try:
       query = f"INSERT INTO {table} ({', '.join(column)}) VALUES ({', '.join(['?' for _ in values])})"
@@ -15,7 +18,11 @@ class HandleDB():
     except sql.Error as e:
         print(f"Failed to insert data: {e}")
 
+  #funcion para ver ver un registro segun el id
+  #id: id del cual queremos la informacion
+  #table: nombre de la tabla
   def viewRow(self, id, table):
+    #Verificamos si existe el id
     checkId=self.printData(id, "id", table, "id")
     if checkId is None:
       return {"message": "ID not found"}
@@ -35,14 +42,22 @@ class HandleDB():
       except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
       
-  def editRow(self, tabla, columnas, valores, condicion, condicion_valores):
+
+  #fundion para editar un registro
+  #tabla: nombre de la tabla 
+  #column: nombres de las columnas en formato lista column = ["name", "code"]
+  #values: valores de la columna en formato lista values = ["valorName", "valorCode"]
+  #condition en formato f"id = ?"
+  #conditionValues en formato (id,)
+  
+  def editRow(self, tabla, column, values, condition, conditionValues):
     try:
-      setClause = ', '.join([f"{columna} = ?" for columna in columnas])
-      query = f"UPDATE {tabla} SET {setClause} WHERE {condicion}"
+      setClause = ', '.join([f"{column} = ?" for column in column])
+      query = f"UPDATE {tabla} SET {setClause} WHERE {condition}"
 
-      valores.extend(condicion_valores)
+      values.extend(conditionValues)
 
-      self._cur.execute(query, tuple(valores))
+      self._cur.execute(query, tuple(values))
       self._con.commit()
       return "corrrecto"
     
