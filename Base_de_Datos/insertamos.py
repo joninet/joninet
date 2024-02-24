@@ -30,9 +30,9 @@ class HandleDB():
 #values: valores de la columna en formato lista values = ["valorName", "valorCode"]
 fecha=datetime.datetime.now()
 fechaHoy=fecha.strftime('%Y-%m-%d %H:%M:%S')
-columna = ["nombre", "direccion", "localidad", "telefono", "email", "moneda", "Fecha"]
-valores = ["AIT", "La Rioja 345", "Buenos Aires", "11-4344446", "consultas@ait.com.ar", "Todas", fechaHoy]
+columna = ["fecha", "cantidad", "oc", "lotes", "vtos", "remito", "proveedor_id", "producto_id", "estado_id", "usuario_id"]
+valores = [fecha, 96000, "456666", "198234", "", "2-9567", 2, 2, 1, 1]
 
 inserto=HandleDB()
-inserto.insertData("Proveedor", columna, valores)
+inserto.insertData("Ingresos", columna, valores)
       
