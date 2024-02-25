@@ -1,14 +1,22 @@
-from fastapi import APIRouter, HTTPException, Query, Path
+from fastapi import APIRouter, FastAPI, Request, Response, Form, Query, Path
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.templating import Jinja2Templates
 from helpers.funciones_db import FuncionesDB
 
 router = APIRouter()
 
-@router.post('/productos/{nombre}/{um}/{descripcion}/{categoria_id}')
-async def crearProducto(
-    nombre: str = Path(..., title="Nombre del producto"),
-    um: str = Path(..., title="Unidad de Medida del producto"),
-    descripcion: str = Path(..., title="descripcion del producto"),
-    categoria_id: int = Path(..., title="id de la categoria del producto")):
+template = Jinja2Templates(directory="./templates")
+
+@router.get("/productos/nuevo", response_class=HTMLResponse)
+def root(req: Request):
+  return template.TemplateResponse("nuevo_producto.html", {"request": req})
+
+@router.post('/productos/crear')
+async def crear_producto(
+    nombre: str = Form(...),
+    um: str = Form(...),
+    descripcion: str = Form(...),
+    categoria_id: int = Form(...)):
 
     column = ["nombre", "um", "descripcion", "categoria_id"]
     values = [nombre, um, descripcion, categoria_id]
@@ -16,3 +24,4 @@ async def crearProducto(
     insertar = FuncionesDB()
     insertar.insertarDatos("Producto", column, values)
     return {"message": "Ingreso Correcto"}
+
