@@ -28,6 +28,15 @@ class FuncionesDB():
       print(f"Error al consultar datos: {e}")
       return None  
     
+  def mostrarTabla(self, tabla):
+    try:
+      self._cur.execute(f"SELECT * FROM {tabla}")
+      result = self._cur.fetchall()
+      return result
+    except sql.Error as e:
+      print(f"Error al consultar datos: {e}")
+      return None  
+    
   def borrarDatos(self, tabla, id):
     checkId = self.seleccionarDatos(id, "id", tabla, "id")
     if checkId is None:
