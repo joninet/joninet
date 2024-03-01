@@ -40,11 +40,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for categoria in categorias %}
+                    {% for ingreso in ingreso %}
                         <tr>
-                            <td class="centrado small">{{ categoria[0] }}</td>
-                            <td class="centrado small">{{ categoria[1] }}</td>
+                            <td class="centrado small">{{ ingreso[1] }}</td>
+                            <td class="centrado small">{{ ingreso[2] }}</td>
+                            <td class="centrado small">{{ ingreso[3] }}</td>
+                            <td class="centrado small">{{ ingreso[4] }}</td>
                             <td>
+                                <div style="display: flex;"> 
+                                    <a href="/mostrarIng/{{ ingreso[0] }}">
+                                        <img src="{{url_for('static', filename='images/solid.svg')}}" alt="">
+                                    <form action="/editar-ingreso" method="POST">
+                                        <input type="hidden" name="id" value="{{ ingreso[0] }}">
+                                        <a href="#" onclick="this.parentNode.submit()">
+                                            <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
+                                        </a>
+                                    </form>
+                                    <form class="deleteForm" action="/borrarIngresos" method="POST">
+                                        <input type="hidden" name="id" value="{{ ingreso[0] }}">
+                                        <a href="#" onclick="confirmarBorrado('{{ ingreso[0] }}', event)">
+                                            <img class="navbar-brand" src="{{url_for('static', filename='images/trash.svg')}}" alt="Eliminar">
+                                        </a>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
 
@@ -72,13 +90,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for categoria in categorias %}
+                    {% for ins in insumos %}
                     <tr>
-                        <td class="centrado small">{{ categoria[0] }}</td>
-                        <td class="centrado small">{{ categoria[1] }}</td>
+                        <td class="centrado small">{{ ins[1] }}</td>
+                        <td class="centrado small">{{ ins[2] }}</td>
+                        <td class="centrado small">{{ ins[4] }}</td>
+                        <td class="centrado small">{{ ins[5] }}</td>
                         <td>
                             <div style="display: flex;"> 
-                            
+                                <form action="/editar-insumo" method="POST">
+                                    <input type="hidden" name="id" value="{{ ins[0] }}">
+                                    <a href="#" onclick="this.parentNode.submit()">
+                                        <img class="navbar-brand" src="{{url_for('static', filename='images/pen.svg')}}" alt="Editar">
+                                    </a>
+                                </form>
+                                <a href="/borrarInsumos/{{ ins[0] }}"><img class="imgTrash" src="{{url_for('static', filename='images/trash.svg')}}" alt=""></a>
                             </div>
                         </td>
                     </tr>
@@ -93,6 +119,14 @@
         </div>
     </main>
     <script>
+        function confirmarBorrado(id, event) {
+            event.preventDefault();  // Evitar el comportamiento predeterminado del enlace
+            if (confirm('¿Estás seguro de que deseas eliminar este ingreso?')) {
+                // Si el usuario confirma, enviar el formulario de borrado asociado a este ícono
+                document.querySelector('.deleteForm input[name="id"]').value = id;
+                document.querySelector('.deleteForm').submit();
+            }
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>           
 </body>

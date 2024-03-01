@@ -17,15 +17,19 @@ def nuevoProducto(req: Request):
 
 @router.post('/productos/crear')
 async def crear_producto(
+    req: Request,
     nombre: str = Form(...),
     um: str = Form(...),
     descripcion: str = Form(...),
     categoria_id: int = Form(...)):
 
-    column = ["nombre", "um", "descripcion", "categoria_id"]
-    values = [nombre, um, descripcion, categoria_id]
+    if nombre and um and descripcion and categoria_id:
 
-    insertar = FuncionesDB()
-    insertar.insertarDatos("Producto", column, values)
-    return {"message": "Ingreso Correcto"}
+      column = ["nombre", "um", "descripcion", "categoria_id"]
+      values = [nombre, um, descripcion, categoria_id]
 
+      insertar = FuncionesDB()
+      insertar.insertarDatos("Producto", column, values)
+      return template.TemplateResponse("datosActualizados.html", {"request": req})
+    else:
+      return template.TemplateResponse("/productos/crear", {"errorIngresoInsumo": "Las credenciales no son correctas o existen campos vacios"})
