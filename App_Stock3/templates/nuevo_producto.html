@@ -25,22 +25,22 @@
                     <form action="/productos/crear" method="post">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre del Producto</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ nombre if nombre is not none else '' }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="um" class="form-label">Unidad de Medida</label>
-                            <input type="text" class="form-control" id="um" name="um" required>
+                            <input type="text" class="form-control" id="um" name="um" value="{{ um if um is not none else '' }}">
                         </div>
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required>{{ descripcion if descripcion is not none else '' }}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="categoria_id" class="form-label">Categoría</label>
                             <select class="form-select" id="categoria_id" name="categoria_id" required>
                                 <option value="">-- Seleccione una categoría --</option>
                                 {% for categoria in categorias %}
-                                    <option value="{{ categoria[0] }}">{{ categoria[1] }}</option>
+                                    <option value="{{ categoria[0] }}" {% if categoria[0] == categoria_id %} selected {% endif %}>{{ categoria[1] }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -54,6 +54,7 @@
                             <button class="btn btn-success m-1">Guardar</button>
                         </div>
                     </form>
+                                        
                     <div class="d-grid gap-2">
                         <button class="btn btn-secondary m-1" onclick="limpiarFormulario()">Limpiar</button>
                     </div>
