@@ -56,12 +56,41 @@
                         </tr>
 
                         {% endfor %}
+                        <div class="pagination">
+                            {% if page > 1 %}
+                                <a href="/productos/ver_todos?page={{ page - 1 }}">Anterior</a>
+                            
+                            {% endif %}
                         
+                            Página {{ page }} de {{ total_paginas }}
+                        
+                            {% if page < total_paginas %}
+                                <a href="/productos/ver_todos?page={{ page + 1 }}">Siguiente</a>
+                            {% endif %}
+                        </div>
                     </tbody>
                 </table>
-                <table class="table table-striped m-0">
-                    <thead><tr><th><button type="button" class="btn btn-success text-white btn-sm">Ver todos</button></tr></thead>
-                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            {% if page > 1 %}
+                                <a class="page-link" href="/productos/ver_todos?page={{ page - 1 }}">Anterior</a>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">Anterior</a>
+                                </li>
+                            {% endif %}
+                        </li>
+                        {% for i in range(total_paginas) %}
+                            <li class="page-item"><a class="page-link" href="/productos/ver_todos?page={{ i + 1 }}">{{ i + 1 }}</a></li>
+                        {% endfor %}
+                        <li class="page-item">
+                            {% if page < total_paginas %}
+                                <a class="page-link" href="/productos/ver_todos?page={{ page + 1 }}">Siguiente</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </nav>                
             </article>
         </div>
     </main>

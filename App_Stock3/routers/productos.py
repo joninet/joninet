@@ -2,6 +2,7 @@ from fastapi import APIRouter, FastAPI, Request, Response, Form, Query, Path
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from helpers.funciones_db import FuncionesDB
+import math
 import sqlite3
 
 router = APIRouter()
@@ -40,8 +41,10 @@ async def crearProducto(
     return template.TemplateResponse("datosActualizados.html", {"request": req})
 
 @router.get("/productos/ver_todos")
-def verProductos(req:Request):
-   verDb=FuncionesDB()
-   productos=verDb.mostrarTabla("Producto")
-   categorias= verDb.mostrarTabla("Categoria")
-   return template.TemplateResponse("productos.html", { "request" : req, "productos": productos, "categorias": categorias })
+def verProductos(req:Request, page: int = 1):
+    verDb = FuncionesDB()
+    productos = verDb.mostrarTablaPaginada("Producto", page, 5)
+    total_productos = verDb.contarFilas("Producto")
+    total_paginas = math.ceil(total_productos / 5)
+    categorias = verDb.mostrarTabla("Categoria")
+    return template.TemplateResponse("productos.html", { "request" : req, "productos": productos, "categorias": categorias, "page": page, "total_paginas": total_paginas })

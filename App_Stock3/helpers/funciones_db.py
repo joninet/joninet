@@ -1,6 +1,7 @@
 import sqlite3 as sql
 import json
 from fastapi import HTTPException
+import math
 
 class FuncionesDB():
   def __init__(self):
@@ -36,6 +37,25 @@ class FuncionesDB():
     except sql.Error as e:
       print(f"Error al consultar datos: {e}")
       return None  
+    
+  def contarFilas(self, tabla):
+    try:
+        self._cur.execute(f"SELECT COUNT(*) FROM {tabla}")
+        result = self._cur.fetchone()
+        return result[0]
+    except sql.Error as e:
+        print(f"Error al contar filas: {e}")
+        return 0
+    
+  def mostrarTablaPaginada(self, tabla, pagina, por_pagina):
+    try:
+        offset = (pagina - 1) * por_pagina
+        self._cur.execute(f"SELECT * FROM {tabla} LIMIT {por_pagina} OFFSET {offset}")
+        result = self._cur.fetchall()
+        return result
+    except sql.Error as e:
+        print(f"Error al consultar datos paginados: {e}")
+        return None
     
   def borrarDatos(self, tabla, id):
     checkId = self.seleccionarDatos(id, "id", tabla, "id")
