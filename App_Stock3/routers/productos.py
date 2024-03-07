@@ -16,7 +16,7 @@ def nuevoProducto(req: Request):
   #print(categorias)
   return template.TemplateResponse("nuevo_producto.html", {"request": req, "categorias": categorias})
 
-@router.delete("/productos/borrar/{producto_id}")
+@router.post("/productos/borrar/{producto_id}")
 def borrarProducto(producto_id: int, req: Request):
     verDB = FuncionesDB()
     borrar = verDB.borrarDatos("Producto", producto_id)

@@ -3,7 +3,7 @@ import sqlite3
 
 router = APIRouter()
 
-@router.delete("/productos/{producto_id}")
+@router.post("/productos/{producto_id}")
 def delete_producto(producto_id: int):
     conn = sqlite3.connect('base_datos.db')
     cursor = conn.cursor()
