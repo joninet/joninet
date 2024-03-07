@@ -5,9 +5,10 @@ from helpers.funciones_db import FuncionesDB
 from routers.productos import router as productRouter
 from routers.index import router as index
 
-app=FastAPI()
+app = FastAPI()
 app.include_router(productRouter)
 app.include_router(index)
+
 
 
 

@@ -16,6 +16,12 @@ def nuevoProducto(req: Request):
   #print(categorias)
   return template.TemplateResponse("nuevo_producto.html", {"request": req, "categorias": categorias})
 
+@router.delete("/productos/borrar/{producto_id}")
+def borrarProducto(producto_id: int):
+    borrarDb = FuncionesDB()
+    borrarId = borrarDb.borrarDatos("Producto", producto_id)
+    return template.TemplateResponse("datosActualizados.html")
+
 @router.post('/productos/crear')
 async def crearProducto(
     req: Request,
@@ -43,8 +49,8 @@ async def crearProducto(
 @router.get("/productos/ver_todos")
 def verProductos(req:Request, page: int = 1):
     verDb = FuncionesDB()
-    productos = verDb.mostrarTablaPaginada("Producto", page, 5)
+    productos = verDb.mostrarTablaPaginada("Producto", page, 15)
     total_productos = verDb.contarFilas("Producto")
-    total_paginas = math.ceil(total_productos / 5)
+    total_paginas = math.ceil(total_productos / 15)
     categorias = verDb.mostrarTabla("Categoria")
     return template.TemplateResponse("productos.html", { "request" : req, "productos": productos, "categorias": categorias, "page": page, "total_paginas": total_paginas })

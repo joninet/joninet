@@ -56,21 +56,12 @@
                         </tr>
 
                         {% endfor %}
-                        <div class="pagination">
-                            {% if page > 1 %}
-                                <a href="/productos/ver_todos?page={{ page - 1 }}">Anterior</a>
-                            
-                            {% endif %}
-                        
-                            Página {{ page }} de {{ total_paginas }}
-                        
-                            {% if page < total_paginas %}
-                                <a href="/productos/ver_todos?page={{ page + 1 }}">Siguiente</a>
-                            {% endif %}
                         </div>
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation example">
+                <table class="table table-striped m-0">
+                    <thead><tr><th class="bg-success text-white m-0">
+                <nav aria-label="Page navigation example m-0">
                     <ul class="pagination">
                         <li class="page-item">
                             {% if page > 1 %}
@@ -90,7 +81,9 @@
                             {% endif %}
                         </li>
                     </ul>
-                </nav>                
+                </nav>
+                </tr></thead>
+            </table>
             </article>
         </div>
     </main>
