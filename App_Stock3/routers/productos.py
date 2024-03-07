@@ -17,10 +17,11 @@ def nuevoProducto(req: Request):
   return template.TemplateResponse("nuevo_producto.html", {"request": req, "categorias": categorias})
 
 @router.delete("/productos/borrar/{producto_id}")
-def borrarProducto(producto_id: int):
-    borrarDb = FuncionesDB()
-    borrarId = borrarDb.borrarDatos("Producto", producto_id)
-    return template.TemplateResponse("datosActualizados.html")
+def borrarProducto(producto_id: int, req: Request):
+    verDB = FuncionesDB()
+    borrar = verDB.borrarDatos("Producto", producto_id)
+    return template.TemplateResponse("datosActualizados.html", {"request": req})
+
 
 @router.post('/productos/crear')
 async def crearProducto(
