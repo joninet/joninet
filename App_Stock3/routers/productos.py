@@ -27,10 +27,11 @@ def borrarProducto(producto_id: int):
     borrar= verDB.borrarDatos("Producto", producto_id)
     return {"mensaje": "Producto eliminado correctamente"}
 
-@router.post("/productos/editar/{producto_id}", response_class=HTMLResponse)
+@router.get("/productos/editar/{producto_id}", response_class=HTMLResponse)
 def editarProducto(req: Request, producto_id: int):
     verDB = FuncionesDB()
     mostrarProducto=verDB.seleccionarDatos("Producto", producto_id)
+    print(mostrarProducto)
     return template.TemplateResponse("editar_producto.html", {"request": req, "mostrarProducto": mostrarProducto})
 
 @router.post('/productos/crear')

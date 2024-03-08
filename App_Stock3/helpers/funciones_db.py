@@ -22,9 +22,9 @@ class FuncionesDB():
   def seleccionarDatos(self, table, id):
     try:
       self._cur.execute(f"SELECT * FROM {table} WHERE id = ?", (id,))
-      result = self._cur.fetchone()
+      result = self._cur.fetchall()
 
-      return result if result else None
+      return result
     except sql.Error as e:
       print(f"Error al consultar datos: {e}")
       return None  

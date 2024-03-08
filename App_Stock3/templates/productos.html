@@ -93,8 +93,24 @@
     </main>
     <script>
         async function editarProducto(producto_id) {
-          // Enviar la solicitud "GET" directamente
-          window.location.href = `/productos/editar/${producto_id}`;
+          try {
+            // Enviar la solicitud "GET" al endpoint para editar el producto
+            const response = await fetch(`/productos/editar/${producto_id}`, {
+              method: "GET",
+            });
+      
+            if (response.ok) {
+              // Redireccionar a la página de edición si la respuesta es exitosa
+              window.location.href = `/productos/editar/${producto_id}`;
+            } else {
+              // Manejar errores en la respuesta
+              alert("Error al editar el producto");
+            }
+          } catch (error) {
+            // Manejar errores de red u otros errores
+            console.error("Error:", error);
+            alert("Error al editar el producto");
+          }
         }
       </script>
     <script>
