@@ -55,7 +55,8 @@
                                     {% endif %}
                                 {% endfor %}
                             </td>
-                            <td class="centrado small"><a href="#" onclick="eliminarProducto(11)" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                            <td class="centrado small"><a href="#" onclick="editarProducto(3)"><i class="fas fa-edit fa-lg" style="color: rgb(40, 151, 214);"></i></a>&nbsp;&nbsp;
+                                </td>
                         </tr>
 
                         {% endfor %}
@@ -91,13 +92,19 @@
         </div>
     </main>
     <script>
+        async function editarProducto(producto_id) {
+          // Enviar la solicitud "GET" directamente
+          window.location.href = `/productos/editar/${producto_id}`;
+        }
+      </script>
+    <script>
         async function eliminarProducto(producto_id) {
           // Mostrar una ventana emergente para pedir confirmación
           const confirmar = confirm("¿Estás seguro de que deseas eliminar este producto?");
       
           if (confirmar) {
             // Enviar la solicitud "DELETE" si el usuario hace clic en "Aceptar"
-            const response = await fetch(`/productos/${producto_id}`, {
+            const response = await fetch(`/productos/borrar/${producto_id}`, {
               method: "DELETE",
             });
       

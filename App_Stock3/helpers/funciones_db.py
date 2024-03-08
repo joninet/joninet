@@ -19,12 +19,12 @@ class FuncionesDB():
     except sql.Error as e:
       print(f"error: {e}")
 
-  def seleccionarDatos(self, valorBuscar, columnaMostrar, tabla, columnaBuscar):
+  def seleccionarDatos(self, table, id):
     try:
-      self._cur.execute(f"SELECT {columnaMostrar} FROM {tabla} WHERE {columnaBuscar} = ?", (valorBuscar,))
+      self._cur.execute(f"SELECT * FROM {table} WHERE id = ?", (id,))
       result = self._cur.fetchone()
 
-      return result[0] if result else None
+      return result if result else None
     except sql.Error as e:
       print(f"Error al consultar datos: {e}")
       return None  
