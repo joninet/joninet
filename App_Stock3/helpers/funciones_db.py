@@ -19,12 +19,12 @@ class FuncionesDB():
     except sql.Error as e:
       print(f"error: {e}")
 
-  def seleccionarDatos(self, valorBuscar, columnaMostrar, tabla, columnaBuscar):
+  def seleccionarDatos(self, table, id):
     try:
-      self._cur.execute(f"SELECT {columnaMostrar} FROM {tabla} WHERE {columnaBuscar} = ?", (valorBuscar,))
-      result = self._cur.fetchone()
+      self._cur.execute(f"SELECT * FROM {table} WHERE id = ?", (id,))
+      result = self._cur.fetchall()
 
-      return result[0] if result else None
+      return result
     except sql.Error as e:
       print(f"Error al consultar datos: {e}")
       return None  
@@ -58,16 +58,12 @@ class FuncionesDB():
         return None
     
   def borrarDatos(self, tabla, id):
-    checkId = self.seleccionarDatos(id, "id", tabla, "id")
-    if checkId is None:
-      return {"message": "No existe el Id"}
-    else:
-      try:
-        self._cur.execute(f"DELETE FROM {tabla} WHERE id = ?", (id,))
-        self._con.commit()
-        return {"message": "Borrado correctamente"}
-      except Exception as e:
-        return {"message": "Error al borrar:"}
+     try:
+      self._cur.execute(f"DELETE FROM {tabla} WHERE id = ?", (id,))
+      self._con.commit()
+      return {"message": "Borrado correctamente"}
+     except sql.Error as e:
+       return {"message": f"Error al borrar: {e}"}
 
   def __del__(self):
     self._con.close()

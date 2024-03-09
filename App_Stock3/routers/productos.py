@@ -9,18 +9,30 @@ router = APIRouter()
 
 template = Jinja2Templates(directory="./templates")
 
-@router.get("/productos/nuevo", response_class=HTMLResponse)
+@router.get("/productos/nuevo", response_class=HTMLResponse)#indica que la ruta va a responder con contenido html
 def nuevoProducto(req: Request):
   verDB = FuncionesDB()
   categorias= verDB.mostrarTabla("Categoria")
   #print(categorias)
   return template.TemplateResponse("nuevo_producto.html", {"request": req, "categorias": categorias})
 
-@router.delete("/productos/borrar/{producto_id}")
+@router.get("/Actualizado", response_class=HTMLResponse)
+def index():
+    return open("./templates/datosActualizados.html").read()
+
+@router.delete("/productos/borrar/{producto_id}",)
 def borrarProducto(producto_id: int):
-    borrarDb = FuncionesDB()
-    borrarId = borrarDb.borrarDatos("Producto", producto_id)
-    return template.TemplateResponse("datosActualizados.html")
+    verDB = FuncionesDB()
+    producto_id_str = str(producto_id)
+    borrar= verDB.borrarDatos("Producto", producto_id)
+    return {"mensaje": "Producto eliminado correctamente"}
+
+@router.get("/productos/editar/{producto_id}", response_class=HTMLResponse)
+def editarProducto(req: Request, producto_id: int):
+    verDB = FuncionesDB()
+    mostrarProducto=verDB.seleccionarDatos("Producto", producto_id)
+    print(mostrarProducto)
+    return template.TemplateResponse("editar_producto.html", {"request": req, "mostrarProducto": mostrarProducto})
 
 @router.post('/productos/crear')
 async def crearProducto(
