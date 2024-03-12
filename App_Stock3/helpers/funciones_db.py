@@ -19,6 +19,20 @@ class FuncionesDB():
     except sql.Error as e:
       print(f"error: {e}")
 
+  def editarRegistro(self, tabla, column, values, condition, conditionValues):
+    try:
+      setClause = ', '.join([f"{column} = ?" for column in column])
+      query = f"UPDATE {tabla} SET {setClause} WHERE {condition}"
+
+      values.extend(conditionValues)
+
+      self._cur.execute(query, tuple(values))
+      self._con.commit()
+      return "corrrecto"
+    
+    except sql.Error as e:
+        print(f"Error al actualizar datos: {e}")
+
   def seleccionarDatos(self, table, id):
     try:
       self._cur.execute(f"SELECT * FROM {table} WHERE id = ?", (id,))

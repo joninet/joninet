@@ -14,7 +14,7 @@ def nuevoProducto(req: Request):
   verDB = FuncionesDB()
   categorias= verDB.mostrarTabla("Categoria")
   #print(categorias)
-  return template.TemplateResponse("nuevo_producto.html", {"request": req, "categorias": categorias})
+  return template.TemplateResponse("productos_nuevo.html", {"request": req, "categorias": categorias})
 
 @router.get("/Actualizado", response_class=HTMLResponse)
 def index():
@@ -31,8 +31,33 @@ def borrarProducto(producto_id: int):
 def editarProducto(req: Request, producto_id: int):
     verDB = FuncionesDB()
     mostrarProducto=verDB.seleccionarDatos("Producto", producto_id)
-    print(mostrarProducto)
-    return template.TemplateResponse("editar_producto.html", {"request": req, "mostrarProducto": mostrarProducto})
+    categorias= verDB.mostrarTabla("Categoria")
+    return template.TemplateResponse("productos_editar.html", {"request": req, "mostrarProducto": mostrarProducto, "categorias": categorias})
+
+@router.post("/productos/editardb")
+async def editarProducto(
+    req: Request,
+    id:int = Form(None),
+    nombre: str = Form(None),
+    um: str = Form(None),
+    descripcion: str = Form(None),
+    categoria_id: int = Form(None)):
+
+    if not (nombre and um and descripcion and categoria_id):
+        error_msg = "Por favor, complete todos los campos."
+        verDB = FuncionesDB()
+        categorias= verDB.mostrarTabla("Categoria")
+        return template.TemplateResponse(
+            "datosNoActualizados.html", 
+            {"request": req, "errorIngresoInsumo": error_msg, "nombre": nombre, "um": um, "descripcion": descripcion, "categoria_id": categoria_id, "categorias": categorias}
+        )
+
+    column = ["nombre", "um", "descripcion", "categoria_id"]
+    values = [nombre, um, descripcion, categoria_id]
+
+    insertar = FuncionesDB()
+    insertar.editarRegistro("Producto", column, values, f"id = ?", (id,))
+    return template.TemplateResponse("datosActualizados.html", {"request": req})
 
 @router.post('/productos/crear')
 async def crearProducto(
@@ -47,7 +72,7 @@ async def crearProducto(
         verDB = FuncionesDB()
         categorias= verDB.mostrarTabla("Categoria")
         return template.TemplateResponse(
-            "nuevo_producto.html", 
+            "productos_nuevo.html", 
             {"request": req, "errorIngresoInsumo": error_msg, "nombre": nombre, "um": um, "descripcion": descripcion, "categoria_id": categoria_id, "categorias": categorias}
         )
 
