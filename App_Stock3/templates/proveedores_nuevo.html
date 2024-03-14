@@ -82,56 +82,44 @@
 
   <!--contenido-->
   <div class="m-3 w-100 vh-100">
-    <h5 class="text-secondary">Editar Producto</h5>
+    <h5 class="text-secondary">Ingreso nuevo Proveedor</h5>
     <div class="border-top mb-3 w-100"></div>
     <article>
       <main class="d-flex">
           <div class="container-fluid row m-0">
               <div class="w-100">
                   <div class="card-body">
-                      {% for mostrar in mostrarProducto %}
-                      <form action="/productos/editardb/" method="post">
+                      <form action="/proveedores/crear" method="post">
                           <div class="mb-3">
-                              <label for="nombre" class="form-label">Codigo del Producto (*)</label>
-                              <input type="text" class="form-control" id="id" name="id" value="{{ mostrar[0] }}" readonly>
+                              <label for="nombre" class="form-label">Nombre del Proveedor</label>
+                              <input type="text" class="form-control" id="nombre" name="nombre" value="{{ nombre if nombre is not none else '' }}" required>
                           </div>
                           <div class="mb-3">
-                              <label for="nombre" class="form-label">Nombre del Producto (*)</label>
-                              <input type="text" class="form-control" id="nombre" name="nombre" value="{{ mostrar[1] }}" required>
+                              <label for="direccion" class="form-label">Direccion</label>
+                              <input type="text" class="form-control" id="direccion" name="direccion" value="{{ direccion if direccion is not none else '' }}">
                           </div>
                           <div class="mb-3">
-                              <label for="um" class="form-label">Unidad de Medida (*)</label>
-                              <input type="text" class="form-control" id="um" name="um" value="{{ mostrar[2] }}">
-                          </div>
-                          <div class="mb-3">
-                              <label for="descripcion" class="form-label">Descripción (*)</label>
-                              <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ mostrar[3] }}" required>
-                          </div>
-                          <div class="mb-3">
-                              <label for="categoria_id" class="form-label">Categoría (*)</label>
-                              <select class="form-select" id="categoria_id" name="categoria_id" required>
-                                  {% for categoria in categorias %}
-                                  {% if categoria[0] == mostrar [4] %}
-                                  <option value="{{ categoria[0] }}"> {{ categoria[1] }}</option>
-                                  {% endif %}
-                                  {% endfor %}
-                                  {% for categoria in categorias %}
-                                  {% if categoria[0] != mostrar [4] %}
-                                      <option value="{{ categoria[0] }}">{{ categoria[1] }}</option>
-                                  {% endif %}
-                                  {% endfor %}
-                              </select>
-                          </div>
+                            <label for="localidad" class="form-label">Localidad</label>
+                            <input type="text" class="form-control" id="localidad" name="localidad" value="{{ localidad if localidad is not none else '' }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Telefono</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" value="{{ telefono if telefono is not none else '' }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" value="{{ email if email is not none else '' }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="moneda" class="form-label">Moneda</label>
+                            <input type="text" class="form-control" id="moneda" name="moneda" value="{{ moneda if moneda is not none else '' }}">
+                        </div>
                           {% if errorIngresoInsumo %}
                               <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                   <strong>Error </strong>{{errorIngresoInsumo}}
                                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                               </div>
                           {% endif %}
-                          {% endfor %}
-                          <div class="mb-3">
-                              <label for="descripcion" class="form-label">(*) Campos Obligatorios</label>
-                          </div>
                           <div class="d-grid gap-2">
                               <button class="btn btn-primary m-1">Guardar</button>
                           </div>
