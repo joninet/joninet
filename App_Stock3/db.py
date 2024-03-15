@@ -3,13 +3,19 @@ import sqlite3
 conn = sqlite3.connect('App_Stock3/base_datos.db')
 cursor = conn.cursor()
 
-cursor.execute("""CREATE TABLE Producto (
+cursor.execute("""CREATE TABLE Movimientos (
                  id INTEGER PRIMARY KEY AUTOINCREMENT,
-                 nombre TEXT NOT NULL,
-                 um TEXT NOT NULL,
-                 descripcion TEXT,
-                 categoria_id INTEGER NOT NULL,
-                 FOREIGN KEY (categoria_id) REFERENCES Categoria(id)
+                 fecha DATE NOT NULL,
+                 cantidad REAL NOT NULL,
+               
+                 producto_id INTEGER NOT NULL,
+                 usuario_id INTEGER NOT NULL,
+                 almacen_id INTEGER NOT NULL,
+               
+                 FOREIGN KEY (producto_id) REFERENCES Producto(id)
+                 FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
+                 FOREIGN KEY (almacen_id) REFERENCES Almacen(id)
+               
                  
                )
                """)
@@ -17,3 +23,4 @@ cursor.execute("""CREATE TABLE Producto (
 
 conn.commit()
 conn.close()
+

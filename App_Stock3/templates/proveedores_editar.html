@@ -8,6 +8,7 @@
 
     <link href="/templates/static/bootstrap.min.css" rel="stylesheet">
     <link href="/templates/static/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="/templates/static/sidebars.css" rel="stylesheet">
@@ -73,8 +74,8 @@
 <main class="d-flex flex-nowrap">
   <div class="flex-shrink-0 p-3" style="width: 280px;">
     <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
-      <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#grid"/></svg>
-      <span class="fs-5 fw-semibold">Nexo Jon</span>
+      <svg class="bi pe-none me-2" width="30" height="24" style="color: #0D6EFD;"><use xlink:href="#grid"/></svg>
+      <span class="fs-5 fw-semibold">NexoJon</span>
     </a>
     <ul class="list-unstyled ps-0">
       <!--Menu-->
@@ -84,15 +85,72 @@
   <div class="b-example-divider b-example-vr"></div>
 
   <!--contenido-->
-  <div class="m-3 w-100 vh-100">
-    <h5>Nombre de la seccion</h5>
+  <div class="m-3 w-100">
+    <h5 class="text-secondary">Editar Proveedor</h5>
     <div class="border-top mb-3 w-100"></div>
-    <!--contenido completo-->
+    <article>
+      <main class="d-flex">
+          <div class="container-fluid row m-0">
+              <div class="w-100">
+                  <div class="card-body">
+                      {% for mostrar in mostrarProveedor %}
+                      <form action="/proveedores/editardb/" method="post">
+                          <div class="mb-3">
+                              <label for="id" class="form-label">Codigo (*)</label>
+                              <input type="int" class="form-control" id="id" name="id" value="{{ mostrar[0] }}" readonly>
+                          </div>
+                          <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre (*)</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ mostrar[1] }}">
+                          </div>
+                          <div class="mb-3">
+                            <label for="direccion" class="form-label">Direccion (*)</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion" value="{{ mostrar[2] }}">
+                          </div>
+                          <div class="mb-3">
+                            <label for="localidad" class="form-label">Localidad (*)</label>
+                            <input type="text" class="form-control" id="localidad" name="localidad" value="{{ mostrar[3] }}">
+                          </div>
+                          <div class="mb-3">
+                            <label for="telefono" class="form-label">Telefono (*)</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" value="{{ mostrar[4] }}">
+                          </div>
+                          <div class="mb-3">
+                            <label for="email" class="form-label">Email (*)</label>
+                            <input type="text" class="form-control" id="email" name="email" value="{{ mostrar[5] }}">
+                          </div>
+                          <div class="mb-3">
+                            <label for="moneda" class="form-label">Moneda (*)</label>
+                            <input type="text" class="form-control" id="moneda" name="moneda" value="{{ mostrar[6] }}">
+                          </div>
+                          {% if errorIngresoInsumo %}
+                              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                  <strong>Error </strong>{{errorIngresoInsumo}}
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>
+                          {% endif %}
+                          {% endfor %}
+                          <div class="mb-3">
+                              <label for="descripcion" class="form-label">(*) Campos Obligatorios</label>
+                          </div>
+                          <div class="d-grid gap-2">
+                              <button class="btn btn-primary m-1">Guardar</button>
+                          </div>
+                      </form>
+                                          
+                      <div class="d-grid gap-2">
+                          <button class="btn btn-secondary m-1" onclick="limpiarFormulario()">Limpiar</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+     </article>
   </div>
   <!--Fin Contenido-->
 </main>
 <script src="/templates/static/bootstrap.bundle.min.js"></script>
-<script src="/templates/static/sidebars.js"></script></body>
+<script src="/templates/static/sidebars.js"></script>
 </body>
 </html>
 
