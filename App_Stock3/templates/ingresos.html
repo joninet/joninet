@@ -146,8 +146,8 @@
                     {{ i[1] }}
                     {% endif %}
                     {% endfor %}</td>
-                    <td class="centrado small"><a href="#" onclick="editarProducto({{ ingreso[0] }})"><i class="fas fa-edit fa-lg" style="color: rgb(40, 151, 214);"></i></a>&nbsp;&nbsp;
-                      <a href="#" onclick="eliminarProducto({{ ingreso[0] }})"><i class="fas fa-trash fa-lg" style="color: rgb(197, 0, 0);"></i></a>
+                    <td class="centrado small"><a href="#" onclick="editarIngreso({{ ingreso[0] }})"><i class="fas fa-edit fa-lg" style="color: rgb(40, 151, 214);"></i></a>&nbsp;&nbsp;
+                      <a href="#" onclick="eliminarIngreso({{ ingreso[0] }})"><i class="fas fa-trash fa-lg" style="color: rgb(197, 0, 0);"></i></a>
                         </td>
               </tr>
               </div>
@@ -213,7 +213,7 @@
 
 </main>
 <script>
-  async function editaringresos(ingresos_id) {
+  async function editarIngreso(ingresos_id) {
     try {
       // Enviar la solicitud "GET" al endpoint para editar el producto
       const response = await fetch(`/ingresos/editar/${ingresos_id}`, {
@@ -235,7 +235,7 @@
   }
 </script>
 <script>
-  async function eliminarProducto(ingresos_id) {
+  async function eliminarIngreso(ingresos_id) {
     // Mostrar una ventana emergente para pedir confirmación
     const confirmar = confirm("¿Estás seguro de que deseas eliminar este ingreso?");
 

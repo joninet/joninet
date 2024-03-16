@@ -93,3 +93,18 @@ def borrarIngreso(ingresos_id: int):
     producto_id_str = str(ingresos_id)
     borrar= verDB.borrarDatos("Ingresos", ingresos_id)
     return {"mensaje": "Producto eliminado correctamente"}
+
+@router.get("/ingresos/editar/{ingresos_id}", response_class=HTMLResponse)
+def editarIngreso(req: Request, ingresos_id: int):
+    verDB = FuncionesDB()
+    mostrarIngreso=verDB.seleccionarDatos("Ingresos", ingresos_id)
+
+    categorias= verDB.mostrarTabla("Categoria")
+    producto= verDB.mostrarTabla("Producto")
+    proveedor= verDB.mostrarTabla("Proveedor")
+    estado= verDB.mostrarTabla("Estado")
+    almacen= verDB.mostrarTabla("Almacen")
+    usuario= verDB.mostrarTabla("Usuario")
+
+    return template.TemplateResponse("ingresos_editar.html", {"request": req, "mostrarIngreso": mostrarIngreso, "categorias": categorias, "producto": producto, "proveedor": proveedor, "estado": estado, "almacen": almacen, "usuario": usuario})
+
