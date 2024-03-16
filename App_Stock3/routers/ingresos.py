@@ -44,13 +44,14 @@ async def crearIngreso(
     usuario=verDB.seleccionarDatos("Usuario", usuario_id)
     almacen=verDB.seleccionarDatos("Almacen", almacen_id)
 
-    if producto == None and  proveedor==None and  estado==None and usuario==None and almacen==None:
-      error_msg = "id Inexistente"
+    if not producto or not proveedor or not estado or not usuario or not almacen:
+      error_msg = "Codigo inexistente"
       return template.TemplateResponse(
-            "ingresos_nuevo.html", 
-            {"request": req, "errorIngresoInsumo": error_msg, "producto_id": producto_id, "cantidad": cantidad, "proveedor_id": proveedor_id, "oc": oc, "lote": lote, "vto": vto, 
-             "estado_id": estado_id, "remito": remito, "usuario_id": usuario_id, "almacen_id": almacen_id}
-        )
+          "ingresos_nuevo.html", 
+          {"request": req, "errorIngresoInsumo": error_msg, "producto_id": producto_id, "cantidad": cantidad, "proveedor_id": proveedor_id, "oc": oc, "lote": lote, "vto": vto, 
+          "estado_id": estado_id, "remito": remito, "usuario_id": usuario_id, "almacen_id": almacen_id}
+      )
+
 
     fecha_actual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -60,3 +61,35 @@ async def crearIngreso(
     insertar = FuncionesDB()
     insertar.insertarDatos("Ingresos", column, values)
     return template.TemplateResponse("datosActualizados.html", {"request": req})
+
+@router.get("/ingresos/ver_todos")
+def verIngresos(req:Request, page: int = 1):
+    verDb = FuncionesDB()
+    ingresos = verDb.mostrarTablaPaginada("Ingresos", page, 15)
+    total_ingresos = verDb.contarFilas("Ingresos")
+    total_paginas = math.ceil(total_ingresos / 15)
+
+    producto = verDb.mostrarTabla("Producto")
+    proveedor = verDb.mostrarTabla("Proveedor")
+    estado = verDb.mostrarTabla("Estado")
+    usuario = verDb.mostrarTabla("Usuario")
+    usuario = verDb.mostrarTabla("Usuario")
+    almacen =  verDb.mostrarTabla("Almacen")
+
+    return template.TemplateResponse("ingresos.html", { "request" : req, "ingresos": ingresos, "producto": producto, "proveedor": proveedor, 
+                                                        "estado": estado, "usuario": usuario, 
+                                                        "almacen": almacen, "page": page, "total_paginas": total_paginas })
+
+
+@router.get("/ingresos/modal/{producto_id}", response_class=HTMLResponse)
+def editarProducto(req: Request, producto_id: int):
+    verDB = FuncionesDB()
+    proveedor=verDB.seleccionarDatos("Proveedor", producto_id)
+    return template.TemplateResponse("ingresos_modal.html", {"request": req, "proveedor": proveedor})
+
+@router.delete("/ingresos/borrar/{ingresos_id}",)
+def borrarIngreso(ingresos_id: int):
+    verDB = FuncionesDB()
+    producto_id_str = str(ingresos_id)
+    borrar= verDB.borrarDatos("Ingresos", ingresos_id)
+    return {"mensaje": "Producto eliminado correctamente"}
