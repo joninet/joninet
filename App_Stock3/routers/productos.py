@@ -38,8 +38,12 @@ def borrarProducto(producto_id: int):
 def editarProducto(req: Request, producto_id: int):
     verDB = FuncionesDB()
     mostrarProducto=verDB.seleccionarDatos("Producto", producto_id)
-    categorias= verDB.mostrarTabla("Categoria")
-    return template.TemplateResponse("productos_editar.html", {"request": req, "mostrarProducto": mostrarProducto, "categorias": categorias})
+
+    if not mostrarProducto:
+        return template.TemplateResponse("id_inexistente.html", {"request": req})
+    else:
+        categorias= verDB.mostrarTabla("Categoria")
+        return template.TemplateResponse("productos_editar.html", {"request": req, "mostrarProducto": mostrarProducto, "categorias": categorias})
 
 @router.post("/productos/editardb")
 async def editarProducto(

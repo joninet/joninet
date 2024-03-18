@@ -85,7 +85,7 @@
   <div class="b-example-divider b-example-vr"></div>
 
   <!--contenido-->
-  <div class="m-3 w-100 vh-100">
+  <div class="m-3 w-100">
     <h5 class="text-secondary">Editar Ingreso</h5>
     <div class="border-top mb-3 w-100"></div>
     <article>
@@ -94,12 +94,12 @@
               <div class="w-100">
                   <div class="card-body">
                       {% for mostrar in mostrarIngreso %}
-                      <form action="/ingresos/crear" method="post">
+                      <form action="/ingresos/editardb/{{ mostrar[0] }}" method="post">
                         <div class="row">
                           <div class="col-md-6">
                             <div class="mb-3">
                               <label for="producto_id" class="form-label">Cod Producto</label>
-<input type="number" class="form-control" id="producto_id" name="producto_id" value="{{ mostrar[7] }}" onchange="mostrarNombreProducto()" required>
+                              <input type="number" class="form-control" id="producto_id" name="producto_id" value="{{ mostrar[7] }}" oninput="mostrarNombreProducto()" required>
                             </div>
                           </div>
                           <div class="col-md-6">
@@ -111,13 +111,13 @@
                         </div>
                           <div class="mb-3">
                               <label for="cantidad" class="form-label">Cantidad</label>
-                              <input type="number" class="form-control" id="cantidad" name="cantidad" value="{{ mostrar[0] }}" required>
+                              <input type="number" class="form-control" id="cantidad" name="cantidad" value="{{ mostrar[6] }}" required>
                           </div>
                           <div class="row">
                             <div class="col-md-6">
                               <div class="mb-3">
                                 <label for="proveedor_id" class="form-label">Cod Proveedor</label>
-                                <input type="number" class="form-control" id="proveedor_id" name="proveedor_id" value="{{ mostrar[0] }}" oninput="mostrarNombreProveedor()" required>
+                                <input type="number" class="form-control" id="proveedor_id" name="proveedor_id" value="{{ mostrar[8] }}" oninput="mostrarNombreProveedor()" required>
                               </div>
                             </div>
                             <div class="col-md-6">
@@ -129,42 +129,60 @@
                           </div>
                         <div class="mb-3">
                             <label for="oc" class="form-label">Orden de Compra</label>
-                            <input type="text" class="form-control" id="oc" name="oc" value="{{ mostrar[0] }}" required>
+                            <input type="text" class="form-control" id="oc" name="oc" value="{{ mostrar[2] }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="lote" class="form-label">Lote</label>
-                            <input type="text" class="form-control" id="lote" name="lote" value="{{ mostrar[0] }}" required>
+                            <input type="text" class="form-control" id="lote" name="lote" value="{{ mostrar[3] }}" required>
                         </div>
                         <div class="mb-3">
                           <label for="vto" class="form-label">Vencimiento</label>
-                          <input type="date" class="form-control" id="vto" name="vto" value="{{ mostrar[0] }}" required>
+                          <input type="date" class="form-control" id="vto" name="vto" value="{{ mostrar[4] }}" required>
                         </div> 
                         <div class="mb-3">
                           <label for="estado_id" class="form-label">Estado</label>
-                          <select class="form-select" id="Estado_id" name="estado_id" required>
-                              <option value="">-- Seleccione un estado--</option>
-                              {% for est in estado %}
-                                  <option value="{{ est[0] }}" {% if est[0] == estado_id %} selected {% endif %}>{{ est[1] }}</option>
-                              {% endfor %}
-                          </select> 
+                          <select class="form-select" id="estado_id" name="estado_id" required>
+                            {% for est in estado %}
+                            {% if est[0] == mostrar [9] %}
+                            <option value="{{ est[0] }}"> {{ est[1] }}</option>
+                            {% endif %}
+                            {% endfor %}
+                            {% for est in estado %}
+                            {% if est[0] != mostrar [9] %}
+                                <option value="{{ est[0] }}">{{ est[1] }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
                           <div class="mb-3">
                             <label for="remito" class="form-label">Remito</label>
-                            <input type="text" class="form-control" id="remito" name="remito" value="{{ mostrar[0] }}" required>
+                            <input type="text" class="form-control" id="remito" name="remito" value="{{ mostrar[5] }}" required>
                         </div>
                         <label for="remito" class="form-label">Usuario</label>
                         <select class="form-select" id="usuario_id" name="usuario_id" required>
-                          <option value="">-- Seleccione un usuario--</option>
                           {% for usr in usuario %}
-                              <option value="{{ usr[0] }}" {% if usr[0] == usuario_id %} selected {% endif %}>{{ usr[1] }}</option>
+                          {% if usr[0] == mostrar [10] %}
+                          <option value="{{ usr[0] }}"> {{ usr[1] }}</option>
+                          {% endif %}
                           {% endfor %}
-                      </select> 
+                          {% for usr in usuario %}
+                          {% if usr[0] != mostrar [10] %}
+                              <option value="{{ usr[0] }}">{{ usr[1] }}</option>
+                          {% endif %}
+                          {% endfor %}
+                      </select>
                       <label for="remito" class="form-label">Almacen</label>
                       <select class="form-select" id="almacen_id" name="almacen_id" required>
-                        <option value="">-- Seleccione un Almacen--</option>
                         {% for alm in almacen %}
-                            <option value="{{ alm[0] }}" {% if alm[0] == almacen_id %} selected {% endif %}>{{ alm[1] }}</option>
+                        {% if alm[0] == mostrar [11] %}
+                        <option value="{{ alm[0] }}"> {{ alm[1] }}</option>
+                        {% endif %}
                         {% endfor %}
-                    </select> 
+                        {% for alm in almacen %}
+                        {% if alm[0] != mostrar [11] %}
+                            <option value="{{ alm[0] }}">{{ alm[1] }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
                     <br>
                           {% if errorIngresoInsumo %}
                               <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -192,10 +210,14 @@
 </main>
 <script>
   window.onload = function() {
-    mostrarNombreProducto();
+    mostrarInformacion();
   };
-</script>
-<script>
+
+  function mostrarInformacion() {
+    mostrarNombreProducto();
+    mostrarNombreProveedor();
+  }
+
   function mostrarNombreProducto() {
     var producto_id = document.getElementById('producto_id').value;
     var nombre_producto_id = document.getElementById('nombre_producto_id');
@@ -217,11 +239,9 @@
     // Si no se encuentra ningún producto con el código ingresado, limpiar el campo de nombre
     nombre_producto_id.value = '';
   }
-</script>
-<script>
-  function mostrarNombreProveedor() {
-    var proveedor_id = document.getElementById('proveedor_id').value;
-    var nombre_proveedor_id = document.getElementById('nombre_proveedor_id');
+function mostrarNombreProveedor() {
+  var proveedor_id = document.getElementById('proveedor_id').value;
+  var nombre_proveedor_id = document.getElementById('nombre_proveedor_id');
 
     // Si no se ingresa ningún código, no mostrar nada
     if (proveedor_id === '') {
@@ -238,7 +258,7 @@
     {% endfor %}
 
     // Si no se encuentra ningún producto con el código ingresado, limpiar el campo de nombre
-    nombre_producto_id.value = '';
+    nombre_proveedor_id.value = '';
   }
 </script>
 <script src="/templates/static/bootstrap.bundle.min.js"></script>
