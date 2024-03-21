@@ -41,13 +41,31 @@ async def crearMovimiento(
     insertar = FuncionesDB()
     insertar.insertarDatos("Movimientos", column, values)
 
-    stockActual=float(insertar.obtenerStock(producto_id, almacen_origen_id))
-    stockNuevo=stockActual - cantidad
+    #descuento stock
+    stockActual=insertar.obtenerStock(producto_id, almacen_origen_id)
 
-    columnStock=["cantidad"]
-    valuesStock=[stockNuevo]
+    if not stockActual:
+      columnStock=["cantidad","producto_id", "almacen_id"]
+      valuesStock=[cantidad, producto_id, almacen_origen_id]
+      error_msg="El almacen de origen no cuenta con la cantidad pedida"
+      return template.TemplateResponse("movimiento_nuevo.html", {"request": req, "errorIngresoInsumo": error_msg})
+    else:
+      stockNuevo=float(stockActual) - cantidad
+      columnStock=["cantidad"]
+      valuesStock=[stockNuevo]
+      insertar.editarStock("Stock", columnStock, valuesStock, producto_id, almacen_origen_id)
 
-    insertar.editarStock("Stock", columnStock, valuesStock, producto_id, almacen_origen_id)
+    #ingreso Stock
+    stockActualDestino=insertar.obtenerStock(producto_id, almacen_destino_id)
+    if not stockActualDestino:
+      columnStockIngreso=["cantidad","producto_id", "almacen_id"]
+      valuesStockIngreso=[cantidad, producto_id, almacen_destino_id]
+      insertar.insertarDatos("Stock", columnStockIngreso, valuesStockIngreso)
+    else:
+      stockNuevoDestino = cantidad + float(stockActualDestino)
+      columnStockDestino=["cantidad"]
+      valuesStockDestino=[stockNuevoDestino]
+      insertar.editarStock("Stock", columnStockDestino, valuesStockDestino, producto_id, almacen_destino_id)
 
-
-    return template.TemplateResponse("datosActualizados.html", {"request": req})
+    info_mensaje = "El movimiento fue creado exitosamente"
+    return template.TemplateResponse("movimiento_nuevo.html", {"request": req, "IngresoCorrecto": info_mensaje})
