@@ -89,9 +89,13 @@ async def crearProducto(
 
     column = ["nombre", "um", "descripcion", "categoria_id"]
     values = [nombre, um, descripcion, categoria_id]
-
     insertar = FuncionesDB()
-    insertar.insertarDatos("Producto", column, values)
+    producto_id = insertar.insertarDatos("Producto", column, values)
+
+    column_stock = ["producto_id", "cantidad", "almacen_id"]
+    values_stock = [producto_id, 0, "almacen"]
+    insertar.insertarDatos("Stock", column_stock, values_stock)
+
     return template.TemplateResponse("datosActualizados.html", {"request": req})
 
 @router.get("/productos/ver_todos")

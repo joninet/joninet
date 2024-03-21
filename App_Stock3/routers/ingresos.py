@@ -58,8 +58,12 @@ async def crearIngreso(
     column = ["producto_id", "cantidad", "proveedor_id", "oc", "lote", "vto", "estado_id", "remito", "usuario_id", "almacen_id", "fecha"]
     values = [producto_id, cantidad, proveedor_id, oc, lote, vto, estado_id, remito, usuario_id, almacen_id, fecha_actual]
 
+    columnStock = ["producto_id", "cantidad", "almacen_id"]
+    valuesStock = [producto_id, cantidad, almacen_id]
+
     insertar = FuncionesDB()
     insertar.insertarDatos("Ingresos", column, values)
+    insertar.insertarDatos("Stock", columnStock, valuesStock)
     return template.TemplateResponse("datosActualizados.html", {"request": req})
 
 @router.get("/ingresos/ver_todos")
