@@ -64,7 +64,17 @@ async def crearIngreso(
     insertar = FuncionesDB()
     insertar.insertarDatos("Ingresos", column, values)
     insertar.insertarDatos("Stock", columnStock, valuesStock)
-    return template.TemplateResponse("datosActualizados.html", {"request": req})
+
+    verDB = FuncionesDB()
+    categorias= verDB.mostrarTabla("Categoria")
+    producto= verDB.mostrarTabla("Producto")
+    proveedor= verDB.mostrarTabla("Proveedor")
+    estado= verDB.mostrarTabla("Estado")
+    almacen= verDB.mostrarTabla("Almacen")
+    usuario= verDB.mostrarTabla("Usuario")
+    info_mensaje = "El Ingreso fue creado exitosamente"
+
+    return template.TemplateResponse("ingresos_nuevo.html", {"request": req, "info_mensaje": info_mensaje, "categorias": categorias, "producto": producto, "proveedor": proveedor, "estado": estado, "almacen": almacen, "usuario": usuario})
 
 @router.get("/ingresos/ver_todos")
 def verIngresos(req:Request, page: int = 1):
@@ -151,4 +161,5 @@ async def editarIngresos(
 
     insertar = FuncionesDB()
     insertar.editarRegistro("Ingresos", column, values, f"id = ?", (ingresos_id,))
-    return template.TemplateResponse("datosActualizados.html", {"request": req})
+    info_mensaje = "El Ingreso fue creado exitosamente"
+    return template.TemplateResponse("ingresos_editar.html", {"request": req, "info_mensaje": info_mensaje})

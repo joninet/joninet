@@ -27,7 +27,7 @@ class FuncionesDB():
 
 # Crear una instancia de la clase FuncionesDB
 db = FuncionesDB()
-db.borrarRegistrosTabla("Movimientos")
+db.borrarRegistrosTabla("Stock")
 
 
 

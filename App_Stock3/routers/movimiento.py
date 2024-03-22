@@ -67,5 +67,12 @@ async def crearMovimiento(
       valuesStockDestino=[stockNuevoDestino]
       insertar.editarStock("Stock", columnStockDestino, valuesStockDestino, producto_id, almacen_destino_id)
 
+    verDB = FuncionesDB()
+    categorias= verDB.mostrarTabla("Categoria")
+    producto= verDB.mostrarTabla("Producto")
+    proveedor= verDB.mostrarTabla("Proveedor")
+    estado= verDB.mostrarTabla("Estado")
+    almacen= verDB.mostrarTabla("Almacen")
+    usuario= verDB.mostrarTabla("Usuario")
     info_mensaje = "El movimiento fue creado exitosamente"
-    return template.TemplateResponse("movimiento_nuevo.html", {"request": req, "IngresoCorrecto": info_mensaje})
+    return template.TemplateResponse("movimiento_nuevo.html", {"request": req, "info_mensaje": info_mensaje, "categorias": categorias, "producto": producto, "proveedor": proveedor, "estado": estado, "almacen": almacen, "usuario": usuario})
