@@ -94,13 +94,6 @@ def verIngresos(req:Request, page: int = 1):
                                                         "estado": estado, "usuario": usuario, 
                                                         "almacen": almacen, "page": page, "total_paginas": total_paginas })
 
-
-@router.get("/ingresos/modal/{producto_id}", response_class=HTMLResponse)
-def editarProducto(req: Request, producto_id: int):
-    verDB = FuncionesDB()
-    proveedor=verDB.seleccionarDatos("Proveedor", producto_id)
-    return template.TemplateResponse("ingresos_modal.html", {"request": req, "proveedor": proveedor})
-
 @router.delete("/ingresos/borrar/{ingresos_id}",)
 def borrarIngreso(ingresos_id: int):
     verDB = FuncionesDB()
