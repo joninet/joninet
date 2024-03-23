@@ -25,12 +25,16 @@ async def stockVer(req: Request,
                            ):
     ver = FuncionesDB()
     stockActual = ver.obtenerStock(producto_id, almacen_id)
-    nombreProducto = str(ver.seleccionarDatos("Producto", producto_id)[0][1])
-    umProducto = str(ver.seleccionarDatos("Producto", producto_id)[0][2])
-    info_mensaje = "Producto"
+    info_mensaje = "Producto sin Stock en el amacen seleccionado" if not stockActual else "Producto"
     producto= ver.mostrarTabla("Producto")
     almacen= ver.mostrarTabla("Almacen")
-    return template.TemplateResponse("stock.html", {"request": req, "info_mensaje": info_mensaje,
-                                                    "stockActual": stockActual,
-                                                    "nombreProducto": nombreProducto,
-                                                    "umProducto": umProducto, "producto": producto, "almacen": almacen})
+    if not stockActual:
+        return template.TemplateResponse("stock.html", {"request": req, "info_mensaje": info_mensaje, "producto": producto, "almacen": almacen})
+    else:
+        nombreProducto = str(ver.seleccionarDatos("Producto", producto_id)[0][1])
+        umProducto = str(ver.seleccionarDatos("Producto", producto_id)[0][2])
+
+        return template.TemplateResponse("stock.html", {"request": req, "info_mensaje": info_mensaje,
+                                                        "stockActual": stockActual,
+                                                        "nombreProducto": nombreProducto,
+                                                        "umProducto": umProducto, "producto": producto, "almacen": almacen})

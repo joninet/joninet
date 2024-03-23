@@ -73,7 +73,7 @@
 
 <main class="d-flex flex-nowrap">
   <div class="flex-shrink-0 p-3" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+    <a href="/productos/ver_todos" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
       <svg class="bi pe-none me-2" width="30" height="24" style="color: #0D6EFD;"><use xlink:href="#grid"/></svg>
       <span class="fs-5 fw-semibold">NexoJon</span>
     </a>
@@ -140,8 +140,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          {% if nombreProducto %}
           <h5 class="modal-title fs-5" id="modal-info-mensaje-title">Nombre: {{ nombreProducto }}</h5>
           <h5 class="modal-title fs-5" id="modal-info-mensaje-title">Stock: {{ stockActual }} {{ umProducto }}</h5>
+          {% else %}
+          <h5 class="modal-title fs-5" id="modal-info-mensaje-title">No hay stock en el almacen del producto seleccionado</h5>
+          {% endif %}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
