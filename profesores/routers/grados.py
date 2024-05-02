@@ -5,22 +5,23 @@ import sqlite3
 
 router = APIRouter()
 
-@router.post('/colegio/crear')
-async def crearColegio(
+@router.post('/grados/crear')
+async def crearGrados(
     req: Request,
-    nombre: str = Form(None)):
+    nombre: str = Form(None),
+    division: str = Form(None)):
 
-    column = ["nombre"]
-    values = [nombre]
+    column = ["nombre", "division"]
+    values = [nombre, division]
 
     insertar = FuncionesDB()
-    insertar.insertarDatos("colegios", column, values)
+    insertar.insertarDatos("grados", column, values)
 
     return {"message": "creado"}
 
-@router.post('/colegio/borrar/{colegio_id}')
-def borarColegio(colegio_id: int):
+@router.post('/grados/borrar/{grados_id}')
+def borarGrados(grados_id: int):
     ver = FuncionesDB()
-    ver.borrarRegistro("colegios", colegio_id)
+    ver.borrarRegistro("grados", grados_id)
 
     return {"message": "Registro borrado correctamente"}

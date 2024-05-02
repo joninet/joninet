@@ -21,5 +21,13 @@ class FuncionesDB():
     except sql.Error as e:
       print(f"error: {e}")
 
+  def borrarRegistro(self, tabla, id):
+    try:
+      self._cur.execute(f"DELETE FROM {tabla} WHERE id = ?", (id,))
+      self._con.commit()
+      return {"message": "Borrado correctamente"}
+    except sql.Error as e:
+      return {"message": f"Error al borrar: {e}"}
+
   def __del__(self):
     self._con.close()
