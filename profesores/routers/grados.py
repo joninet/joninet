@@ -11,6 +11,8 @@ async def crearGrados(
     nombre: str = Form(None),
     division: str = Form(None)):
 
+    division = division.upper()
+
     column = ["nombre", "division"]
     values = [nombre, division]
 
