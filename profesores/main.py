@@ -20,5 +20,7 @@ app.include_router(alumnosRouter)
 app.include_router(parcialesRouter)
 app.include_router(notasRouter)
 
+app.mount("/templates/static", StaticFiles(directory="templates/static"), name="static")
+
 
 
