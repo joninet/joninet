@@ -6,6 +6,7 @@ from routers.grados import router as gradosRouter
 from routers.materias import router as materiasRouter
 from routers.alumnos import router as alumnosRouter
 from routers.parciales import router as parcialesRouter
+from routers.notas import router as notasRouter
 
 
 
@@ -17,6 +18,7 @@ app.include_router(gradosRouter)
 app.include_router(materiasRouter)
 app.include_router(alumnosRouter)
 app.include_router(parcialesRouter)
+app.include_router(notasRouter)
 
 
 
