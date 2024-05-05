@@ -9,15 +9,11 @@ conexion = conectar_db("profesordb.db")
 cursor = conexion.cursor()
 
 cursor.execute("""
-CREATE TABLE alumnos (
+CREATE TABLE parciales (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  nombres VARCHAR(255) NOT NULL,
-  apellidos VARCHAR(255) NOT NULL,
-  email VARCHAR(255),
-  id_colegios INTEGER NOT NULL,
-  id_grados INTEGER NOT NULL,
-  FOREIGN KEY (id_colegios) REFERENCES colegios(id),
-  FOREIGN KEY (id_grados) REFERENCES grados(id)
+  tema VARCHAR(255) NOT NULL,
+  id_materias INTEGER NOT NULL,
+  FOREIGN KEY (id_materias) REFERENCES materias(id)
 );
 """)
 

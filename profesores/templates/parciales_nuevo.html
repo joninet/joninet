@@ -102,16 +102,19 @@
                             <select class="form-select" id="id_materia" name="id_materia" required>
                                 <option value="">-- Seleccione --</option>
                                 {% for materia in materias %}
-                                    <option value="{{ materia[0] }}" {% if materia[0] == id_materia %} selected {% endif %}>{{ materia[1] }}</option>
-                                {% endfor %}
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label for="id_colegio" class="form-label">Colegios</label>
-                            <select class="form-select" id="id_colegio" name="id_colegio" required>
-                                <option value="">-- Seleccione --</option>
-                                {% for colegio in colegios %}
-                                    <option value="{{ colegio[0] }}" {% if colegio[0] == id_colegio %} selected {% endif %}>{{ colegio[1] }}</option>
+                                    <option value="{{ materia[0] }}" {% if materia[0] == id_materia %} selected {% endif %}>
+                                      {{ materia[1] }} - 
+                                      {% for colegio in colegios %}
+                                        {% if colegio[0] == materia[2] %}
+                                          {{ colegio[1] }}
+                                        {% endif %}
+                                      {% endfor %} - 
+                                      {% for grado in grados %}
+                                        {% if grado[0] == materia[3] %}
+                                          {{ grado[1] }}{{ grado[2] }}
+                                        {% endif %}
+                                      {% endfor %}
+                                    </option>
                                 {% endfor %}
                             </select>
                           </div>

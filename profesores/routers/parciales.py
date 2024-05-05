@@ -15,38 +15,65 @@ def nuevoParciales(req: Request):
   verDb = FuncionesDB()
   colegios = verDb.mostrarTabla("colegios")
   materias = verDb.mostrarTabla("materias")
-  return template.TemplateResponse("parciales_nuevo.html", {"request": req, "colegios": colegios, "materias": materias})
+  grados = verDb.mostrarTabla("grados")
+  return template.TemplateResponse("parciales_nuevo.html", {"request": req, "colegios": colegios, "materias": materias, "grados": grados})
 
 @router.post('/parciales/crear')
 async def crearParciales(
     req: Request,
     tema: str = Form(None),
-    id_materia: int = Form(None),
-    id_colegio: int = Form(None)):
+    id_materia: int = Form(None)):
 
     tema = tema.upper()
 
-    column = ["tema", "id_materia", "id_colegio"]
-    values = [tema, id_materia, id_colegio]
+    column = ["tema", "id_materias"]
+    values = [tema, id_materia]
 
     verDb = FuncionesDB()
     verDb.insertarDatos("parciales", column, values)
 
     colegios = verDb.mostrarTabla("colegios")
     materias = verDb.mostrarTabla("materias")
+    grados = verDb.mostrarTabla("grados")
 
     info_mensaje = "El parcial fue creada exitosamente"
-    return template.TemplateResponse("parciales_nuevo.html", {"request": req, "info_mensaje": info_mensaje,"colegios": colegios, "materias": materias})
+
+    return template.TemplateResponse("parciales_nuevo.html", {"request": req, "info_mensaje": info_mensaje, "colegios": colegios, "materias": materias, "grados": grados})
 
 @router.get("/parciales/ver")
-def verMaterias(req:Request, page: int = 1):
+def verparciales(req:Request, page: int = 1):
     verDb = FuncionesDB()
-    materias = verDb.mostrarTabla("materias")
+
     colegios = verDb.mostrarTabla("colegios")
+    materias = verDb.mostrarTabla("materias")
+    grados = verDb.mostrarTabla("grados")
+    parciales2 = verDb.mostrarTabla("parciales")
+    resultados = []
+    for x in parciales2:
+        codigo = x[0]
+        tema = x[1]
+        for materia in materias:
+            if materia[0] == x[2]:
+                materiaNombre = materia[1]
+                for colegio in colegios:
+                    if colegio[0] == materia[2]:
+                        colegioNombre = colegio[1]
+                for grado in grados:
+                    if grado[0] == materia[3]:
+                        gradoNombre = grado[1] + grado[2]
+        resultados.append({
+            "codigo": codigo,
+            "tema": tema,
+            "materia": materiaNombre,
+            "colegio": colegioNombre,
+            "grado": gradoNombre
+        })
+
     parciales = verDb.mostrarTablaPaginada("parciales", page, 15)
     total_parciales = verDb.contarFilas("parciales")
     total_paginas = math.ceil(total_parciales / 15)
-    return template.TemplateResponse("parciales_ver.html", { "request" : req, "colegios": colegios, "parciales": parciales, "materias": materias, "page": page, "total_paginas": total_paginas })
+    
+    return template.TemplateResponse("parciales_ver.html", { "request" : req,"resultados": resultados, "parciales": parciales, "page": page, "total_paginas": total_paginas })
 
 
 @router.get('/parciales/borrar/{parciales_id}')
@@ -54,10 +81,11 @@ def borarParciales(req: Request, parciales_id: int, page: int = 1):
     verDb = FuncionesDB()
     materias = verDb.mostrarTabla("materias")
     colegios = verDb.mostrarTabla("colegios")
+    grados = verDb.mostrarTabla("grados")
     verDb.borrarRegistro("parciales", parciales_id)
     parciales = verDb.mostrarTablaPaginada("parciales", page, 15)
     total_parciales = verDb.contarFilas("parciales")
     total_paginas = math.ceil(total_parciales / 15)
 
     info_mensaje = "El parcial fue borrada exitosamente"
-    return template.TemplateResponse("materias_ver.html", { "request" : req, "info_mensaje": info_mensaje, "colegios": colegios, "parciales": parciales, "materias": materias, "page": page, "total_paginas": total_paginas })
+    return template.TemplateResponse("materias_ver.html", { "request" : req, "info_mensaje": info_mensaje, "colegios": colegios, "grados": grados, "parciales": parciales, "materias": materias, "page": page, "total_paginas": total_paginas })

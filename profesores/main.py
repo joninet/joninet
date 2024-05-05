@@ -7,6 +7,8 @@ from routers.materias import router as materiasRouter
 from routers.alumnos import router as alumnosRouter
 from routers.parciales import router as parcialesRouter
 from routers.notas import router as notasRouter
+from routers.condiciones import router as condicionesRouter
+
 
 
 
@@ -19,6 +21,7 @@ app.include_router(materiasRouter)
 app.include_router(alumnosRouter)
 app.include_router(parcialesRouter)
 app.include_router(notasRouter)
+app.include_router(condicionesRouter)
 
 app.mount("/templates/static", StaticFiles(directory="templates/static"), name="static")
 

@@ -1,6 +1,5 @@
 import sqlite3 as sql
 import json
-from fastapi import HTTPException
 import math
 
 class FuncionesDB():

@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from helpers.funciones_db import FuncionesDB
 from datetime import datetime
+import json
 import math
 import sqlite3
 
@@ -67,13 +68,56 @@ async def editarNotas(
 @router.get("/notas/ver")
 def verNotas(req:Request, page: int = 1):
     verDb = FuncionesDB()
+
     alumnos = verDb.mostrarTabla("alumnos")
     parciales = verDb.mostrarTabla("parciales")
     colegios = verDb.mostrarTabla("colegios")
+    materias = verDb.mostrarTabla("materias")
+    grados = verDb.mostrarTabla("grados")
+    notas2 = verDb.mostrarTabla("notas")
+
+    resultados=[]
+
+    for x in notas2:
+        codigo = x[0]
+        fecha = x[1]
+        nota = x[2]
+        rec1 = x[3]
+        rec2 = x[4]
+        rec3 = x[5]
+        for alumno in alumnos:
+            if alumno[0] == x[6]:
+                alumno_nombre = alumno[2]
+        for parcial in parciales:
+            if parcial[0] == x[7]:
+                parcial_nombre = parcial[1]
+                for materia in materias:
+                    if materia[0] == parcial[2]:
+                        materia_nombre=materia[1]
+                        for colegio in colegios:
+                            if colegio[0] == materia[2]:
+                                colegio_nombre = colegio[1]
+                        for grado in grados:
+                            if grado[0] == materia[3]:
+                                grado_nombre = grado[1] + grado[2]
+
+        resultados.append({
+        "codigo": codigo,
+        "fecha": fecha,
+        "nota": nota,
+        "rec1": rec1,
+        "rec2": rec2,
+        "rec3": rec3,
+        "alumnoNombre": alumno_nombre,
+        "parcialNombre": parcial_nombre,
+        "materiaNombre": materia_nombre,
+        "colegioNombre": colegio_nombre,
+        "gradoNombre": grado_nombre})
+        
     notas = verDb.mostrarTablaPaginada("notas", page, 15)
     total_notas = verDb.contarFilas("notas")
     total_paginas = math.ceil(total_notas / 15)
-    return template.TemplateResponse("notas_ver.html", { "request" : req, "alumnos": alumnos, "parciales": parciales, "notas": notas, "colegios": colegios,"page": page, "total_paginas": total_paginas })
+    return template.TemplateResponse("notas_ver.html", { "request" : req, "resultados": resultados, "notas": notas, "page": page, "total_paginas": total_paginas })
 
 
 @router.get('/notas/borrar/{notas_id}')

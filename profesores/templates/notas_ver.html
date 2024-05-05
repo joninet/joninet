@@ -101,35 +101,28 @@
                   <th class="centrado bg-primary text-white">Rec 3</th>
                   <th class="centrado bg-primary text-white">Alumno</th>
                   <th class="centrado bg-primary text-white">Parcial</th>
+                  <th class="centrado bg-primary text-white">Materia</th>
                   <th class="centrado bg-primary text-white">Colegio</th>
+                  <th class="centrado bg-primary text-white">Grado</th>
                   <th class="centrado bg-primary text-white">Acciones</th>
               </tr>
           </thead>
           <tbody>
-          {% for nota in notas %}
+          {% for resultado in resultados %}
               <tr>
-                  <td class="centrado small">{{ nota[0] }}</td>
-                  <td class="centrado small">{{ nota[1] }}</td>
-                  <td class="centrado small">{{ nota[2] }}</td>
-                  <td class="centrado small">{{ nota[3] }}</td>
-                  <td class="centrado small">{{ nota[4] }}</td>
-                  <td class="centrado small">{{ nota[5] }}</td>
-                  {% for alumno in alumnos %}
-                  {% if alumno[0] == nota[6] %}
-                  <td class="centrado small">{{ alumno[1] }}</td>
-                  {% endif %}
-                  {% endfor %}
-                  {% for parcial in parciales %}
-                  {% if parcial[0] == nota[7] %}
-                  <td class="centrado small">{{ parcial[1] }}</td>
-                  {% for colegio in colegios %}
-                  <td class="centrado small">{{ parcial[1] }}</td>
-                  {% endfor %}
-                  {% endif %}
-                  {% endfor %}
-
+                  <td class="centrado small">{{ resultado.codigo }}</td>
+                  <td class="centrado small">{{ resultado.fecha }}</td>
+                  <td class="centrado small">{{ resultado.nota }}</td>
+                  <td class="centrado small">{{ resultado.rec1 }}</td>
+                  <td class="centrado small">{{ resultado.rec2 }}</td>
+                  <td class="centrado small">{{ resultado.rec3 }}</td>
+                  <td class="centrado small">{{ resultado.alumnoNombre }}</td>
+                  <td class="centrado small">{{ resultado.parcialNombre }}</td>
+                  <td class="centrado small">{{ resultado.materiaNombre }}</td>
+                  <td class="centrado small">{{ resultado.colegioNombre }}</td>
+                  <td class="centrado small">{{ resultado.gradoNombre }}</td>
                   <td class="centrado small">
-                    <a href="borrar/{{ nota[0] }}"><i class="fas fa-trash fa-lg" style="color: rgb(197, 0, 0);"></i></a>
+                    <a href="borrar/{{ resultado.codigo }}"><i class="fas fa-trash fa-lg" style="color: rgb(197, 0, 0);"></i></a>
                       </td>
               </tr>
 

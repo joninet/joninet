@@ -20,6 +20,8 @@ async def crearColegio(
     req: Request,
     nombre: str = Form(None)):
 
+    nombre = nombre.upper()
+
     column = ["nombre"]
     values = [nombre]
 

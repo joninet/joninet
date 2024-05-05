@@ -24,6 +24,8 @@ async def crearMaterias(
     id_colegio: int = Form(None),
     id_grado: int = Form(None)):
 
+    nombre = nombre.upper()
+
     column = ["nombre", "id_colegio", "id_grado"]
     values = [nombre, id_colegio, id_grado]
 
