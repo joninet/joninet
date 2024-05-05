@@ -5,7 +5,7 @@ def eliminarTabla():
         conn = sql.connect("profesordb.db")
         with conn:
             cursor = conn.cursor()
-            cursor.execute("DROP TABLE IF EXISTS notas")
+            cursor.execute("DROP TABLE IF EXISTS alumnos")
     except Exception as e:
         print("Error al eliminar la tabla:", e)
 

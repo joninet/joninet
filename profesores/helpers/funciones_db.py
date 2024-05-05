@@ -35,6 +35,15 @@ class FuncionesDB():
     except sql.Error as e:
         print(f"Error al actualizar datos: {e}")
 
+  def mostrarTabla(self, tabla):
+    try:
+      self._cur.execute(f"SELECT * FROM {tabla}")
+      result = self._cur.fetchall()
+      return result
+    except sql.Error as e:
+      print(f"Error al consultar datos: {e}")
+      return None  
+
   def borrarRegistro(self, tabla, id):
     try:
       self._cur.execute(f"DELETE FROM {tabla} WHERE id = ?", (id,))

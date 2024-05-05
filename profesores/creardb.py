@@ -9,17 +9,15 @@ conexion = conectar_db("profesordb.db")
 cursor = conexion.cursor()
 
 cursor.execute("""
-CREATE TABLE notas (
+CREATE TABLE alumnos (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  fecha DATE NOT NULL,
-  nota FLOAT NOT NULL,
-  rec1 FLOAT,
-  rec2 FLOAT,
-  rec3 FLOAT,
-  id_alumno INTEGER NOT NULL,
-  id_parcial INTEGER NOT NULL,
-  FOREIGN KEY (id_alumno) REFERENCES alumnos(id),
-  FOREIGN KEY (id_parcial) REFERENCES parciales(id)
+  nombres VARCHAR(255) NOT NULL,
+  apellidos VARCHAR(255) NOT NULL,
+  email VARCHAR(255),
+  id_colegios INTEGER NOT NULL,
+  id_grados INTEGER NOT NULL,
+  FOREIGN KEY (id_colegios) REFERENCES colegios(id),
+  FOREIGN KEY (id_grados) REFERENCES grados(id)
 );
 """)
 

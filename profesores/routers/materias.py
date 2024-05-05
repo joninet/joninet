@@ -1,9 +1,21 @@
 from fastapi import APIRouter, FastAPI, Request, Response, Form, Query, Path
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from helpers.funciones_db import FuncionesDB
+import math
 import sqlite3
 
 router = APIRouter()
+
+template = Jinja2Templates(directory="./templates")
+
+@router.get("/materias/nuevo", response_class=HTMLResponse)#indica que la ruta va a responder con contenido html
+def nuevoMaterias(req: Request):
+  verDb = FuncionesDB()
+  colegios = verDb.mostrarTabla("colegios")
+  grados = verDb.mostrarTabla("grados")
+  return template.TemplateResponse("materias_nuevo.html", {"request": req, "colegios": colegios, "grados": grados})
 
 @router.post('/materias/crear')
 async def crearMaterias(
@@ -15,14 +27,36 @@ async def crearMaterias(
     column = ["nombre", "id_colegio", "id_grado"]
     values = [nombre, id_colegio, id_grado]
 
-    insertar = FuncionesDB()
-    insertar.insertarDatos("materias", column, values)
+    verDb = FuncionesDB()
+    verDb.insertarDatos("materias", column, values)
+    colegios = verDb.mostrarTabla("colegios")
+    grados = verDb.mostrarTabla("grados")
 
-    return {"message": "creado"}
+    info_mensaje = "La materia fue creada exitosamente"
 
-@router.post('/materias/borrar/{materias_id}')
-def borarGrados(materias_id: int):
-    ver = FuncionesDB()
-    ver.borrarRegistro("materias", materias_id)
+    return template.TemplateResponse("materias_nuevo.html", {"request": req, "info_mensaje": info_mensaje,"colegios": colegios, "grados": grados})
 
-    return {"message": "Registro borrado correctamente"}
+@router.get("/materias/ver")
+def verMaterias(req:Request, page: int = 1):
+    verDb = FuncionesDB()
+    materias = verDb.mostrarTabla("materias")
+    colegios = verDb.mostrarTabla("colegios")
+    grados = verDb.mostrarTabla("grados")
+    materias = verDb.mostrarTablaPaginada("materias", page, 15)
+    total_materias = verDb.contarFilas("materias")
+    total_paginas = math.ceil(total_materias / 15)
+    return template.TemplateResponse("materias_ver.html", { "request" : req, "colegios": colegios, "grados": grados, "materias": materias, "page": page, "total_paginas": total_paginas })
+
+@router.get('/materias/borrar/{materias_id}')
+def borarAlumnos(req: Request, materias_id: int, page: int = 1):
+    verDb = FuncionesDB()
+    materias = verDb.mostrarTabla("materias")
+    colegios = verDb.mostrarTabla("colegios")
+    grados = verDb.mostrarTabla("grados")
+    verDb.borrarRegistro("materias", materias_id)
+    alumnos = verDb.mostrarTablaPaginada("materias", page, 15)
+    total_materias = verDb.contarFilas("materias")
+    total_paginas = math.ceil(total_materias / 15)
+
+    info_mensaje = "La materia fue borrada exitosamente"
+    return template.TemplateResponse("materias_ver.html", { "request" : req, "info_mensaje": info_mensaje, "colegios": colegios, "grados": grados, "materias": materias, "page": page, "total_paginas": total_paginas })
