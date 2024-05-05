@@ -1,10 +1,22 @@
 from fastapi import APIRouter, FastAPI, Request, Response, Form, Query, Path
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from helpers.funciones_db import FuncionesDB
-import sqlite3
 from datetime import datetime
+import math
+import sqlite3
 
 router = APIRouter()
+
+template = Jinja2Templates(directory="./templates")
+
+@router.get("/notas/nuevo", response_class=HTMLResponse)#indica que la ruta va a responder con contenido html
+def nuevoNotas(req: Request):
+  verDb = FuncionesDB()
+  alumnos = verDb.mostrarTabla("alumnos")
+  parciales = verDb.mostrarTabla("parciales")
+  return template.TemplateResponse("notas_nuevo.html", {"request": req, "alumnos": alumnos, "parciales": parciales})
 
 @router.post('/notas/crear')
 async def crearNotas(
@@ -22,10 +34,13 @@ async def crearNotas(
     column = ["fecha", "nota", "rec1", "rec2", "rec3", "id_alumno", "id_parcial"]
     values = [fecha_datetime, nota, rec1, rec2, rec3, id_alumno, id_parcial]
 
-    insertar = FuncionesDB()
-    insertar.insertarDatos("notas", column, values)
+    verDb = FuncionesDB()
+    verDb.insertarDatos("notas", column, values)
+    alumnos = verDb.mostrarTabla("alumnos")
+    parciales = verDb.mostrarTabla("parciales")
 
-    return {"message": "creado"}
+    info_mensaje = "La nota fue creada exitosamente"
+    return template.TemplateResponse("notas_nuevo.html", {"request": req, "info_mensaje": info_mensaje, "alumnos": alumnos, "parciales": parciales})
 
 @router.post("/notas/editardb")
 async def editarNotas(
@@ -49,9 +64,27 @@ async def editarNotas(
     
     return {"message": "editado correctamente"}
 
-@router.post('/notas/borrar/{notas_id}')
-def borarNotas(notas_id: int):
-    ver = FuncionesDB()
-    ver.borrarRegistro("notas", notas_id)
+@router.get("/notas/ver")
+def verNotas(req:Request, page: int = 1):
+    verDb = FuncionesDB()
+    alumnos = verDb.mostrarTabla("alumnos")
+    parciales = verDb.mostrarTabla("parciales")
+    colegios = verDb.mostrarTabla("colegios")
+    notas = verDb.mostrarTablaPaginada("notas", page, 15)
+    total_notas = verDb.contarFilas("notas")
+    total_paginas = math.ceil(total_notas / 15)
+    return template.TemplateResponse("notas_ver.html", { "request" : req, "alumnos": alumnos, "parciales": parciales, "notas": notas, "colegios": colegios,"page": page, "total_paginas": total_paginas })
 
-    return {"message": "Registro borrado correctamente"}
+
+@router.get('/notas/borrar/{notas_id}')
+def borarParciales(req: Request, notas_id: int, page: int = 1):
+    verDb = FuncionesDB()
+    alumnos = verDb.mostrarTabla("alumnos")
+    parciales = verDb.mostrarTabla("parciales")
+    verDb.borrarRegistro("notas", notas_id)
+    notas = verDb.mostrarTablaPaginada("notas", page, 15)
+    total_notas = verDb.contarFilas("notas")
+    total_paginas = math.ceil(total_notas / 15)
+
+    info_mensaje = "La nota fue borrada exitosamente"
+    return template.TemplateResponse("notas_ver.html", { "request" : req, "info_mensaje": info_mensaje, "alumnos": alumnos, "parciales": parciales, "notas": notas, "page": page, "total_paginas": total_paginas })
