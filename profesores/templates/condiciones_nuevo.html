@@ -94,31 +94,14 @@
                   <div class="card-body">
                       <form action="/condiciones/consultar" method="post">
                         <div class="mb-3">
-                          <label for="id_materias" class="form-label">Materias</label>
-                          <select class="form-select" id="id_materias" name="id_materias" required>
+                          <label for="id_parcial" class="form-label">Parcial</label>
+                          <select class="form-select" id="id_parcial" name="id_parcial" required>
                               <option value="">-- Seleccione --</option>
-                              {% for materia in materias %}
-                                  <option value="{{ materia[0] }}" {% if materia[0] == id_materias %} selected {% endif %}>{{ materia[1] }}</option>
+                              {% for parcial in parciales %}
+                                  <option value="{{ parcial[0] }}" {% if parcial[0] == id_parcial %} selected {% endif %}>{{ parcial[1] }}</option>
                               {% endfor %}
                           </select>
                         </div>
-                          <div class="mb-3">
-                            <label for="id_colegios" class="form-label">Colegios</label>
-                            <select class="form-select" id="id_colegios" name="id_colegios" required>
-                                <option value="">-- Seleccione --</option>
-                                {% for colegio in colegios %}
-                                    <option value="{{ colegio[0] }}" {% if colegio[0] == id_colegios %} selected {% endif %}>{{ colegio[1] }}</option>
-                                {% endfor %}
-                            </select>
-                          </div>
-                          <div class="mb-3">
-                            <label for="id_grados" class="form-label">Grado</label>
-                            <select class="form-select" id="id_grados" name="id_grados" required>
-                                <option value="">-- Seleccione --</option>
-                                {% for grado in grados %}
-                                    <option value="{{ grado[0] }}" {% if grado[0] == id_grados %} selected {% endif %}>{{ grado[1] }} {{ grado[2] }}</option>
-                                {% endfor %}
-                            </select>
                           <div class="mb-3">
                             <label for="estado" class="form-label">Condiciones</label>
                             <select class="form-select" id="estado" name="estado" required>

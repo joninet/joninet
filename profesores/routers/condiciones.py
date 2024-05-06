@@ -13,31 +13,34 @@ template = Jinja2Templates(directory="./templates")
 @router.get("/condiciones/nuevo", response_class=HTMLResponse)#indica que la ruta va a responder con contenido html
 def nuevoCondiciones(req: Request):
   verDb = FuncionesDB()
-  materias = verDb.mostrarTabla("materias")
+  parciales = verDb.mostrarTabla("parciales")
   colegios = verDb.mostrarTabla("colegios")
   grados = verDb.mostrarTabla("grados")
 
-  return template.TemplateResponse("condiciones_nuevo.html", {"request": req, "materias": materias, "colegios": colegios, "grados": grados})
+  return template.TemplateResponse("condiciones_nuevo.html", {"request": req, "parciales": parciales, "colegios": colegios, "grados": grados})
 
 @router.post("/condiciones/consultar")
 async def condicionesConsultar(
   req: Request,
-  id_materias: int = Form(None),
-  id_colegios: str = Form(None),
-  id_grados: float = Form(None),
+  id_parcial: int = Form(None),
   estado: str = Form(None)):
   resultados = []
   verDb = FuncionesDB()
-  materias = verDb.mostrarTabla("materias")
+  parciales = verDb.mostrarTabla("parciales")
   colegios = verDb.mostrarTabla("colegios")
   grados = verDb.mostrarTabla("grados")
   notas = verDb.mostrarTabla("notas")
 
-  if estado == "aprobados":
-    for x in notas:
-      if x[2] >= 5:
-        notass = x[2]
-        resultado.append({"nota": notass})
+  if estado == "aprobado":
+      for x in notas:
+          if x[2] >= 5 and x[7] == id_parcial:
+              resultados.append({"nota": x[2]})
+  else:
+      for x in notas:
+          if x[2] <= 5 and x[7] == id_parcial:
+              resultados.append({"nota": x[2]})
+
+  print(resultados)
     
   return template.TemplateResponse("condiciones_mostrar.html", {"request": req, "resultados": resultados})
 
