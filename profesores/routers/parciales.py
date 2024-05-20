@@ -40,8 +40,15 @@ async def crearParciales(
 
     return template.TemplateResponse("parciales_nuevo.html", {"request": req, "info_mensaje": info_mensaje, "colegios": colegios, "materias": materias, "grados": grados})
 
+from fastapi import APIRouter, Request
+import math
+from fastapi.templating import Jinja2Templates
+
+router = APIRouter()
+template = Jinja2Templates(directory="templates")
+
 @router.get("/parciales/ver")
-def verparciales(req:Request, page: int = 1):
+def verparciales(req: Request, page: int = 1):
     verDb = FuncionesDB()
 
     colegios = verDb.mostrarTabla("colegios")
@@ -49,9 +56,15 @@ def verparciales(req:Request, page: int = 1):
     grados = verDb.mostrarTabla("grados")
     parciales2 = verDb.mostrarTabla("parciales")
     resultados = []
+
     for x in parciales2:
         codigo = x[0]
         tema = x[1]
+        
+        materiaNombre = None
+        colegioNombre = None
+        gradoNombre = None
+
         for materia in materias:
             if materia[0] == x[2]:
                 materiaNombre = materia[1]
@@ -61,20 +74,27 @@ def verparciales(req:Request, page: int = 1):
                 for grado in grados:
                     if grado[0] == materia[3]:
                         gradoNombre = grado[1] + grado[2]
-        resultados.append({
-            "codigo": codigo,
-            "tema": tema,
-            "materia": materiaNombre,
-            "colegio": colegioNombre,
-            "grado": gradoNombre
-        })
+        
+        if materiaNombre and colegioNombre and gradoNombre:
+            resultados.append({
+                "codigo": codigo,
+                "tema": tema,
+                "materia": materiaNombre,
+                "colegio": colegioNombre,
+                "grado": gradoNombre
+            })
 
     parciales = verDb.mostrarTablaPaginada("parciales", page, 15)
     total_parciales = verDb.contarFilas("parciales")
     total_paginas = math.ceil(total_parciales / 15)
-    
-    return template.TemplateResponse("parciales_ver.html", { "request" : req,"resultados": resultados, "parciales": parciales, "page": page, "total_paginas": total_paginas })
 
+    return template.TemplateResponse("parciales_ver.html", {
+        "request": req,
+        "resultados": resultados,
+        "parciales": parciales,
+        "page": page,
+        "total_paginas": total_paginas
+    })
 
 @router.get('/parciales/borrar/{parciales_id}')
 def borarParciales(req: Request, parciales_id: int, page: int = 1):

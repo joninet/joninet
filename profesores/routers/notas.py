@@ -85,34 +85,41 @@ def verNotas(req:Request, page: int = 1):
         rec1 = x[3]
         rec2 = x[4]
         rec3 = x[5]
+
+        alumnoNombre = None
+        parcialNombre = None
+        materiaNombre = None
+        colegioNombre = None
+        gradoNombre = None
+
         for alumno in alumnos:
             if alumno[0] == x[6]:
-                alumno_nombre = alumno[2]
+                alumnoNombre = alumno[2]
         for parcial in parciales:
             if parcial[0] == x[7]:
-                parcial_nombre = parcial[1]
+                parcialNombre = parcial[1]
                 for materia in materias:
                     if materia[0] == parcial[2]:
-                        materia_nombre=materia[1]
+                        materiaNombre=materia[1]
                         for colegio in colegios:
                             if colegio[0] == materia[2]:
-                                colegio_nombre = colegio[1]
+                                colegioNombre = colegio[1]
                         for grado in grados:
                             if grado[0] == materia[3]:
-                                grado_nombre = grado[1] + grado[2]
-
-        resultados.append({
-        "codigo": codigo,
-        "fecha": fecha,
-        "nota": nota,
-        "rec1": rec1,
-        "rec2": rec2,
-        "rec3": rec3,
-        "alumnoNombre": alumno_nombre,
-        "parcialNombre": parcial_nombre,
-        "materiaNombre": materia_nombre,
-        "colegioNombre": colegio_nombre,
-        "gradoNombre": grado_nombre})
+                                gradoNombre = grado[1] + grado[2]
+        if alumnoNombre and parcialNombre and materiaNombre and colegioNombre and gradoNombre:
+            resultados.append({
+            "codigo": codigo,
+            "fecha": fecha,
+            "nota": nota,
+            "rec1": rec1,
+            "rec2": rec2,
+            "rec3": rec3,
+            "alumnoNombre": alumnoNombre,
+            "parcialNombre": parcialNombre,
+            "materiaNombre": materiaNombre,
+            "colegioNombre": colegioNombre,
+            "gradoNombre": gradoNombre})
         
     notas = verDb.mostrarTablaPaginada("notas", page, 15)
     total_notas = verDb.contarFilas("notas")
