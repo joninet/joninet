@@ -40,13 +40,6 @@ async def crearParciales(
 
     return template.TemplateResponse("parciales_nuevo.html", {"request": req, "info_mensaje": info_mensaje, "colegios": colegios, "materias": materias, "grados": grados})
 
-from fastapi import APIRouter, Request
-import math
-from fastapi.templating import Jinja2Templates
-
-router = APIRouter()
-template = Jinja2Templates(directory="templates")
-
 @router.get("/parciales/ver")
 def verparciales(req: Request, page: int = 1):
     verDb = FuncionesDB()
