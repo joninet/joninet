@@ -35,12 +35,7 @@ async def crearColegio(
 def borarColegio(req: Request, colegio_id: int, page: int = 1):
     verDb = FuncionesDB()
     verDb.borrarRegistro("colegios", colegio_id)
-    colegios = verDb.mostrarTablaPaginada("colegios", page, 15)
-    total_productos = verDb.contarFilas("colegios")
-    total_paginas = math.ceil(total_productos / 15)
-
-    info_mensaje = "El colegio fue borrado exitosamente"
-    return template.TemplateResponse("colegio_ver.html", {"request": req, "info_mensaje": info_mensaje, "colegios": colegios, "page": page, "total_paginas": total_paginas})
+    return RedirectResponse(url="/colegio/ver")
 
 @router.get("/colegio/ver")
 def verColegios(req:Request, page: int = 1):
