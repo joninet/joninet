@@ -8,6 +8,8 @@ from routers.alumnos import router as alumnosRouter
 from routers.parciales import router as parcialesRouter
 from routers.notas import router as notasRouter
 from routers.condiciones import router as condicionesRouter
+from routers.bajar_db import router as bajarDbRouter
+
 
 
 
@@ -22,6 +24,8 @@ app.include_router(alumnosRouter)
 app.include_router(parcialesRouter)
 app.include_router(notasRouter)
 app.include_router(condicionesRouter)
+app.include_router(bajarDbRouter)
+
 
 app.mount("/templates/static", StaticFiles(directory="templates/static"), name="static")
 
