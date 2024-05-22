@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, Response, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from helpers.funciones_db import FuncionesDB
+from fastapi.templating import Jinja2Templates
 from routers.colegio import router as colegioRouter
 from routers.grados import router as gradosRouter
 from routers.materias import router as materiasRouter
@@ -9,10 +10,6 @@ from routers.parciales import router as parcialesRouter
 from routers.notas import router as notasRouter
 from routers.condiciones import router as condicionesRouter
 from routers.bajar_db import router as bajarDbRouter
-
-
-
-
 
 from fastapi.staticfiles import StaticFiles
 
@@ -28,6 +25,14 @@ app.include_router(bajarDbRouter)
 
 
 app.mount("/templates/static", StaticFiles(directory="templates/static"), name="static")
+
+
+# Configurar Jinja2 templates
+templates = Jinja2Templates(directory="templates")
+
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 
