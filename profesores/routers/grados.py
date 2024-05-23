@@ -32,16 +32,12 @@ async def crearGrados(
     info_mensaje = "El Grado fue creado exitosamente"
     return template.TemplateResponse("grados_nuevo.html", {"request": req, "info_mensaje": info_mensaje})
 
+
 @router.get('/grados/borrar/{grados_id}')
 def borarGrados(req: Request, grados_id: int, page: int = 1):
     verDb = FuncionesDB()
     verDb.borrarRegistro("grados", grados_id)
-    grados = verDb.mostrarTablaPaginada("grados", page, 15)
-    total_grados = verDb.contarFilas("grados")
-    total_paginas = math.ceil(total_grados / 15)
-
-    info_mensaje = "El grado fue borrado exitosamente"
-    return template.TemplateResponse("grados_ver.html", {"request": req, "info_mensaje": info_mensaje, "grados": grados, "page": page, "total_paginas": total_paginas})
+    return RedirectResponse(url="/grados/ver")
 
 @router.get("/grados/ver")
 def verGrados(req:Request, page: int = 1):

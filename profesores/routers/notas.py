@@ -126,16 +126,8 @@ def verNotas(req:Request, page: int = 1):
     total_paginas = math.ceil(total_notas / 15)
     return template.TemplateResponse("notas_ver.html", { "request" : req, "resultados": resultados, "notas": notas, "page": page, "total_paginas": total_paginas })
 
-
 @router.get('/notas/borrar/{notas_id}')
-def borarParciales(req: Request, notas_id: int, page: int = 1):
+def borarNotas(req: Request, notas_id: int, page: int = 1):
     verDb = FuncionesDB()
-    alumnos = verDb.mostrarTabla("alumnos")
-    parciales = verDb.mostrarTabla("parciales")
     verDb.borrarRegistro("notas", notas_id)
-    notas = verDb.mostrarTablaPaginada("notas", page, 15)
-    total_notas = verDb.contarFilas("notas")
-    total_paginas = math.ceil(total_notas / 15)
-
-    info_mensaje = "La nota fue borrada exitosamente"
-    return template.TemplateResponse("notas_ver.html", { "request" : req, "info_mensaje": info_mensaje, "alumnos": alumnos, "parciales": parciales, "notas": notas, "page": page, "total_paginas": total_paginas })
+    return RedirectResponse(url="/notas/ver")

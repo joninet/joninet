@@ -52,15 +52,8 @@ def verAlumnos(req:Request, page: int = 1):
     total_paginas = math.ceil(total_productos / 15)
     return template.TemplateResponse("alumnos_ver.html", { "request" : req, "colegios": colegios, "alumnos": alumnos, "grados": grados,"page": page, "total_paginas": total_paginas })
 
-
 @router.get('/alumnos/borrar/{alumnos_id}')
-def borarAlumnos(req: Request, alumnos_id: int, page: int = 1):
+def borarAlumno(req: Request, alumnos_id: int, page: int = 1):
     verDb = FuncionesDB()
-    colegios = verDb.mostrarTabla("colegios")
     verDb.borrarRegistro("alumnos", alumnos_id)
-    alumnos = verDb.mostrarTablaPaginada("alumnos", page, 15)
-    total_alumnos = verDb.contarFilas("alumnos")
-    total_paginas = math.ceil(total_alumnos / 15)
-
-    info_mensaje = "El colegio fue borrado exitosamente"
-    return template.TemplateResponse("alumnos_ver.html", {"request": req, "info_mensaje": info_mensaje,"colegios": colegios ,"alumnos": alumnos, "page": page, "total_paginas": total_paginas})
+    return RedirectResponse(url="/alumnos/ver")
