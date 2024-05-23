@@ -89,7 +89,7 @@ def verparciales(req: Request, page: int = 1):
         "total_paginas": total_paginas
     })
 
-@router.get('/parciales/borrar/{colegio_id}')
+@router.get('/parciales/borrar/{parciales_id}')
 def borarParciales(req: Request, parciales_id: int, page: int = 1):
     verDb = FuncionesDB()
     verDb.borrarRegistro("parciales", parciales_id)
