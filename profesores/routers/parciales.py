@@ -92,13 +92,5 @@ def verparciales(req: Request, page: int = 1):
 @router.get('/parciales/borrar/{parciales_id}')
 def borarParciales(req: Request, parciales_id: int, page: int = 1):
     verDb = FuncionesDB()
-    materias = verDb.mostrarTabla("materias")
-    colegios = verDb.mostrarTabla("colegios")
-    grados = verDb.mostrarTabla("grados")
     verDb.borrarRegistro("parciales", parciales_id)
-    parciales = verDb.mostrarTablaPaginada("parciales", page, 15)
-    total_parciales = verDb.contarFilas("parciales")
-    total_paginas = math.ceil(total_parciales / 15)
-
-    info_mensaje = "El parcial fue borrada exitosamente"
-    return template.TemplateResponse("materias_ver.html", { "request" : req, "info_mensaje": info_mensaje, "colegios": colegios, "grados": grados, "parciales": parciales, "materias": materias, "page": page, "total_paginas": total_paginas })
+    return RedirectResponse(url="/parciales/ver")

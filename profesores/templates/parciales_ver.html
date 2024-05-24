@@ -110,7 +110,9 @@
                   <td class="centrado small">{{ resultado.colegio }}</td>
                   <td class="centrado small">{{ resultado.grado }}</td>
                   <td class="centrado small">
-                    <a href="borrar/{{ resultado.codigo }}"><i class="fas fa-trash fa-lg" style="color: rgb(197, 0, 0);"></i></a>
+                    <a href="#" onclick="confirmarBorrado('{{ resultado.codigo }}')">
+                      <i class="fas fa-trash fa-lg" style="color: rgb(197, 0, 0);"></i>
+                    </a>
                       </td>
               </tr>
 
@@ -192,6 +194,13 @@ $('#modal-info-mensaje').modal('show');
     }
   }
 </script>
+<script>
+  function confirmarBorrado(colegioId) {
+    if (confirm("¿Estás seguro de que quieres borrar este registro?")) {
+      window.location.href = "borrar/" + colegioId;
+    }
+  }
+  </script>
 <script src="/templates/static/bootstrap.bundle.min.js"></script>
 <script src="/templates/static/sidebars.js"></script>
 </body>
