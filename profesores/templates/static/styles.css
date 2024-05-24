@@ -1,0 +1,132 @@
+/* styles.css */
+/* Estilos para el efecto de hover en el menú */
+.nav-links li {
+    list-style: none;
+    margin: 1px 0;
+}
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: border 0.3s, background-color 0.3s;
+}
+.nav-links li a:hover {
+    border-color: #007bff; /* Color del borde al pasar el mouse */
+    background-color: #e9ecef; /* Color de fondo al pasar el mouse */
+    color: #333; /* Cambio de color de texto al pasar el mouse */
+}
+.nav-links li a i {
+    margin-right: 8px; /* Espacio entre el ícono y el texto */
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar {
+    background: #333;
+    color: white;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding-top: 60px; /* Adjust for header height */
+    overflow-y: auto;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 1px 5px;
+}
+
+.nav-links .dropdown-content {
+    display: none;
+    background-color: #444;
+}
+
+.nav-links .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    height: 3px;
+    width: 25px;
+    background-color: #fff;
+    margin: 4px 0;
+}
+
+main {
+    margin-left: 250px; /* Adjust for sidebar width */
+    padding: 60px 20px; /* Adjust for header height */
+    flex: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        display: none;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-links li {
+        text-align: center;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    main {
+        margin-left: 0;
+        padding-top: 80px; /* Adjust for header height */
+    }
+}
+
+.sidebar.active {
+    display: block;
+}

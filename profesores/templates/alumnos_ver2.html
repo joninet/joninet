@@ -86,10 +86,73 @@
 
   <!--contenido-->
   <div class="m-3 w-100 vh-100">
-    <h5 class="text-secondary">APP PROFESORES</h5>
+    <h5 class="text-secondary">Lista de Alumnos</h5>
     <div class="border-top mb-3 w-100"></div>
     <article>
-        <h1>APP PROFESORES</h1>
+      <div class="m-2"></div>
+      <table class="table table-striped m-0 bg-success text-white">
+          <thead>
+              <tr>
+                  <th class="centrado bg-primary text-white">Codigo</th>
+                  <th class="centrado bg-primary text-white">Nombres</th>
+                  <th class="centrado bg-primary text-white">Apellidos</th>
+                  <th class="centrado bg-primary text-white">Email</th>
+                  <th class="centrado bg-primary text-white">Colegio</th>
+                  <th class="centrado bg-primary text-white">Grado</th>
+                  <th class="centrado bg-primary text-white">Acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+          {% for alumno in alumnos %}
+              <tr>
+                  <td class="centrado small">{{ alumno[0] }}</td>
+                  <td class="centrado small">{{ alumno[1] }}</td>
+                  <td class="centrado small">{{ alumno[2] }}</td>
+                  <td class="centrado small">{{ alumno[3] }}</td>
+                  {% for colegio in colegios %}
+                  {% if colegio[0] == alumno[4] %}
+                  <td class="centrado small">{{ colegio[1] }}</td>
+                  {% endif %}
+                  {% endfor %}
+                  {% for grado in grados %}
+                  {% if grado[0] == alumno[5] %}
+                  <td class="centrado small">{{ grado[1] }} {{ grado[2] }}</td>
+                  {% endif %}
+                  {% endfor %}
+                  <td class="centrado small">
+                    <a href="borrar/{{ alumno[0] }}"><i class="fas fa-trash fa-lg" style="color: rgb(197, 0, 0);"></i></a>
+                      </td>
+              </tr>
+
+              {% endfor %}
+              </div>
+          </tbody>
+      </table>
+      <table class="table table-striped m-0">
+          <thead><tr><th class="text-white m-0">
+      <nav aria-label="Page navigation example m-0">
+          <ul class="pagination">
+              <li class="page-item">
+                  {% if page > 1 %}
+                      <a class="page-link" href="/colegio/ver?page={{ page - 1 }}">Anterior</a>
+                      {% else %}
+                      <li class="page-item disabled">
+                          <a class="page-link">Anterior</a>
+                      </li>
+                  {% endif %}
+              </li>
+              {% for i in range(total_paginas) %}
+                  <li class="page-item"><a class="page-link" href="/colegio/ver?page={{ i + 1 }}">{{ i + 1 }}</a></li>
+              {% endfor %}
+              <li class="page-item">
+                  {% if page < total_paginas %}
+                      <a class="page-link" href="/colegio/ver?page={{ page + 1 }}">Siguiente</a>
+                  {% endif %}
+              </li>
+          </ul>
+      </nav>
+      </tr></thead>
+  </table>
   </article>
   </div>
   <div class="modal fade" id="modal-info-mensaje" tabindex="-1" role="dialog" aria-labelledby="modal-info-mensaje-title" aria-hidden="true">
@@ -110,6 +173,57 @@
   </div>
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% if info_mensaje %}
+<script>
+$(document).ready(function() {
+$('#modal-info-mensaje').modal('show');
+});
+</script>
+{% endif %}
+<script>
+  async function editarProducto(producto_id) {
+    try {
+      // Enviar la solicitud "GET" al endpoint para editar el producto
+      const response = await fetch(`/productos/editar/${producto_id}`, {
+        method: "GET",
+      });
+
+      if (response.ok) {
+        // Redireccionar a la página de edición si la respuesta es exitosa
+        window.location.href = `/productos/editar/${producto_id}`;
+      } else {
+        // Manejar errores en la respuesta
+        alert("Error al editar el producto");
+      }
+    } catch (error) {
+      // Manejar errores de red u otros errores
+      console.error("Error:", error);
+      alert("Error al editar el producto");
+    }
+  }
+</script>
+<script>
+  async function eliminarColegio(colegio_id) {
+    // Mostrar una ventana emergente para pedir confirmación
+    const confirmar = confirm("¿Estás seguro de que deseas eliminar este producto?");
+
+    if (confirmar) {
+      // Enviar la solicitud "DELETE" si el usuario hace clic en "Aceptar"
+      const response = await fetch(`/colegio/borrar/${colegio_id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        window.location.href = "/Actualizado";
+      } else {
+        alert("Error al eliminar el producto");
+      }
+    } else {
+      // Descartar la acción si el usuario hace clic en "Cancelar"
+      alert("Acción descartada");
+    }
+  }
+</script>
 <script src="/templates/static/bootstrap.bundle.min.js"></script>
 <script src="/templates/static/sidebars.js"></script>
 </body>
