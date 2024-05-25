@@ -1,263 +1,78 @@
 {% include 'header.html' %}
 {% include 'menu.html' %}
-<main>
-    <a href="#" class="btn btn-primary btn-sm mb-3">Nuevo Alumno</a>
-    <div class="border-top mb-3 w-100"></div>
-<<<<<<< HEAD
-    <h5 class="text-secondary">Lista de Alumnos</h5>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col" class="text-primary p-1">#</th>
-                <th scope="col" class="text-primary p-1">Nombres</th>
-                <th scope="col" class="text-primary p-1">Apellidos</th>
-                <th scope="col" class="text-primary p-1">Email</th>
-                <th scope="col" class="text-primary p-1">Colegio</th>
-                <th scope="col" class="text-primary p-1">Grado</th>
-                <th scope="col" class="text-primary p-1">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="container-fluid mt-2">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Listado de Alumnos</h2>
+    <a href="/alumnos/nuevo/" class="btn btn-success btn-sm">Agregar</a>
+  </div>
+  <div class="table-responsive">
+      <table class="table table-striped w-100">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Nombres</th>
+                  <th>Apellidos</th>
+                  <th>Email</th>
+                  <th>Colegio</th>
+                  <th>Grado</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody>
             {% for alumno in alumnos %}
             <tr>
-                <td class="p-0 text-secondary">{{ alumno[0] }}</td>
-                <td class="p-0 text-secondary">{{ alumno[1] }}</td>
-                <td class="p-0 text-secondary">{{ alumno[2] }}</td>
-                <td class="p-0 text-secondary">{{ alumno[3] }}</td>
+                <td>{{ alumno[0] }}</td>
+                <td>{{ alumno[1] }}</td>
+                <td>{{ alumno[2] }}</td>
+                <td>{{ alumno[3] }}</td>
                 {% for colegio in colegios %}
                 {% if colegio[0] == alumno[4] %}
-                <td class="p-0 text-secondary">{{ colegio[1] }}</td>
+                <td>{{ colegio[1] }}</td>
                 {% endif %}
                 {% endfor %}
                 {% for grado in grados %}
                 {% if grado[0] == alumno[5] %}
-                <td class="p-0 text-secondary">{{ grado[1] }} {{ grado[2] }}</td>
+                <td>{{ grado[1] }} {{ grado[2] }}</td>
                 {% endif %}
                 {% endfor %}
-                <td class="p-0 text-secondary"><a href="borrar/{{ alumno[0] }}"><i class="bi bi-trash text-danger"></i></td>
+                <td><a href="#" onclick="confirmarBorrado('{{ alumno[0] }}')"><i class="bi bi-trash text-danger"></i></td>
             </tr>
             {% endfor %}
-        </tbody>
-    </table>    
-      </article>
-      </div>
-      <div class="modal fade" id="modal-info-mensaje" tabindex="-1" role="dialog" aria-labelledby="modal-info-mensaje-title" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title fs-5" id="modal-info-mensaje-title">Mensaje</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              {{ info_mensaje }}
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-=======
-    <article>
-      <div class="m-2"></div>
-      <table class="table table-striped m-0 bg-success text-white">
-          <thead>
-              <tr>
-                  <th class="centrado bg-primary text-white">Codigo</th>
-                  <th class="centrado bg-primary text-white">Nombres</th>
-                  <th class="centrado bg-primary text-white">Apellidos</th>
-                  <th class="centrado bg-primary text-white">Email</th>
-                  <th class="centrado bg-primary text-white">Colegio</th>
-                  <th class="centrado bg-primary text-white">Grado</th>
-                  <th class="centrado bg-primary text-white">Acciones</th>
-              </tr>
-          </thead>
-          <tbody>
-          {% for alumno in alumnos %}
-              <tr>
-                  <td class="centrado small">{{ alumno[0] }}</td>
-                  <td class="centrado small">{{ alumno[1] }}</td>
-                  <td class="centrado small">{{ alumno[2] }}</td>
-                  <td class="centrado small">{{ alumno[3] }}</td>
-                  {% for colegio in colegios %}
-                  {% if colegio[0] == alumno[4] %}
-                  <td class="centrado small">{{ colegio[1] }}</td>
-                  {% endif %}
-                  {% endfor %}
-                  {% for grado in grados %}
-                  {% if grado[0] == alumno[5] %}
-                  <td class="centrado small">{{ grado[1] }} {{ grado[2] }}</td>
-                  {% endif %}
-                  {% endfor %}
-                  <td class="centrado small">
-                    <a href="#" onclick="confirmarBorrado('{{ alumno[0] }}')">
-                      <i class="fas fa-trash fa-lg" style="color: rgb(197, 0, 0);"></i>
-                    </a>
-                      </td>
-              </tr>
-
-              {% endfor %}
-              </div>
           </tbody>
       </table>
       <table class="table table-striped m-0">
-          <thead><tr><th class="text-white m-0">
-      <nav aria-label="Page navigation example m-0">
-          <ul class="pagination">
-              <li class="page-item">
-                  {% if page > 1 %}
-                      <a class="page-link" href="/colegio/ver?page={{ page - 1 }}">Anterior</a>
-                      {% else %}
-                      <li class="page-item disabled">
-                          <a class="page-link">Anterior</a>
-                      </li>
-                  {% endif %}
-              </li>
-              {% for i in range(total_paginas) %}
-                  <li class="page-item"><a class="page-link" href="/colegio/ver?page={{ i + 1 }}">{{ i + 1 }}</a></li>
-              {% endfor %}
-              <li class="page-item">
-                  {% if page < total_paginas %}
-                      <a class="page-link" href="/colegio/ver?page={{ page + 1 }}">Siguiente</a>
-                  {% endif %}
-              </li>
-          </ul>
-      </nav>
-      </tr></thead>
-  </table>
-  </article>
+        <thead><tr><th class="text-white m-0">
+          <nav aria-label="Page navigation example m-0">
+              <ul class="pagination">
+                  <li class="page-item">
+                      {% if page > 1 %}
+                          <a class="page-link" href="/alumnos/ver?page={{ page - 1 }}">Anterior</a>
+                          {% else %}
+                          <li class="page-item disabled">
+                              <a class="page-link">Anterior</a>
+                          </li>
+                      {% endif %}
+                  </li>
+                  {% for i in range(total_paginas) %}
+                      <li class="page-item"><a class="page-link" href="/alumnos/ver?page={{ i + 1 }}">{{ i + 1 }}</a></li>
+                  {% endfor %}
+                  <li class="page-item">
+                      {% if page < total_paginas %}
+                          <a class="page-link" href="/alumnos/ver?page={{ page + 1 }}">Siguiente</a>
+                      {% endif %}
+                  </li>
+              </ul>
+          </nav>
+        </tr></thead>
+      </table>
   </div>
-  <div class="modal fade" id="modal-info-mensaje" tabindex="-1" role="dialog" aria-labelledby="modal-info-mensaje-title" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title fs-5" id="modal-info-mensaje-title">Mensaje</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          {{ info_mensaje }}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
->>>>>>> 4272e6ae5293ddf387190a7ae7802785063a6247
-        </div>
-      </div>
-    </main>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {% if info_mensaje %}
-    <script>
-    $(document).ready(function() {
-    $('#modal-info-mensaje').modal('show');
-    });
-    </script>
-    {% endif %}
-    <script>
-      async function editarProducto(producto_id) {
-        try {
-          // Enviar la solicitud "GET" al endpoint para editar el producto
-          const response = await fetch(`/productos/editar/${producto_id}`, {
-            method: "GET",
-          });
-    
-          if (response.ok) {
-            // Redireccionar a la página de edición si la respuesta es exitosa
-            window.location.href = `/productos/editar/${producto_id}`;
-          } else {
-            // Manejar errores en la respuesta
-            alert("Error al editar el producto");
-          }
-        } catch (error) {
-          // Manejar errores de red u otros errores
-          console.error("Error:", error);
-          alert("Error al editar el producto");
-        }
-      }
-    </script>
-    <script>
-      async function eliminarColegio(colegio_id) {
-        // Mostrar una ventana emergente para pedir confirmación
-        const confirmar = confirm("¿Estás seguro de que deseas eliminar este producto?");
-    
-        if (confirmar) {
-          // Enviar la solicitud "DELETE" si el usuario hace clic en "Aceptar"
-          const response = await fetch(`/colegio/borrar/${colegio_id}`, {
-            method: "DELETE",
-          });
-    
-          if (response.ok) {
-            window.location.href = "/Actualizado";
-          } else {
-            alert("Error al eliminar el producto");
-          }
-        } else {
-          // Descartar la acción si el usuario hace clic en "Cancelar"
-          alert("Acción descartada");
-        }
-      }
-    </script>
-</main>
-<<<<<<< HEAD
-{% include 'footer.html' %}
-=======
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-{% if info_mensaje %}
+</div>
 <script>
-$(document).ready(function() {
-$('#modal-info-mensaje').modal('show');
-});
-</script>
-{% endif %}
-<script>
-  async function editarProducto(producto_id) {
-    try {
-      // Enviar la solicitud "GET" al endpoint para editar el producto
-      const response = await fetch(`/productos/editar/${producto_id}`, {
-        method: "GET",
-      });
-
-      if (response.ok) {
-        // Redireccionar a la página de edición si la respuesta es exitosa
-        window.location.href = `/productos/editar/${producto_id}`;
-      } else {
-        // Manejar errores en la respuesta
-        alert("Error al editar el producto");
-      }
-    } catch (error) {
-      // Manejar errores de red u otros errores
-      console.error("Error:", error);
-      alert("Error al editar el producto");
-    }
-  }
-</script>
-<script>
-  async function eliminarColegio(colegio_id) {
-    // Mostrar una ventana emergente para pedir confirmación
-    const confirmar = confirm("¿Estás seguro de que deseas eliminar este producto?");
-
-    if (confirmar) {
-      // Enviar la solicitud "DELETE" si el usuario hace clic en "Aceptar"
-      const response = await fetch(`/colegio/borrar/${colegio_id}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        window.location.href = "/Actualizado";
-      } else {
-        alert("Error al eliminar el producto");
-      }
-    } else {
-      // Descartar la acción si el usuario hace clic en "Cancelar"
-      alert("Acción descartada");
-    }
-  }
-</script>
-<script>
-  function confirmarBorrado(colegioId) {
+  function confirmarBorrado(idBorrado) {
     if (confirm("¿Estás seguro de que quieres borrar este registro?")) {
-      window.location.href = "borrar/" + colegioId;
+      window.location.href = "borrar/" + idBorrado;
     }
   }
   </script>
-<script src="/templates/static/bootstrap.bundle.min.js"></script>
-<script src="/templates/static/sidebars.js"></script>
-</body>
-</html>
->>>>>>> 4272e6ae5293ddf387190a7ae7802785063a6247
+{% include 'footer.html' %}
+
