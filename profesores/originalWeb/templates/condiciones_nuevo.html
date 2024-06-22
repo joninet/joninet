@@ -1,0 +1,37 @@
+{% include 'header.html' %}
+{% include 'menu.html' %}
+
+<div class="container-fluid mt-2">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Ver Condiciones</h2>
+    <a href="/condiciones/nuevo/" class="btn btn-success btn-sm">Nueva Consulta</a>
+  </div>
+</div>
+<div class="container">
+  <form action="/condiciones/consultar" method="post">
+    <div class="form-group">
+      <label for="id_parcial">Parcial:</label>
+      <select class="form-control" id="id_parcial" name="id_parcial" required>
+        <option value="">-- Seleccione --</option>
+        {% for parcial in parciales %}
+        <option value="{{ parcial[0] }}" {% if parcial[0] == id_parcial %} selected {% endif %}>{{ parcial[1] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="nombres">Desde:</label>
+      <input type="text" class="form-control" id="desde" name="desde" required>
+      <label for="nombres">Hasta:</label>
+      <input type="text" class="form-control" id="hasta" name="hasta" required>
+    </div>
+    {% if info_mensaje %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>{{info_mensaje}}</strong>
+    </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Agregar</button>
+    <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">Limpiar</button>
+  </form>
+</div>
+
+{% include 'footer.html' %}

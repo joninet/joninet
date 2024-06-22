@@ -1,0 +1,62 @@
+{% include 'header.html' %}
+{% include 'menu.html' %}
+<div class="container-fluid mt-2">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Listado de Colegios</h2>
+    <a href="/colegio/nuevo/" class="btn btn-success btn-sm">Agregar</a>
+  </div>
+  <div class="table-responsive">
+      <table class="table table-striped w-100">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for colegio in colegios %}
+            <tr>
+                <td>{{ colegio[0] }}</td>
+                <td>{{ colegio[1] }}</td>
+                <td><a href="#" onclick="confirmarBorrado('{{ colegio[0] }}')"><i class="bi bi-trash text-danger"></i></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+      <table class="table table-striped m-0">
+        <thead><tr><th class="text-white m-0">
+          <nav aria-label="Page navigation example m-0">
+              <ul class="pagination">
+                  <li class="page-item">
+                      {% if page > 1 %}
+                          <a class="page-link" href="/colegio/ver?page={{ page - 1 }}">Anterior</a>
+                          {% else %}
+                          <li class="page-item disabled">
+                              <a class="page-link">Anterior</a>
+                          </li>
+                      {% endif %}
+                  </li>
+                  {% for i in range(total_paginas) %}
+                      <li class="page-item"><a class="page-link" href="/colegio/ver?page={{ i + 1 }}">{{ i + 1 }}</a></li>
+                  {% endfor %}
+                  <li class="page-item">
+                      {% if page < total_paginas %}
+                          <a class="page-link" href="/colegio/ver?page={{ page + 1 }}">Siguiente</a>
+                      {% endif %}
+                  </li>
+              </ul>
+          </nav>
+        </tr></thead>
+      </table>
+  </div>
+</div>
+<script>
+  function confirmarBorrado(idBorrado) {
+    if (confirm("¿Estás seguro de que quieres borrar este registro?")) {
+      window.location.href = "borrar/" + idBorrado;
+    }
+  }
+  </script>
+{% include 'footer.html' %}
+

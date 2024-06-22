@@ -1,0 +1,51 @@
+{% include 'header.html' %}
+{% include 'menu.html' %}
+
+<div class="container-fluid mt-2">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Ingreso de Materias</h2>
+    <a href="/materias/ver/" class="btn btn-success btn-sm">Ver Todos</a>
+  </div>
+</div>
+<div class="container">
+  <form action="/materias/crear" method="post">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+    <div class="form-group">
+      <label for="id_colegio">Colegio:</label>
+      <select class="form-control" id="id_colegio" name="id_colegio" required>
+        <option value="">-- Seleccione --</option>
+        {% for colegio in colegios %}
+        <option value="{{ colegio[0] }}" {% if colegio[0] == id_colegios %} selected {% endif %}>{{ colegio[1] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="id_grado">Grado:</label>
+      <select class="form-control" id="id_grado" name="id_grado" required>
+        <option value="">-- Seleccione --</option>
+        {% for grado in grados %}
+        <option value="{{ grado[0] }}" {% if grado[0] == id_grado %} selected {% endif %}>{{ grado[1] }} {{ grado[2] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% if info_mensaje %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>{{info_mensaje}}</strong>
+    </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Agregar</button>
+    <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">Limpiar</button>
+  </form>
+</div>
+<script>
+  function confirmarBorrado(idBorrado) {
+    if (confirm("¿Estás seguro de que quieres borrar este registro?")) {
+      window.location.href = "borrar/" + idBorrado;
+    }
+  }
+</script>
+
+{% include 'footer.html' %}

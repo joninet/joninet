@@ -1,0 +1,51 @@
+{% include 'header.html' %}
+{% include 'menu.html' %}
+
+<div class="container-fluid mt-2">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Ingreso de Parcial</h2>
+    <a href="/parciales/ver/" class="btn btn-success btn-sm">Ver Todos</a>
+  </div>
+</div>
+<div class="container">
+  <form action="/parciales/crear" method="post">
+    <div class="form-group">
+      <label for="fecha">Fecha Parcial:</label>
+      <input type="date" class="form-control" id="fecha" name="fecha" required>
+    </div>
+    <div class="form-group">
+      <label for="tema">Tema:</label>
+      <input type="text" class="form-control" id="tema" name="tema" required>
+    </div>
+    <div class="form-group">
+      <label for="id_materia">Materia:</label>
+      <select class="form-control" id="id_materia" name="id_materia" required>
+        <option value="">-- Seleccione --</option>
+        {% for materia in materias %}
+        <option value="{{ materia[0] }}" {% if materia[0] == id_materia %} selected {% endif %}>
+          {{ materia[1] }} - 
+          {% for colegio in colegios %}
+            {% if colegio[0] == materia[2] %}
+              {{ colegio[1] }}
+            {% endif %}
+          {% endfor %} - 
+          {% for grado in grados %}
+            {% if grado[0] == materia[3] %}
+              {{ grado[1] }}{{ grado[2] }}
+            {% endif %}
+          {% endfor %}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    {% if info_mensaje %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>{{info_mensaje}}</strong>
+    </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Agregar</button>
+    <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">Limpiar</button>
+  </form>
+</div>
+
+{% include 'footer.html' %}

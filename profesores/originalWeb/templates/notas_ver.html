@@ -1,0 +1,81 @@
+{% include 'header.html' %}
+{% include 'menu.html' %}
+<div class="container-fluid mt-2">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Listado de Notas</h2>
+    <a href="/notas/nuevo/" class="btn btn-success btn-sm">Agregar</a>
+  </div>
+  <div class="table-responsive">
+      <table class="table table-striped w-100">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Fecha</th>
+                  <th>Nota</th>
+                  <th>Rec1</th>
+                  <th>Rec2</th>
+                  <th>Rec3</th>
+                  <th>Alumno</th>
+                  <th>Parcial</th>
+                  <th>Materia</th>
+                  <th>Colegio</th>
+                  <th>Grado</th>
+                  <th>Acciones</th>
+
+              </tr>
+          </thead>
+          <tbody>
+            {% for resultado in resultados %}
+            <tr>
+              <td>{{ resultado.codigo }}</td>
+              <td>{{ resultado.fecha }}</td>
+              <td>{{ resultado.nota }}</td>
+              <td>{{ resultado.rec1 }}</td>
+              <td>{{ resultado.rec2 }}</td>
+              <td>{{ resultado.rec3 }}</td>
+              <td>{{ resultado.alumnoNombre }}</td>
+              <td>{{ resultado.parcialNombre }}</td>
+              <td>{{ resultado.materiaNombre }}</td>
+              <td>{{ resultado.colegioNombre }}</td>
+              <td>{{ resultado.gradoNombre }}</td>
+                <td><a href="#" onclick="confirmarBorrado('{{ resultado.codigo }}')"><i class="bi bi-trash text-danger"></i></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+      <table class="table table-striped m-0">
+        <thead><tr><th class="text-white m-0">
+          <nav aria-label="Page navigation example m-0">
+              <ul class="pagination">
+                  <li class="page-item">
+                      {% if page > 1 %}
+                          <a class="page-link" href="/notas/ver?page={{ page - 1 }}">Anterior</a>
+                          {% else %}
+                          <li class="page-item disabled">
+                              <a class="page-link">Anterior</a>
+                          </li>
+                      {% endif %}
+                  </li>
+                  {% for i in range(total_paginas) %}
+                      <li class="page-item"><a class="page-link" href="/notas/ver?page={{ i + 1 }}">{{ i + 1 }}</a></li>
+                  {% endfor %}
+                  <li class="page-item">
+                      {% if page < total_paginas %}
+                          <a class="page-link" href="/notas/ver?page={{ page + 1 }}">Siguiente</a>
+                      {% endif %}
+                  </li>
+              </ul>
+          </nav>
+        </tr></thead>
+      </table>
+  </div>
+</div>
+<script>
+  function confirmarBorrado(idBorrado) {
+    if (confirm("¿Estás seguro de que quieres borrar este registro?")) {
+      window.location.href = "borrar/" + idBorrado;
+    }
+  }
+  </script>
+{% include 'footer.html' %}
+
