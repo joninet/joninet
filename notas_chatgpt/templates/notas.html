@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Notas</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Tus Notas</h1>
+    <form method="post" action="/notas">
+        <label for="contenido">Nueva nota:</label>
+        <textarea id="contenido" name="contenido" required></textarea>
+        <button type="submit">Agregar nota</button>
+    </form>
+    <ul>
+        {% for nota in notas %}
+        <li>{{ nota.contenido }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

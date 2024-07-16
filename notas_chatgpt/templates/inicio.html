@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/bootstrap.min.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Iniciar sesión</h1>
+        <p>Si no tienes una cuenta, <a href="/registro">regístrate</a></p>
+        <form action="/login" method="post">
+            <label for="nombre_usuario">Nombre de usuario:</label>
+            <input type="text" id="nombre_usuario" name="nombre_usuario"><br><br>
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena"><br><br>
+            <input type="submit" value="Iniciar sesión">
+        </form>
+    </div>
+</body>
+</html>
