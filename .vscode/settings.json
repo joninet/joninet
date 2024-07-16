@@ -1,5 +1,6 @@
 {
     "editor.fontSize": 14,
     "editor.fontFamily": "Victor Mono",
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+    "liveServer.settings.port": 5502
 }

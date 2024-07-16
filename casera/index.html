@@ -1,52 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>El Rincón del Sorrentino. RamaRodo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 <body>
-    <ul class="cards">
-        <li class="cards__item">
-        <div class="card">
-            <div class="card__image card__image--fence"></div>
-            <div class="card__content">
-            <div class="card__title">Flex</div>
-            <p class="card__text">This is the shorthand for flex-grow, flex-shrink and flex-basis combined. The second and third parameters (flex-shrink and flex-basis) are optional. Default is 0 1 auto. </p>
-            <button class="btn btn--block card__btn">Button</button>
+    <main>
+        <section class="productos">
+            <h3>Productos Destacados</h3>
+            <div class="row">
+                <div class="column">
+                    <img src="imgjoni/fideos.jpg" alt="Imagen de producto 1">
+                    <h3>Fideos</h3>
+                    <p>Descripción del producto 1.</p>
+                    <div class="contenedor-botones">
+                        <button class="boton">
+                          <span class="icono">Comprar</span>
+                        </button>
+                        <button class="boton-detalle">
+                          <span class="icono">Detalles</span>
+                        </button>
+                    </div>
+                </div>                
+                <div class="column">
+                    <img src="imgjoni/noquis.jpg" alt="img">
+                    <h3>Ñoquis</h3>
+                    <p>Descripción del producto 1.</p>
+                    <div class="contenedor-botones">
+                        <button class="boton">
+                          <span class="icono">Comprar</span>
+                        </button>
+                        <button class="boton-detalle">
+                          <span class="icono">Detalles</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="column">
+                    <img src="imgjoni/ravioles.jpg" alt="img">
+                    <h3>Ravioles</h3>
+                    <p>Descripción del producto 1.</p>
+                    <div class="contenedor-botones">
+                        <button class="boton">
+                          <span class="icono">Comprar</span>
+                        </button>
+                        <button class="boton-detalle">
+                          <span class="icono">Detalles</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="column">
+                    <img src="imgjoni/sorrentinos.jpg" alt="img">
+                    <h3>Sorrentinos</h3>
+                    <p>Descripción del producto 1.</p>
+                    <div class="contenedor-botones">
+                        <button class="boton">
+                          <span class="icono">Comprar</span>
+                        </button>
+                        <button class="boton-detalle">
+                          <span class="icono">Detalles</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="column ver-todos-column">
+                  <div class="contenido-ver-todos">
+                      <h3>Ver Todos los Productos</h3>
+                      <p>Descubre nuestra colección completa de pastas frescas y deliciosas.</p>
+                      <a href="#" class="boton-ver-todos">Explorar Catálogo</a>
+                  </div>
+              </div>
             </div>
-        </div>
-        </li>
-        <li class="cards__item">
-        <div class="card">
-            <div class="card__image card__image--river"></div>
-            <div class="card__content">
-            <div class="card__title">Flex Grow</div>
-            <p class="card__text">This defines the ability for a flex item to grow if necessary. It accepts a unitless value that serves as a proportion. It dictates what amount of the available space inside the flex container the item should take up.</p>
-            <button class="btn btn--block card__btn">Button</button>
-            </div>
-        </div>
-        </li>
-        <li class="cards__item">
-        <div class="card">
-            <div class="card__image card__image--record"></div>
-            <div class="card__content">
-            <div class="card__title">Flex Shrink</div>
-            <p class="card__text">This defines the ability for a flex item to shrink if necessary. Negative numbers are invalid.</p>
-            <button class="btn btn--block card__btn">Button</button>
-            </div>
-        </div>
-        </li>
-        <li class="cards__item">
-        <div class="card">
-            <div class="card__image card__image--flowers"></div>
-            <div class="card__content">
-            <div class="card__title">Flex Basis</div>
-            <p class="card__text">This defines the default size of an element before the remaining space is distributed. It can be a length (e.g. 20%, 5rem, etc.) or a keyword. The auto keyword means "look at my width or height property."</p>
-            <button class="btn btn--block card__btn">Button</button>
-            </div>
-        </div>
-        </li>
-    </ul>
+        </section>    
+    </main>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>
