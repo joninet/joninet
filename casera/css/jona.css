@@ -10,25 +10,25 @@
     --color-six: #e8bcb9;
 }
 
-.productos {
+.productos-destacados-ofertas .productos {
     padding: 40px;
 }
 
-.productos h3 {
+.productos-destacados-ofertas .productos h3 {
     font-family: "Montserrat", sans-serif;
 }
 
-.productos p {
+.productos-destacados-ofertas .productos p {
     font-family: "Montserrat", sans-serif;
 }
 
-.productos .row {
+.productos-destacados-ofertas .productos .row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
 }
 
-.productos .column {
+.productos-destacados-ofertas .productos .column {
     background-color: #fff;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -36,33 +36,42 @@
     padding: 0;
     overflow: hidden;
     min-width: 0;
+    transition: all 0.3s ease; 
+}
+.productos-destacados-ofertas .productos .column:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
 }
 
-.productos .column img {
+.productos-destacados-ofertas .productos .column img {
     width: 100%;
     height: 150px;
     object-fit: cover;
     margin: 0;
+    transition: transform 0.3s ease; 
+}
+.productos-destacados-ofertas .productos .column:hover img {
+    transform: scale(1.05); 
 }
 
-.productos .column h3 {
+.productos-destacados-ofertas .productos .column h3 {
     font-size: 18px;
     margin: 10px 0;
 }
 
-.productos .column p {
+.productos-destacados-ofertas .productos .column p {
     font-size: 14px;
     line-height: 1.5;
     margin-bottom: 10px;
     padding: 0 10px;
 }
 
-.productos .column .contenedor-botones {
+.productos-destacados-ofertas .productos .column .contenedor-botones {
     display: flex;
     width: 100%;
 }
 
-.productos .column .boton, .productos .column .boton-detalle {
+.productos-destacados-ofertas .productos .column .boton, .productos .column .boton-detalle {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -81,24 +90,23 @@
     width: auto;
 }
 
-.productos .column .boton {
+.productos-destacados-ofertas .productos .column .boton {
     background-color: var(--color-five);
 }
 
-.productos .column .boton-detalle {
+.productos-destacados-ofertas .productos .column .boton-detalle {
     background-color: var(--color-four);
 }
 
-.productos .column .boton:hover {
+.productos-destacados-ofertas .productos .column .boton:hover {
     background-color: var(--color-four);
 }
 
-.productos .column .boton-detalle:hover {
+.productos-destacados-ofertas .productos .column .boton-detalle:hover {
     background-color: var(--color-five);
 }
 
-/* Estilos para la tarjeta "Ver Todos los Productos" */
-.productos .ver-todos-column {
+.productos-destacados-ofertas .productos .ver-todos-column {
     background-color: var(--color-one);
     color: white;
     display: flex;
@@ -106,20 +114,27 @@
     justify-content: center;
     text-align: center;
     padding: 20px;
+    transition: all 0.3s ease;
 }
 
-.productos .ver-todos-column h3 {
+.productos-destacados-ofertas .productos .ver-todos-column:hover {
+    background-color: var(--color-two); 
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.productos-destacados-ofertas .productos .ver-todos-column h3 {
     font-size: 18px;
     margin-bottom: 10px;
 }
 
-.productos .ver-todos-column p {
+.productos-destacados-ofertas .productos .ver-todos-column p {
     font-size: 14px;
     margin-bottom: 15px;
     padding: 0 10px;
 }
 
-.productos .ver-todos-column .boton-ver-todos {
+.productos-destacados-ofertas .productos .ver-todos-column .boton-ver-todos {
     display: inline-block;
     padding: 8px 15px;
     background-color: var(--color-five);
@@ -127,28 +142,29 @@
     text-decoration: none;
     font-weight: bold;
     font-size: 14px;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-.productos .ver-todos-column .boton-ver-todos:hover {
+.productos-destacados-ofertas .productos .ver-todos-column .boton-ver-todos:hover {
     background-color: var(--color-six);
+    transform: scale(1.05); 
 }
 
 /* Media query para pantallas más pequeñas */
 @media (max-width: 1024px) {
-    .productos .row {
+    .productos-destacados-ofertas .productos .row {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 768px) {
-    .productos .row {
+    .productos-destacados-ofertas .productos .row {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 480px) {
-    .productos .row {
+    .productos-destacados-ofertas .productos .row {
         grid-template-columns: 1fr;
     }
 }
