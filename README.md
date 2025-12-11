@@ -34,21 +34,23 @@ Desarrollador backend apasionado por crear soluciones web escalables y eficiente
 
 ## 📊 Estadísticas de GitHub
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=joninet&show_icons=true&theme=radical)
+<div align="center">
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=joninet&theme=radical&hide_border=true" alt="GitHub Streak" />
+</div>
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=joninet&layout=compact&theme=radical)
+<div align="center">
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=joninet&show_icons=true&theme=radical&include_all_commits=true&count_private=true&hide_border=true"/>
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=joninet&layout=compact&langs_count=8&theme=radical&hide_border=true"/>
+</div>
 
 ## 🔥 Proyectos Destacados
 
-### API REST con Django
-Desarrollo de aplicaciones backend con Python y Django, implementando mejores prácticas y arquitectura limpia.
+### Sistema de gestión de aerolínea (Django + SQLite) – Proyecto académico
+### Aplicación para entrenadores ActivaPro (Django + React)
+### Software para verdulería (Flask + React + SQLite + puerto serial)
+### Ecommerce con pasarela de pagos + envios + IA (Django + PostgreSQL) - Actualemnte trabajando
 
 ## 📫 Conecta conmigo
 
-- 💼 LinkedIn: [Tu LinkedIn]
-- 🐦 Twitter: [@tutwitter]
+- 💼 LinkedIn: https://www.linkedin.com/in/jonathan-desplats/
 - 📧 Email: jon.desplats@gmail.com
-
----
-
-⭐️ ¡No olvides dejar una estrella en mis repositorios si te gustan!
