@@ -32,23 +32,12 @@ Desarrollador backend apasionado por crear soluciones web escalables y eficiente
 - **Control de Versiones:** Git, GitHub
 - **Otros:** Docker, Linux, API REST
 
-## 📊 Estadísticas de GitHub
-
-<div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=joninet&theme=radical&hide_border=true" alt="GitHub Streak" />
-</div>
-
-<div align="center">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=joninet&show_icons=true&theme=radical&include_all_commits=true&count_private=true&hide_border=true"/>
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=joninet&layout=compact&langs_count=8&theme=radical&hide_border=true"/>
-</div>
-
 ## 🔥 Proyectos Destacados
 
-### Sistema de gestión de aerolínea (Django + SQLite) – Proyecto académico
-### Aplicación para entrenadores ActivaPro (Django + React)
-### Software para verdulería (Flask + React + SQLite + puerto serial)
-### Ecommerce con pasarela de pagos + envios + IA (Django + PostgreSQL) - Actualemnte trabajando
+- Sistema de gestión de aerolínea (Django + SQLite) – Proyecto académico
+- Aplicación para entrenadores ActivaPro (Django + React)
+- Software para verdulería (Flask + React + SQLite + puerto serial)
+- Ecommerce con pasarela de pagos + envios + IA (Django + PostgreSQL) - Actualemnte trabajando
 
 ## 📫 Conecta conmigo
 
